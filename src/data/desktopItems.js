@@ -1,0 +1,51 @@
+export const desktopItems = [
+  {
+    title: "About",
+    path: "/about",
+    icon: "UserRound",
+    accent: "from-teal-300 to-emerald-400",
+    description: "Profile, direction, and current focus areas.",
+  },
+  {
+    title: "Skills",
+    path: "/skills",
+    icon: "Code2",
+    accent: "from-sky-300 to-cyan-400",
+    description: "Frontend, backend, programming, security, and tools.",
+  },
+  {
+    title: "Projects",
+    path: "/projects",
+    icon: "BriefcaseBusiness",
+    accent: "from-amber-300 to-orange-400",
+    description: "Practical work across AI security, IoT, and MERN.",
+  },
+  {
+    title: "Resume Timeline",
+    path: "/timeline",
+    icon: "GitBranch",
+    accent: "from-fuchsia-300 to-rose-400",
+    description: "A quick map of recent milestones and preparation.",
+  },
+  {
+    title: "Interview Mode",
+    path: "/interview",
+    icon: "MessageSquareText",
+    accent: "from-violet-300 to-indigo-400",
+    description: "Short recruiter-friendly answers for common questions.",
+  },
+  {
+    title: "Terminal",
+    path: "/terminal",
+    icon: "TerminalSquare",
+    accent: "from-lime-300 to-teal-400",
+    description: "A tiny command interface for exploring the resume.",
+  },
+  {
+    title: "Contact",
+    path: "/contact",
+    icon: "Mail",
+    accent: "from-rose-300 to-pink-400",
+    description: "Email, LinkedIn, GitHub, and resume placeholders.",
+  },
+];
