@@ -1,3 +1,4 @@
+import React from "react";
 import PageShell from "../components/PageShell";
 import TerminalConsole from "../components/TerminalConsole";
 

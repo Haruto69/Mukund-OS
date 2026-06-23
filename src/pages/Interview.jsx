@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import AccordionCard from "../components/AccordionCard";
 import PageShell from "../components/PageShell";
 import { interviewPrompts } from "../data/interview";

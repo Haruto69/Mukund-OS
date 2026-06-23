@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import DesktopShortcut from "../components/DesktopShortcut";
 import { Icon } from "../components/Icon";
@@ -20,7 +21,7 @@ export default function Desktop() {
             Interactive Resume Dashboard
           </p>
           <h1 className="max-w-4xl text-4xl font-semibold text-white sm:text-5xl md:text-6xl">
-            Mukund OS
+            Mukund V
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">
             Frontend Developer in progress | Cybersecurity background | Building practical web interfaces

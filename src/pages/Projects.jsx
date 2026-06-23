@@ -1,3 +1,4 @@
+import React from "react";
 import PageShell from "../components/PageShell";
 import ProjectCard from "../components/ProjectCard";
 import { projects } from "../data/projects";

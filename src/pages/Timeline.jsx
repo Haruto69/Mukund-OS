@@ -1,3 +1,4 @@
+import React from "react";
 import PageShell from "../components/PageShell";
 import TimelineEntry from "../components/TimelineEntry";
 import { timeline } from "../data/timeline";

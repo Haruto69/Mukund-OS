@@ -1,3 +1,4 @@
+import React from "react";
 import PageShell from "../components/PageShell";
 import SkillGroupCard from "../components/SkillGroupCard";
 import { skillGroups } from "../data/skills";

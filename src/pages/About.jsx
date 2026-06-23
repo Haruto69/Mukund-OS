@@ -1,3 +1,4 @@
+import React from "react";
 import PageShell from "../components/PageShell";
 
 const focusAreas = [
