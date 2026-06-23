@@ -1,20 +1,7 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { projects } from "../data/projects";
 import { skillGroups } from "../data/skills";
-
-const baseCommands = {
-  help: ["Available commands: help, about, skills, projects, contact, clear"],
-  about: [
-    "Mukund V - CSE student specializing in Cyber Security.",
-    "Currently building practical frontend and full-stack projects for internship preparation.",
-  ],
-  contact: [
-    "Email: your.email@example.com",
-    "LinkedIn: placeholder",
-    "GitHub: placeholder",
-    "Resume: download placeholder",
-  ],
-};
+import { terminalCommands } from "../data/terminalCommands";
 
 export default function TerminalConsole() {
   const [history, setHistory] = useState([
@@ -22,15 +9,26 @@ export default function TerminalConsole() {
   ]);
   const [command, setCommand] = useState("");
   const inputRef = useRef(null);
+  const scrollRef = useRef(null);
 
   const commandMap = useMemo(
     () => ({
-      ...baseCommands,
-      skills: skillGroups.map((group) => `${group.group}: ${group.skills.join(", ")}`),
-      projects: projects.map((project) => `${project.name}: ${project.highlight}`),
+      ...terminalCommands,
+      skills: skillGroups.map(
+        (group) => `${group.group}: ${group.skills.join(", ")}`
+      ),
+      projects: projects.map(
+        (project) => `${project.name}: ${project.highlight}`
+      ),
     }),
     []
   );
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [history]);
 
   function runCommand(event) {
     event.preventDefault();
@@ -48,7 +46,7 @@ export default function TerminalConsole() {
 
     const output = commandMap[normalized] || [
       `Command not found: ${normalized}`,
-      "Type help to see supported commands.",
+      "Type help to see available commands.",
     ];
 
     setHistory((items) => [
@@ -61,35 +59,67 @@ export default function TerminalConsole() {
 
   return (
     <section
-      className="rounded-lg border border-lime-300/20 bg-black/75 font-mono shadow-2xl"
+      className="flex h-full flex-col rounded-xl border border-emerald-400/15 bg-[#0a0e14]/90 font-mono shadow-2xl"
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="flex items-center gap-2 border-b border-lime-300/20 px-4 py-3">
-        <span className="h-3 w-3 rounded-full bg-rose-400" />
-        <span className="h-3 w-3 rounded-full bg-amber-300" />
-        <span className="h-3 w-3 rounded-full bg-lime-300" />
-        <span className="ml-3 text-xs text-slate-400">resume-session</span>
+      {/* Title bar */}
+      <div className="flex items-center gap-2 border-b border-emerald-400/10 px-4 py-2.5">
+        <span className="h-3 w-3 rounded-full bg-rose-400/80" />
+        <span className="h-3 w-3 rounded-full bg-amber-300/80" />
+        <span className="h-3 w-3 rounded-full bg-emerald-300/80" />
+        <span className="ml-3 text-[11px] text-slate-500">
+          mukund@os — resume-session
+        </span>
       </div>
-      <div className="min-h-[24rem] space-y-2 px-4 py-5 text-sm leading-6 text-lime-100 sm:px-5">
+
+      {/* Output area */}
+      <div
+        ref={scrollRef}
+        className="flex-1 space-y-1 overflow-y-auto px-4 py-4 text-[13px] leading-6"
+      >
         {history.map((line, index) => (
-          <p key={`${line.type}-${index}`} className={line.type === "command" ? "text-teal-200" : "text-slate-200"}>
-            {line.type === "command" ? <span className="text-lime-300">mukund@os:~$ </span> : null}
+          <p
+            key={`${line.type}-${index}`}
+            className={
+              line.type === "command"
+                ? "text-emerald-200"
+                : line.type === "system"
+                ? "text-teal-400/80"
+                : "text-slate-300"
+            }
+          >
+            {line.type === "command" ? (
+              <span className="text-emerald-400">mukund@os:~$ </span>
+            ) : null}
             {line.value}
           </p>
         ))}
-        <form onSubmit={runCommand} className="flex items-center gap-2 pt-2">
-          <label htmlFor="terminal-command" className="text-lime-300">
+
+        {/* Input line */}
+        <form onSubmit={runCommand} className="flex items-center gap-2">
+          <label htmlFor="terminal-command" className="text-emerald-400">
             mukund@os:~$
           </label>
-          <input
-            ref={inputRef}
-            id="terminal-command"
-            value={command}
-            onChange={(event) => setCommand(event.target.value)}
-            className="min-w-0 flex-1 border-none bg-transparent text-lime-100 outline-none placeholder:text-slate-600"
-            placeholder="help"
-            autoComplete="off"
-          />
+          <div className="relative flex-1">
+            <input
+              ref={inputRef}
+              id="terminal-command"
+              value={command}
+              onChange={(event) => setCommand(event.target.value)}
+              className="w-full border-none bg-transparent text-emerald-100 caret-transparent outline-none placeholder:text-slate-600"
+              placeholder="help"
+              autoComplete="off"
+              spellCheck="false"
+            />
+            {/* Blinking cursor overlay */}
+            <span
+              className="pointer-events-none absolute top-0 text-transparent"
+              aria-hidden="true"
+            >
+              {command}
+              <span className="inline-block h-[1.1em] w-[7px] translate-y-[1px] animate-blink bg-emerald-400/90" />
+            </span>
+          </div>
         </form>
       </div>
     </section>

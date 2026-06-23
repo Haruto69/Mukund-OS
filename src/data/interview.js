@@ -24,4 +24,10 @@ export const interviewPrompts = [
     answer:
       "I am focused on React, Tailwind CSS, full-stack project structure, deployment confidence, and DSA with Java for internship interviews.",
   },
+  {
+    question: "Why should we consider you?",
+    answer:
+      "I bring deployed projects, a debugging-first mindset, a cybersecurity foundation that adds security awareness to my frontend work, and consistent DSA practice. I learn fast and ship real projects.",
+  },
 ];
+

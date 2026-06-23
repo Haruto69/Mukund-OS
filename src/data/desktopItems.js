@@ -1,5 +1,6 @@
 export const desktopItems = [
   {
+    id: "about",
     title: "About",
     path: "/about",
     icon: "UserRound",
@@ -7,6 +8,7 @@ export const desktopItems = [
     description: "Profile, direction, and current focus areas.",
   },
   {
+    id: "skills",
     title: "Skills",
     path: "/skills",
     icon: "Code2",
@@ -14,6 +16,7 @@ export const desktopItems = [
     description: "Frontend, backend, programming, security, and tools.",
   },
   {
+    id: "projects",
     title: "Projects",
     path: "/projects",
     icon: "BriefcaseBusiness",
@@ -21,6 +24,7 @@ export const desktopItems = [
     description: "Practical work across AI security, IoT, and MERN.",
   },
   {
+    id: "timeline",
     title: "Resume Timeline",
     path: "/timeline",
     icon: "GitBranch",
@@ -28,6 +32,7 @@ export const desktopItems = [
     description: "A quick map of recent milestones and preparation.",
   },
   {
+    id: "interview",
     title: "Interview Mode",
     path: "/interview",
     icon: "MessageSquareText",
@@ -35,6 +40,7 @@ export const desktopItems = [
     description: "Short recruiter-friendly answers for common questions.",
   },
   {
+    id: "terminal",
     title: "Terminal",
     path: "/terminal",
     icon: "TerminalSquare",
@@ -42,6 +48,7 @@ export const desktopItems = [
     description: "A tiny command interface for exploring the resume.",
   },
   {
+    id: "contact",
     title: "Contact",
     path: "/contact",
     icon: "Mail",

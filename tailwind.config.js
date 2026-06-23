@@ -4,13 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#070a12",
-        panel: "#101625",
-        line: "rgba(148, 163, 184, 0.2)",
-        terminal: "#9fffc4",
+        ink: "#050810",
+        panel: "#0a0f1e",
+        line: "rgba(148, 163, 184, 0.15)",
+        terminal: "#5eead4",
       },
       boxShadow: {
         glow: "0 0 35px rgba(45, 212, 191, 0.12)",
+        "glow-lg": "0 0 60px rgba(45, 212, 191, 0.15)",
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],

@@ -1,30 +1,31 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Icon } from "./Icon";
+import { useWindows } from "../context/WindowContext";
 
 export default function DesktopShortcut({ item, index }) {
+  const { openWindow } = useWindows();
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25, delay: index * 0.04 }}
+    <motion.button
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{
+        duration: 0.35,
+        delay: 0.3 + index * 0.06,
+        ease: [0.23, 1, 0.32, 1],
+      }}
+      onClick={() => openWindow(item.id)}
+      className="group flex flex-col items-center gap-2 rounded-xl p-3 transition-all duration-200 hover:bg-white/[0.04]"
     >
-      <Link
-        to={item.path}
-        className="focus-ring group flex h-full min-h-44 flex-col justify-between rounded-lg border border-white/10 bg-slate-950/55 p-5 transition hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07] hover:shadow-glow"
+      <span
+        className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${item.accent} text-slate-950 shadow-lg transition-all duration-200 group-hover:-translate-y-1 group-hover:shadow-[0_8px_25px_rgba(0,0,0,0.3),0_0_20px_rgba(45,212,191,0.1)]`}
       >
-        <div className="flex items-start justify-between gap-4">
-          <span className={`grid h-12 w-12 place-items-center rounded-lg bg-gradient-to-br ${item.accent} text-slate-950 shadow-lg`}>
-            <Icon name={item.icon} className="h-6 w-6" />
-          </span>
-          <Icon name="ExternalLink" className="h-4 w-4 text-slate-500 transition group-hover:text-slate-200" />
-        </div>
-        <div>
-          <h2 className="mt-6 text-lg font-semibold text-white">{item.title}</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-400">{item.description}</p>
-        </div>
-      </Link>
-    </motion.div>
+        <Icon name={item.icon} className="h-7 w-7" />
+      </span>
+      <span className="text-[11px] font-medium text-slate-300 transition-colors group-hover:text-white">
+        {item.title}
+      </span>
+    </motion.button>
   );
 }

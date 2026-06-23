@@ -1,42 +1,40 @@
 import React from "react";
-import PageShell from "../components/PageShell";
 import { Icon } from "../components/Icon";
 import { contactLinks } from "../data/contactLinks";
 
 export default function Contact() {
   return (
-    <PageShell
-      eyebrow="Contact"
-      title="Connect"
-      description="Public profile and resume placeholders to replace before sharing the site."
-    >
-      <div className="grid gap-4 md:grid-cols-2">
-        {contactLinks.map((item) => {
-          const isResume = item.label === "Resume";
+    <div className="grid gap-3 sm:grid-cols-2">
+      {contactLinks.map((item) => {
+        const isResume = item.label === "Resume";
 
-          return (
-            <a
-              key={item.label}
-              href={item.action}
-              className="focus-ring group rounded-lg border border-white/10 bg-slate-950/55 p-5 transition hover:border-white/25 hover:bg-white/[0.06]"
-              {...(!isResume && item.action !== "#" ? { target: "_blank", rel: "noreferrer" } : {})}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="grid h-11 w-11 place-items-center rounded-lg border border-teal-300/25 bg-teal-300/10 text-teal-100">
-                    <Icon name={item.icon} className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <p className="font-mono text-xs uppercase text-slate-400">{item.label}</p>
-                    <p className="mt-1 font-semibold text-white">{item.value}</p>
-                  </div>
-                </div>
-                <Icon name={isResume ? "FileText" : "ExternalLink"} className="h-5 w-5 text-slate-500 transition group-hover:text-white" />
-              </div>
-            </a>
-          );
-        })}
-      </div>
-    </PageShell>
+        return (
+          <a
+            key={item.label}
+            href={item.action}
+            className="group flex items-center gap-4 rounded-xl border border-white/[0.08] bg-white/[0.03] p-4 transition hover:border-white/[0.15] hover:bg-white/[0.06]"
+            {...(!isResume && item.action !== "#"
+              ? { target: "_blank", rel: "noreferrer" }
+              : {})}
+          >
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-teal-400/20 bg-teal-400/[0.08]">
+              <Icon name={item.icon} className="h-5 w-5 text-teal-300" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-mono text-[11px] uppercase tracking-wider text-slate-500">
+                {item.label}
+              </p>
+              <p className="mt-0.5 truncate text-sm font-medium text-white">
+                {item.value}
+              </p>
+            </div>
+            <Icon
+              name={isResume ? "FileText" : "ExternalLink"}
+              className="h-4 w-4 shrink-0 text-slate-500 transition group-hover:text-white"
+            />
+          </a>
+        );
+      })}
+    </div>
   );
 }
