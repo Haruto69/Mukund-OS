@@ -1,6 +1,6 @@
 export const socials = {
-  github: "https://github.com/#",
-  linkedin: "https://linkedin.com/in/#",
-  email: "mailto:placeholder@email.com",
-  resume: "/placeholder-resume.pdf"
+  github: "https://github.com/Haruto69",
+  linkedin: "https://www.linkedin.com/in/mukund-v-b1b742175/",
+  email: "mailto:eng22mukund@email.com",
+  resume: "/Mukund_V_Resume.pdf"
 };

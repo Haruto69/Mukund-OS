@@ -2,7 +2,7 @@ export const profile = {
   name: "Mukund V",
   role: "Frontend Developer in progress",
   background: "B.E. Computer Science and Engineering, Cyber Security",
-  college: "RNS Institute of Technology, Bengaluru",
+  college: "RNS Institute of Technology, Bangalore, Karnataka",
   status: "Available for frontend/full-stack internships",
   summary: "Computer Science and Engineering student specializing in Cyber Security, currently transitioning into frontend and full-stack development by building practical, deployed projects.",
   

@@ -68,21 +68,34 @@ export default function Resume() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-mono text-[10px] text-slate-500 uppercase">Last Updated</span>
-                  <span className="text-slate-300 text-sm">Draft / PDF coming soon</span>
+                  <span className="text-slate-300 text-sm">Updated Recently</span>
                 </div>
               </div>
-              <StatusChip label="Draft" variant="warning" className="w-fit h-fit" />
+              <StatusChip label="Ready" variant="success" className="w-fit h-fit" />
             </div>
 
             <div className="flex flex-wrap gap-3 pt-4 border-t border-primary-500/20">
               <CyberButton 
                 variant="primary" 
                 size="sm" 
-                icon={Download} 
-                disabled 
-                title="Resume PDF path not connected yet"
+                icon={FileText} 
+                href="/Mukund_V_Resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="View Resume PDF"
               >
-                Resume PDF Coming Soon
+                View Resume
+              </CyberButton>
+              <CyberButton 
+                variant="ghost" 
+                size="sm" 
+                icon={Download} 
+                href="/Mukund_V_Resume.pdf"
+                download="Mukund_V_Resume.pdf"
+                className="border border-white/10"
+                aria-label="Download Resume PDF"
+              >
+                Download
               </CyberButton>
               <Link to="/contact">
                 <CyberButton variant="secondary" size="sm" icon={User}>

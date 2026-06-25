@@ -8,6 +8,12 @@ import { Link } from "react-router-dom";
 
 export default function Contact() {
   const [copied, setCopied] = useState(null);
+  
+  const [name, setName] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("idle"); // idle, submitting, success, error
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -46,6 +52,56 @@ export default function Contact() {
   };
 
   const extractEmail = (mailto) => mailto ? mailto.replace("mailto:", "") : "";
+  const recipientEmail = extractEmail(safeSocials.email);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Honeypot check
+    const gotcha = e.target.elements._gotcha?.value;
+    if (gotcha) return;
+
+    if (!name || !senderEmail || !message) return;
+
+    setStatus("submitting");
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", senderEmail);
+    formData.append("subject", subject || "Portfolio Contact");
+    formData.append("message", message);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mvzjkonz", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setName("");
+        setSenderEmail("");
+        setSubject("");
+        setMessage("");
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      setStatus("error");
+    }
+  };
+
+  const getButtonText = () => {
+    switch (status) {
+      case "submitting": return "Transmitting...";
+      case "success": return "Message Sent";
+      case "error": return "Retry Transmission";
+      default: return "Transmit Message";
+    }
+  };
 
   return (
     <motion.div
@@ -91,7 +147,7 @@ export default function Contact() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-mono text-[10px] text-slate-500 uppercase">Location Origin</span>
-                  <span className="text-slate-300 text-sm">Bengaluru, India</span>
+                  <span className="text-slate-300 text-sm">Bangalore, Karnataka</span>
                 </div>
               </div>
               <div className="flex flex-col items-end gap-2">
@@ -119,9 +175,14 @@ export default function Contact() {
                 <>
                   <p className="text-sm text-slate-300 font-mono truncate">{extractEmail(safeSocials.email)}</p>
                   <div className="flex gap-2 mt-auto pt-2">
-                    <CyberButton variant="primary" size="sm" icon={ExternalLink} href={safeSocials.email} className="flex-1 justify-center">
-                      Send
-                    </CyberButton>
+                    <a 
+                      href={`mailto:${recipientEmail}?subject=${encodeURIComponent("Frontend Internship Opportunity")}&body=${encodeURIComponent("Hi Mukund,\n\nI came across your portfolio and wanted to connect.\n")}`}
+                      className="group relative inline-flex flex-1 items-center justify-center gap-2 overflow-hidden rounded font-mono uppercase tracking-widest transition-all duration-300 border border-primary-500 bg-primary-500/20 text-primary-100 shadow-glow-primary hover:bg-primary-500/40 hover:shadow-glow-primary-lg px-3 py-1.5 text-[10px]"
+                      aria-label="Open email client to contact Mukund"
+                    >
+                      <ExternalLink className="relative z-10 h-4 w-4" />
+                      <span className="relative z-10">Open Email Client</span>
+                    </a>
                     <CyberButton 
                       variant="ghost" 
                       size="sm" 
@@ -130,6 +191,9 @@ export default function Contact() {
                       className="border border-white/10 px-3"
                     />
                   </div>
+                  <p className="text-[10px] text-slate-500 mt-2 leading-snug">
+                    Email fallback depends on the visitor’s mail app/browser configuration. The form is the preferred contact method.
+                  </p>
                 </>
               ) : (
                 <>
@@ -153,7 +217,16 @@ export default function Contact() {
                 <>
                   <p className="text-sm text-slate-300 font-mono truncate">Professional Network</p>
                   <div className="flex gap-2 mt-auto pt-2">
-                    <CyberButton variant="primary" size="sm" icon={ExternalLink} href={safeSocials.linkedin} className="flex-1 justify-center">
+                    <CyberButton 
+                      variant="primary" 
+                      size="sm" 
+                      icon={ExternalLink} 
+                      href={safeSocials.linkedin} 
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex-1 justify-center"
+                      aria-label="Open LinkedIn Profile"
+                    >
                       Open LinkedIn
                     </CyberButton>
                     <CyberButton 
@@ -187,7 +260,16 @@ export default function Contact() {
                 <>
                   <p className="text-sm text-slate-300 font-mono truncate">Source Code Host</p>
                   <div className="flex gap-2 mt-auto pt-2">
-                    <CyberButton variant="primary" size="sm" icon={ExternalLink} href={safeSocials.github} className="flex-1 justify-center">
+                    <CyberButton 
+                      variant="primary" 
+                      size="sm" 
+                      icon={ExternalLink} 
+                      href={safeSocials.github} 
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex-1 justify-center"
+                      aria-label="Open GitHub Profile"
+                    >
                       Open GitHub
                     </CyberButton>
                     <CyberButton 
@@ -256,17 +338,70 @@ export default function Contact() {
             <div className="bg-black/40 border border-white/5 rounded-lg p-6 flex flex-col items-center justify-center text-center">
               <Lock className="h-8 w-8 text-slate-500 mb-3" />
               <p className="text-slate-400 text-sm mb-4">
-                Direct message form can be connected later. For now, use LinkedIn or email.
+                This form sends your message through the portfolio contact endpoint.
               </p>
               
-              <div className="w-full max-w-md space-y-3 opacity-50 pointer-events-none grayscale">
-                <input type="text" disabled placeholder="SENDER_ID (Name)" className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-sm text-white font-mono placeholder:text-slate-600" />
-                <input type="email" disabled placeholder="RETURN_PATH (Email)" className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-sm text-white font-mono placeholder:text-slate-600" />
-                <textarea disabled placeholder="TRANSMISSION_PAYLOAD (Message)" rows={3} className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-sm text-white font-mono placeholder:text-slate-600 resize-none" />
-                <CyberButton variant="primary" icon={Send} disabled className="w-full justify-center">
-                  Transmit Message (Offline)
+              {status === "success" && (
+                <div className="w-full max-w-md p-3 mb-4 bg-emerald-500/10 border border-emerald-500/30 rounded text-emerald-400 text-sm text-left flex items-start gap-2">
+                  <Check className="h-4 w-4 shrink-0 mt-0.5" />
+                  <span>Message transmitted successfully. I’ll receive it through my portfolio inbox.</span>
+                </div>
+              )}
+
+              {status === "error" && (
+                <div className="w-full max-w-md p-3 mb-4 bg-red-500/10 border border-red-500/30 rounded text-red-400 text-sm text-left flex items-start gap-2">
+                  <Lock className="h-4 w-4 shrink-0 mt-0.5" />
+                  <span>Transmission failed. Please try again or use Email, GitHub, or LinkedIn.</span>
+                </div>
+              )}
+              
+              <form onSubmit={handleSubmit} className="w-full max-w-md space-y-3">
+                <input type="text" name="_gotcha" className="hidden" tabIndex="-1" autoComplete="off" />
+                <input 
+                  type="text" 
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  required
+                  placeholder="SENDER_ID (Name)" 
+                  className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-sm text-white font-mono placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500" 
+                  aria-label="Name"
+                />
+                <input 
+                  type="email" 
+                  value={senderEmail}
+                  onChange={e => setSenderEmail(e.target.value)}
+                  required
+                  placeholder="RETURN_PATH (Email)" 
+                  className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-sm text-white font-mono placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500" 
+                  aria-label="Email"
+                />
+                <input 
+                  type="text" 
+                  value={subject}
+                  onChange={e => setSubject(e.target.value)}
+                  placeholder="SUBJECT_LINE (Topic)" 
+                  className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-sm text-white font-mono placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500" 
+                  aria-label="Subject"
+                />
+                <textarea 
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
+                  required
+                  placeholder="TRANSMISSION_PAYLOAD (Message)" 
+                  rows={3} 
+                  className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-sm text-white font-mono placeholder:text-slate-500 resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500" 
+                  aria-label="Message payload"
+                />
+                <CyberButton 
+                  variant="primary" 
+                  icon={Send} 
+                  disabled={status === "submitting"} 
+                  className="w-full justify-center"
+                  type="submit"
+                >
+                  {getButtonText()}
                 </CyberButton>
-              </div>
+              </form>
             </div>
           </CyberCard>
         </motion.div>
