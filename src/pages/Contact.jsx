@@ -4,6 +4,7 @@ import { Radio, Mail, Github, Linkedin, FileText, Copy, Check, MessageSquare, Br
 import { SectionHeader, CyberCard, DataGrid, StatusChip, CyberButton } from "../components/ui";
 import { socials } from "../data/socials";
 import { profile } from "../data/profile";
+import { playSound } from "../utils/sound";
 import { Link } from "react-router-dom";
 
 export default function Contact() {
@@ -82,6 +83,7 @@ export default function Contact() {
 
       if (response.ok) {
         setStatus("success");
+        playSound("success");
         setName("");
         setSenderEmail("");
         setSubject("");

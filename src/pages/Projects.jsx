@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FolderGit2, ExternalLink, Github, Shield, Map, Activity, Terminal, LayoutGrid, CheckCircle, Clock } from "lucide-react";
 import { SectionHeader, CyberCard, DataGrid, StatusChip, CyberButton, InfoTile, Modal } from "../components/ui";
+import { ProjectCarousel3D } from "../components/visuals/ProjectCarousel3D";
 import { projects } from "../data/projects";
+import { playSound } from "../utils/sound";
 
 export default function Projects() {
   const [filter, setFilter] = useState("All");
@@ -137,70 +139,15 @@ export default function Projects() {
           </div>
         </motion.div>
 
-        {/* 4. Project Cards Grid */}
+        {/* 4. Project Cards Grid (Replaced with 3D Carousel) */}
         <motion.div variants={itemVariants}>
-          <DataGrid variant="two">
-            {filteredProjects.map((project) => {
-              const Icon = getProjectIcon(project.id);
-              const isCompleted = project.status === "Completed" || project.status === "Deployed";
-              return (
-                <CyberCard 
-                  key={project.id} 
-                  eyebrow={project.type} 
-                  icon={Icon}
-                  animated 
-                  className="flex flex-col h-full hover:border-primary-500/30 transition-colors"
-                >
-                  <div className="flex flex-col mb-3">
-                    <h4 className="font-display text-lg font-bold text-white mb-2 leading-tight">{project.title}</h4>
-                    <StatusChip 
-                      label={project.status} 
-                      variant={isCompleted ? "success" : "warning"} 
-                      className="w-fit"
-                    />
-                  </div>
-                  
-                  <p className="text-sm text-slate-300 flex-1 mb-4">
-                    {project.description}
-                  </p>
-                  
-                  <div className="mb-4 bg-white/[0.02] p-2 border-l-2 border-primary-500/50">
-                    <span className="text-[9px] uppercase font-mono text-slate-500 block">Highlight</span>
-                    <p className="text-xs text-slate-300 font-medium">{project.highlight}</p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1 mb-5">
-                    {project.tech.map(t => (
-                      <span key={t} className="text-[9px] font-mono border border-white/10 bg-[#050505] px-1.5 py-0.5 rounded text-slate-400">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-2 mt-auto pt-4 border-t border-white/5">
-                    <CyberButton 
-                      variant="primary" 
-                      size="sm" 
-                      className="flex-1"
-                      onClick={() => setSelectedProject(project)}
-                    >
-                      View Details
-                    </CyberButton>
-                    <CyberButton 
-                      variant="secondary" 
-                      size="sm" 
-                      icon={Github} 
-                      className="flex-1"
-                      href={project.links.github !== "#" ? project.links.github : undefined}
-                      disabled={project.links.github === "#"}
-                    >
-                      Source
-                    </CyberButton>
-                  </div>
-                </CyberCard>
-              );
-            })}
-          </DataGrid>
+          <ProjectCarousel3D 
+            projects={filteredProjects} 
+            onSelect={(p) => {
+              playSound("open");
+              setSelectedProject(p);
+            }} 
+          />
           
           {filteredProjects.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12 border border-dashed border-white/10 rounded-lg bg-white/[0.01]">
@@ -214,7 +161,10 @@ export default function Projects() {
       {/* 5. Project Detail Modal */}
       <Modal 
         isOpen={!!selectedProject} 
-        onClose={() => setSelectedProject(null)}
+        onClose={() => {
+          playSound("close");
+          setSelectedProject(null);
+        }}
         title={selectedProject?.title}
         size="lg"
       >

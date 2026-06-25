@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Terminal, Search, FolderGit2, FileText, Settings, Radio, BookOpen, User, Zap, EyeOff, Power, ShieldAlert, Cpu } from "lucide-react";
 import { applyTheme, getSetting, setSetting, SETTINGS_KEYS } from "../../utils/settings";
+import { playSound } from "../../utils/sound";
 
 const COMMANDS = [
   // Navigation
@@ -46,11 +47,19 @@ export default function CommandPalette() {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "k") {
         e.preventDefault();
-        setIsOpen((prev) => !prev);
+        setIsOpen((prev) => {
+          const next = !prev;
+          if (next) playSound("open");
+          else playSound("close");
+          return next;
+        });
       }
     };
 
-    const handleCustomOpen = () => setIsOpen(true);
+    const handleCustomOpen = () => {
+      setIsOpen(true);
+      playSound("open");
+    };
 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("open-command-palette", handleCustomOpen);
@@ -106,6 +115,7 @@ export default function CommandPalette() {
       } else if (e.key === "Escape") {
         e.preventDefault();
         setIsOpen(false);
+        playSound("close");
       }
     };
 
@@ -124,6 +134,8 @@ export default function CommandPalette() {
   }, [selectedIndex]);
 
   const executeCommand = (cmd) => {
+    playSound("select");
+    
     if (cmd.route) {
       navigate(cmd.route);
       setIsOpen(false);
@@ -166,7 +178,10 @@ export default function CommandPalette() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reducedMotion ? 0 : 0.2 }}
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              playSound("close");
+            }}
             className="absolute inset-0 bg-ink/80 backdrop-blur-sm"
           />
 

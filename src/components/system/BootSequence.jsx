@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Terminal } from "lucide-react";
+import { playSound } from "../../utils/sound";
 
 const BOOT_MESSAGES = [
   "INITIALIZING_MUKUND_OS",
@@ -60,6 +61,7 @@ export default function BootSequence({ onComplete }) {
         if (p === 100) {
           clearInterval(progressTimer);
           setMessages(prev => [...prev, "SYSTEM_READY"]);
+          playSound("success");
           const t = setTimeout(onComplete, 300);
           timers.push(t);
         }
@@ -73,6 +75,7 @@ export default function BootSequence({ onComplete }) {
           setProgress(Math.floor(((index + 1) / BOOT_MESSAGES.length) * 100));
           
           if (index === BOOT_MESSAGES.length - 1) {
+            playSound("success");
             const finishTimer = setTimeout(onComplete, 400); // brief pause on 100%
             timers.push(finishTimer);
           }

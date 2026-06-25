@@ -1,7 +1,8 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Activity, Code2, FolderGit2, Mail, User, FileText, Settings } from "lucide-react";
+import { playSound } from "../../utils/sound";
 
 const navTabs = [
   { id: "/", icon: Activity, label: "Dashboard" },
@@ -15,7 +16,6 @@ const navTabs = [
 
 export default function BottomDock({ children }) {
   const location = useLocation();
-  const navigate = useNavigate();
   const activePath = location.pathname;
 
   return (
@@ -29,9 +29,10 @@ export default function BottomDock({ children }) {
           const Icon = tab.icon;
 
           return (
-            <button
+            <Link
               key={tab.id}
-              onClick={() => navigate(tab.id)}
+              to={tab.id}
+              onClick={() => playSound("click")}
               aria-label={`Navigate to ${tab.label}`}
               className={`group relative flex-1 min-w-[50px] sm:min-w-0 h-12 flex flex-col sm:flex-row items-center justify-center gap-1.5 border-r border-white/5 transition-all duration-300 focus-visible:outline-none focus-visible:bg-white/5 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-inset ${
                 isActive 
@@ -58,7 +59,7 @@ export default function BottomDock({ children }) {
               {isActive && (
                 <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-primary-400 opacity-50" />
               )}
-            </button>
+            </Link>
           );
         })}
         {children}

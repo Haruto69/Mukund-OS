@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Settings as SettingsIcon, Palette, MonitorPlay, Power, Maximize, Volume2, RefreshCw, Cpu } from "lucide-react";
 import { SectionHeader, CyberCard, DataGrid, CyberButton, StatusChip } from "../components/ui";
 import { getSetting, setSetting, applyTheme, SETTINGS_KEYS } from "../utils/settings";
+import { playSound } from "../utils/sound";
 
 const THEMES = [
   { id: "shadow-purple", label: "Shadow Purple" },
@@ -40,6 +41,7 @@ export default function Settings() {
   const updateSettingState = (key, value, setter) => {
     setter(value);
     setSetting(key, value);
+    playSound("toggle");
   };
 
   const resetConfig = () => {
@@ -197,16 +199,17 @@ export default function Settings() {
             <motion.div variants={itemVariants} className="flex flex-col gap-6">
               <CyberCard eyebrow="AUDIO" title="Sound Effects" icon={Volume2} animated className="flex-1">
                 <div className="flex flex-col gap-4 mt-4 h-full">
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Sound effects are disabled by default and not implemented yet.
+                  <p className="text-xs text-slate-400 leading-relaxed border-l border-primary-500/30 pl-2">
+                    Subtle UI sound effects are now available. Default remains Off.
                   </p>
-                  <div className="mt-auto flex items-center justify-between p-3 rounded border border-white/5 bg-white/[0.02] opacity-50 cursor-not-allowed">
+                  <div className="mt-auto flex items-center justify-between p-3 rounded border border-white/5 bg-white/[0.02]">
                     <span className="text-sm text-slate-300">Enable UI Sounds</span>
                     <button 
-                      disabled
-                      className={`relative w-10 h-5 rounded-full transition-colors bg-white/10`}
+                      onClick={() => updateSettingState(SETTINGS_KEYS.SOUND_EFFECTS, !soundEffects, setSoundEffects)}
+                      aria-label="Toggle sound effects"
+                      className={`relative w-10 h-5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${soundEffects ? "bg-primary-500" : "bg-white/10"}`}
                     >
-                      <span className={`absolute top-0.5 left-0.5 bg-white w-4 h-4 rounded-full transition-transform`} />
+                      <span className={`absolute top-0.5 left-0.5 bg-white w-4 h-4 rounded-full transition-transform ${soundEffects ? "translate-x-5" : ""}`} />
                     </button>
                   </div>
                 </div>

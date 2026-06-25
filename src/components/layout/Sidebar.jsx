@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Briefcase } from "lucide-react";
 import { ProgressBar, StatusChip, CyberButton } from "../ui";
 import { profile } from "../../data/profile";
 
 export default function Sidebar({ children }) {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <motion.aside 
       initial={{ x: -20, opacity: 0 }}
@@ -13,13 +15,29 @@ export default function Sidebar({ children }) {
       className="cyber-panel hidden md:flex w-64 flex-col gap-4 p-4 shrink-0"
     >
       {/* Identity Block */}
-      <div className="flex items-center gap-3 border-b border-primary-500/20 pb-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded bg-primary-500/10 border border-primary-500/30 shadow-glow-primary shrink-0">
-          <span className="font-display text-lg font-bold text-primary-400">MV</span>
+      <div className="flex flex-col items-center text-center gap-4 border-b border-primary-500/20 pb-6 pt-2">
+        <div className="relative flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center rounded-xl bg-primary-500/10 border-2 border-primary-500/30 shadow-glow-primary shrink-0 overflow-hidden group">
+          {/* Scanline overlay */}
+          <div className="absolute inset-0 z-20 pointer-events-none bg-scanlines opacity-20 mix-blend-overlay"></div>
+          <div className="absolute inset-0 z-20 pointer-events-none border border-white/10 rounded-xl"></div>
+          
+          {!imageError ? (
+            <img 
+              src="/profile.jpg" 
+              alt="Mukund V profile" 
+              onError={() => setImageError(true)}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <span className="font-display text-3xl font-bold text-primary-400 relative z-10 shadow-glow-primary">MV</span>
+          )}
+          
+          {/* Status dot */}
+          <div className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#0a0a0c] shadow-[0_0_8px_rgba(16,185,129,0.8)] z-30" />
         </div>
-        <div className="flex flex-col">
-          <span className="font-display text-sm font-bold text-white tracking-widest uppercase">{profile.name}</span>
-          <span className="font-mono text-[9px] text-slate-400">ACCESS_LEVEL: ADMIN</span>
+        <div className="flex flex-col items-center">
+          <span className="font-display text-lg font-bold text-white tracking-widest uppercase">{profile.name}</span>
+          <span className="font-mono text-[10px] text-primary-400 mt-1 uppercase tracking-wider bg-primary-500/10 px-2 py-0.5 rounded border border-primary-500/20">ACCESS_LEVEL: ADMIN</span>
         </div>
       </div>
 

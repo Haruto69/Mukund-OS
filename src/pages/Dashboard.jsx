@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import { Activity, Target, Shield, Zap, Terminal, GitBranch, Github, Linkedin, Mail, FolderGit2, FileText, CheckCircle2, Server, Globe, Database } from "lucide-react";
 import { SectionHeader, CyberCard, DataGrid, StatusChip, CyberButton, InfoTile, TimelineCard } from "../components/ui";
@@ -6,6 +6,8 @@ import { projects } from "../data/projects";
 import { skills } from "../data/skills";
 import { experience } from "../data/experience";
 import { socials } from "../data/socials";
+
+const HeroModel = React.lazy(() => import("../components/visuals/HeroModel"));
 
 export default function Dashboard() {
   const featuredProject = projects.find(p => p.id === "nbuc-pipeline");
@@ -39,57 +41,68 @@ export default function Dashboard() {
       
       <div className="flex flex-col gap-6 pb-28 sm:pb-24">
         
-        {/* 1. Hero / Command Summary */}
-        <motion.div variants={itemVariants}>
-          <CyberCard 
-            variant="default"
-            className="border-primary-500/40 bg-[linear-gradient(45deg,rgba(220,20,60,0.05)_0%,transparent_100%)]"
-          >
-            <div className="flex flex-col gap-4">
-              <div>
-                <h2 className="font-display text-xl sm:text-2xl font-bold tracking-widest text-white mb-2">
-                  Cyber Security student transitioning into frontend and full-stack development.
-                </h2>
-                <p className="text-slate-300 font-sans leading-relaxed text-sm sm:text-base">
-                  Building practical React projects, deployed full-stack apps, and interview-ready project case studies.
-                </p>
+        {/* 1. Main Hero / Centered Model */}
+        <motion.div variants={itemVariants} className="flex flex-col items-center text-center pb-12 mb-6 border-b border-white/5 relative">
+          
+          <div className="max-w-4xl xl:max-w-5xl w-full px-4 sm:px-8 z-10 relative mt-4">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-wider text-white mb-4 leading-tight drop-shadow-md">
+              Cyber Security student transitioning into frontend and full-stack development.
+            </h2>
+          </div>
+
+          <div className="w-full flex justify-center -mt-4 sm:-mt-12 relative z-0 pointer-events-none">
+            <Suspense fallback={
+              <div className="w-full h-[260px] sm:h-[340px] lg:h-[480px] xl:h-[540px] flex items-center justify-center animate-pulse">
+                <span className="font-mono text-xs text-primary-500/50 uppercase tracking-widest">Loading model data...</span>
               </div>
-              <div className="flex flex-wrap gap-2 mt-2">
-                <StatusChip label="Available for internships" variant="online" pulse />
-                <StatusChip label="React + Tailwind" variant="neutral" />
-                <StatusChip label="DSA with Java" variant="neutral" />
-                <StatusChip label="Full-stack basics" variant="neutral" />
+            }>
+              <div className="w-full pointer-events-auto">
+                <HeroModel />
               </div>
+            </Suspense>
+          </div>
+
+          <div className="max-w-2xl flex flex-col items-center gap-6 mt-0 sm:-mt-8 relative z-10">
+            <p className="text-slate-300 font-sans leading-relaxed text-base sm:text-lg">
+              Building practical React projects, deployed full-stack apps, and interview-ready project case studies.
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              <StatusChip label="Available for internships" variant="online" pulse />
+              <StatusChip label="React + Tailwind" variant="neutral" />
+              <StatusChip label="DSA with Java" variant="neutral" />
+              <StatusChip label="Full-stack basics" variant="neutral" />
             </div>
-          </CyberCard>
+          </div>
+          
         </motion.div>
 
-        <DataGrid variant="two">
-          {/* 2. Current Objective */}
+        {/* 2. Directive & Achievement */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <motion.div variants={itemVariants}>
-            <CyberCard eyebrow="Active Directive" icon={Target} variant="highlight">
-              <h4 className="font-display font-bold text-white mb-2 text-lg">Frontend & Full-Stack Internship Readiness</h4>
-              <p className="text-sm text-slate-300 mb-4 leading-relaxed">
-                Build a polished portfolio, strengthen React fundamentals, document real projects, and prepare for frontend/full-stack internship interviews.
-              </p>
-              <ul className="flex flex-col gap-2">
-                {[
-                  "Build portfolio OS",
-                  "Improve React component structure",
-                  "Document project case studies",
-                  "Practice DSA with Java",
-                  "Apply for internships"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-slate-400">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+            <CyberCard eyebrow="Active Directive" icon={Target} variant="highlight" className="h-full">
+              <div className="flex flex-col h-full">
+                <h4 className="font-display font-bold text-white mb-2 text-lg">Frontend & Full-Stack Internship Readiness</h4>
+                <p className="text-sm text-slate-300 mb-4 leading-relaxed">
+                  Build a polished portfolio, strengthen React fundamentals, document real projects, and prepare for frontend/full-stack internship interviews.
+                </p>
+                <ul className="flex flex-col gap-2 mt-auto">
+                  {[
+                    "Build portfolio OS",
+                    "Improve React component structure",
+                    "Document project case studies",
+                    "Practice DSA with Java",
+                    "Apply for internships"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-400">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </CyberCard>
           </motion.div>
 
-          {/* 3. Featured Achievement */}
           <motion.div variants={itemVariants}>
             <CyberCard eyebrow="Main Achievement Signal" icon={Shield} className="h-full">
               <div className="flex flex-col gap-4 h-full">
@@ -97,11 +110,11 @@ export default function Dashboard() {
                   <h3 className="font-display font-bold text-white leading-tight text-lg mb-2">Best Implemented Industry Project</h3>
                   <p className="text-sm text-slate-300">Nokia University Day 2025. Awarded for developing a secure RAG-based Generative AI Pipeline.</p>
                 </div>
-                <CyberButton to="/projects" variant="primary" size="sm" icon={FolderGit2} className="w-full sm:w-auto justify-center">View Archives</CyberButton>
+                <CyberButton to="/projects" variant="primary" size="sm" icon={FolderGit2} className="w-full sm:w-auto justify-center mt-auto">View Archives</CyberButton>
               </div>
             </CyberCard>
           </motion.div>
-        </DataGrid>
+        </div>
 
         {/* 4. System Stats / Info Tiles */}
         <motion.div variants={itemVariants}>
