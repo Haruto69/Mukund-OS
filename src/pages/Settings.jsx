@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Settings as SettingsIcon, Palette, MonitorPlay, Power, Maximize, Volume2, RefreshCw, Cpu } from "lucide-react";
 import { SectionHeader, CyberCard, DataGrid, CyberButton, StatusChip } from "../components/ui";
+import { getSetting, setSetting, applyTheme, SETTINGS_KEYS } from "../utils/settings";
 
 const THEMES = [
   { id: "shadow-purple", label: "Shadow Purple" },
@@ -23,32 +24,31 @@ export default function Settings() {
 
   useEffect(() => {
     // Load from localStorage
-    setTheme(localStorage.getItem("cyberdeck-theme") || "shadow-purple");
-    setAnimationIntensity(localStorage.getItem("cyberdeck-animation-intensity") || "Standard");
-    setReducedMotion(localStorage.getItem("cyberdeck-reduced-motion") === "true");
-    setBootSequence(localStorage.getItem("cyberdeck-boot-sequence") === "true");
-    setUiDensity(localStorage.getItem("cyberdeck-ui-density") || "Comfortable");
-    setSoundEffects(localStorage.getItem("cyberdeck-sound-effects") === "true");
+    setTheme(getSetting(SETTINGS_KEYS.THEME, "shadow-purple"));
+    setAnimationIntensity(getSetting(SETTINGS_KEYS.ANIMATION_INTENSITY, "Standard"));
+    setReducedMotion(getSetting(SETTINGS_KEYS.REDUCED_MOTION, false));
+    setBootSequence(getSetting(SETTINGS_KEYS.BOOT_SEQUENCE, false));
+    setUiDensity(getSetting(SETTINGS_KEYS.UI_DENSITY, "Comfortable"));
+    setSoundEffects(getSetting(SETTINGS_KEYS.SOUND_EFFECTS, false));
   }, []);
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
-    localStorage.setItem("cyberdeck-theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
+    applyTheme(newTheme);
   };
 
-  const updateSetting = (key, value, setter) => {
+  const updateSettingState = (key, value, setter) => {
     setter(value);
-    localStorage.setItem(key, value.toString());
+    setSetting(key, value);
   };
 
   const resetConfig = () => {
-    localStorage.removeItem("cyberdeck-theme");
-    localStorage.removeItem("cyberdeck-animation-intensity");
-    localStorage.removeItem("cyberdeck-reduced-motion");
-    localStorage.removeItem("cyberdeck-boot-sequence");
-    localStorage.removeItem("cyberdeck-ui-density");
-    localStorage.removeItem("cyberdeck-sound-effects");
+    localStorage.removeItem(SETTINGS_KEYS.THEME);
+    localStorage.removeItem(SETTINGS_KEYS.ANIMATION_INTENSITY);
+    localStorage.removeItem(SETTINGS_KEYS.REDUCED_MOTION);
+    localStorage.removeItem(SETTINGS_KEYS.BOOT_SEQUENCE);
+    localStorage.removeItem(SETTINGS_KEYS.UI_DENSITY);
+    localStorage.removeItem(SETTINGS_KEYS.SOUND_EFFECTS);
 
     setTheme("shadow-purple");
     setAnimationIntensity("Standard");
@@ -57,7 +57,7 @@ export default function Settings() {
     setUiDensity("Comfortable");
     setSoundEffects(false);
 
-    document.documentElement.setAttribute("data-theme", "shadow-purple");
+    applyTheme("shadow-purple");
   };
 
   const containerVariants = {
@@ -126,7 +126,7 @@ export default function Settings() {
                       {ANIMATION_INTENSITIES.map(intensity => (
                         <button
                           key={intensity}
-                          onClick={() => updateSetting("cyberdeck-animation-intensity", intensity, setAnimationIntensity)}
+                          onClick={() => updateSettingState(SETTINGS_KEYS.ANIMATION_INTENSITY, intensity, setAnimationIntensity)}
                           className={`flex-1 text-[10px] uppercase font-mono py-1.5 rounded transition-colors ${
                             animationIntensity === intensity ? "bg-primary-500/30 text-primary-300 shadow-sm" : "text-slate-500 hover:text-slate-300"
                           }`}
@@ -139,7 +139,7 @@ export default function Settings() {
                   <div className="flex items-center justify-between p-3 rounded border border-white/5 bg-white/[0.02]">
                     <span className="text-sm text-slate-300">Reduced Motion</span>
                     <button 
-                      onClick={() => updateSetting("cyberdeck-reduced-motion", !reducedMotion, setReducedMotion)}
+                      onClick={() => updateSettingState(SETTINGS_KEYS.REDUCED_MOTION, !reducedMotion, setReducedMotion)}
                       className={`relative w-10 h-5 rounded-full transition-colors ${reducedMotion ? "bg-primary-500" : "bg-white/10"}`}
                     >
                       <span className={`absolute top-0.5 left-0.5 bg-white w-4 h-4 rounded-full transition-transform ${reducedMotion ? "translate-x-5" : ""}`} />
@@ -159,7 +159,7 @@ export default function Settings() {
                   <div className="mt-auto flex items-center justify-between p-3 rounded border border-white/5 bg-white/[0.02]">
                     <span className="text-sm text-slate-300">Enable Boot Sequence</span>
                     <button 
-                      onClick={() => updateSetting("cyberdeck-boot-sequence", !bootSequence, setBootSequence)}
+                      onClick={() => updateSettingState(SETTINGS_KEYS.BOOT_SEQUENCE, !bootSequence, setBootSequence)}
                       className={`relative w-10 h-5 rounded-full transition-colors ${bootSequence ? "bg-primary-500" : "bg-white/10"}`}
                     >
                       <span className={`absolute top-0.5 left-0.5 bg-white w-4 h-4 rounded-full transition-transform ${bootSequence ? "translate-x-5" : ""}`} />
@@ -178,7 +178,7 @@ export default function Settings() {
                   {DENSITIES.map(density => (
                     <button
                       key={density}
-                      onClick={() => updateSetting("cyberdeck-ui-density", density, setUiDensity)}
+                      onClick={() => updateSettingState(SETTINGS_KEYS.UI_DENSITY, density, setUiDensity)}
                       className={`text-left p-3 rounded border transition-all ${
                         uiDensity === density ? "bg-primary-500/10 border-primary-500/50 text-primary-200" : "bg-white/[0.02] border-white/5 text-slate-400 hover:border-white/20"
                       }`}

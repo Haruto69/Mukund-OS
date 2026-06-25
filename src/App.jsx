@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import PageShell from "./components/layout/PageShell";
 import BootSequence from "./components/system/BootSequence";
+import CommandPalette from "./components/system/CommandPalette";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
@@ -53,6 +54,7 @@ export default function App() {
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </AnimatePresence>
+      <CommandPalette />
       </PageShell>
       )}
     </>
