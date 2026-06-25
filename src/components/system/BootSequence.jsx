@@ -127,7 +127,8 @@ export default function BootSequence({ onComplete }) {
           <button 
             onClick={handleSkip}
             disabled={isSkipping}
-            className="text-[10px] uppercase tracking-widest text-slate-500 transition-colors hover:text-primary-400 disabled:opacity-50 focus:outline-none focus:ring-1 focus:ring-primary-500 rounded px-1"
+            aria-label="Skip Boot Sequence"
+            className="text-[10px] uppercase tracking-widest text-slate-500 transition-colors hover:text-primary-400 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded px-1"
           >
             SKIP_BOOT [ESC]
           </button>

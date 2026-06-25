@@ -32,7 +32,8 @@ export default function BottomDock({ children }) {
             <button
               key={tab.id}
               onClick={() => navigate(tab.id)}
-              className={`group relative flex-1 min-w-[50px] sm:min-w-0 h-12 flex flex-col sm:flex-row items-center justify-center gap-1.5 border-r border-white/5 transition-all duration-300 ${
+              aria-label={`Navigate to ${tab.label}`}
+              className={`group relative flex-1 min-w-[50px] sm:min-w-0 h-12 flex flex-col sm:flex-row items-center justify-center gap-1.5 border-r border-white/5 transition-all duration-300 focus-visible:outline-none focus-visible:bg-white/5 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-inset ${
                 isActive 
                   ? "bg-primary-500/10 text-primary-300" 
                   : "bg-transparent text-slate-500 hover:bg-white/5 hover:text-slate-300"

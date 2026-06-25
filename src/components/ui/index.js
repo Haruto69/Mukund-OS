@@ -12,3 +12,4 @@ export { Modal } from "./Modal";
 export { Tooltip } from "./Tooltip";
 export { EmptyState } from "./EmptyState";
 export { SectionHeader } from "./SectionHeader";
+export { Logo } from "./Logo";

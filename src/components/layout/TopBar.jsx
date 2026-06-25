@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Cpu, Wifi, Activity, Terminal, Shield, Command } from "lucide-react";
-import { StatusChip } from "../ui";
+import { StatusChip, Logo } from "../ui";
 
 export default function TopBar({ children }) {
   return (
@@ -14,7 +14,8 @@ export default function TopBar({ children }) {
       {/* Left Area - System Identification */}
       <div className="flex items-center gap-2 sm:gap-4 min-w-0">
         <div className="flex items-center gap-2 min-w-0">
-          <Terminal className="h-4 w-4 text-primary-400 shrink-0" />
+          <Logo size={20} className="hidden sm:block" />
+          <Logo size={16} className="sm:hidden" />
           <span className="font-display text-sm font-bold tracking-widest text-white truncate">MUKUND OS</span>
           <StatusChip label="v2.0.4" variant="primary" className="ml-1 sm:ml-2 shrink-0" />
         </div>
@@ -40,7 +41,8 @@ export default function TopBar({ children }) {
       <div className="flex items-center gap-3 sm:gap-4 shrink-0">
         <button 
           onClick={() => window.dispatchEvent(new Event("open-command-palette"))}
-          className="flex items-center gap-2 rounded border border-primary-500/30 bg-white/[0.02] p-1.5 sm:px-2 sm:py-1 transition-colors hover:bg-white/5 hover:border-primary-500/50"
+          aria-label="Open Command Palette"
+          className="flex items-center gap-2 rounded border border-primary-500/30 bg-white/[0.02] p-1.5 sm:px-2 sm:py-1 transition-colors hover:bg-white/5 hover:border-primary-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
         >
           <Command className="h-4 w-4 sm:h-3 sm:w-3 text-primary-400" />
           <span className="hidden sm:inline-block font-mono text-[10px] text-slate-300">CMD</span>

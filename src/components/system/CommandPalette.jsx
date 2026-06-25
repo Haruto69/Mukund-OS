@@ -188,8 +188,9 @@ export default function CommandPalette() {
                   setQuery(e.target.value);
                   setSelectedIndex(0);
                 }}
+                aria-label="Search commands"
                 placeholder="Search commands... (e.g. 'theme', 'dashboard')"
-                className="flex-1 bg-transparent border-none outline-none text-slate-200 placeholder-slate-500 font-mono text-sm"
+                className="flex-1 bg-transparent border-none outline-none text-slate-200 placeholder-slate-500 font-mono text-sm focus-visible:outline-none"
               />
               <div className="flex items-center gap-2 shrink-0">
                 <span className="hidden sm:inline-block font-mono text-[10px] text-slate-500 uppercase px-1.5 py-0.5 rounded border border-white/10 bg-white/5">ESC</span>
@@ -225,12 +226,13 @@ export default function CommandPalette() {
                         const Icon = cmd.icon;
 
                         return (
-                          <div
+                          <button
                             key={cmd.id}
                             data-selected={isSelected}
                             onClick={() => executeCommand(cmd)}
                             onMouseEnter={() => setSelectedIndex(globalIndex)}
-                            className={`flex items-center gap-3 px-4 py-2.5 mx-2 rounded cursor-pointer transition-colors ${
+                            aria-label={`Execute command: ${cmd.title}`}
+                            className={`w-full text-left flex items-center gap-3 px-4 py-2.5 mx-2 rounded cursor-pointer transition-colors focus-visible:outline-none focus-visible:bg-white/10 ${
                               isSelected 
                                 ? "bg-primary-500/20 border-l-2 border-primary-500 text-white" 
                                 : "border-l-2 border-transparent text-slate-400 hover:bg-white/5"
@@ -238,7 +240,7 @@ export default function CommandPalette() {
                           >
                             <Icon className={`h-4 w-4 shrink-0 ${isSelected ? "text-primary-400" : "text-slate-500"}`} />
                             <span className="text-sm font-sans truncate">{cmd.title}</span>
-                          </div>
+                          </button>
                         );
                       })}
                     </div>

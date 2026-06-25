@@ -102,7 +102,7 @@ export default function Settings() {
                   <button
                     key={t.id}
                     onClick={() => handleThemeChange(t.id)}
-                    className={`p-3 rounded border text-xs font-mono transition-all ${
+                    className={`p-3 rounded border text-xs font-mono transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
                       theme === t.id 
                         ? "bg-primary-500/20 border-primary-500 text-primary-300 shadow-glow-primary" 
                         : "bg-white/[0.02] border-white/10 text-slate-400 hover:border-white/30 hover:bg-white/5"
@@ -127,7 +127,7 @@ export default function Settings() {
                         <button
                           key={intensity}
                           onClick={() => updateSettingState(SETTINGS_KEYS.ANIMATION_INTENSITY, intensity, setAnimationIntensity)}
-                          className={`flex-1 text-[10px] uppercase font-mono py-1.5 rounded transition-colors ${
+                          className={`flex-1 text-[10px] uppercase font-mono py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
                             animationIntensity === intensity ? "bg-primary-500/30 text-primary-300 shadow-sm" : "text-slate-500 hover:text-slate-300"
                           }`}
                         >
@@ -140,7 +140,8 @@ export default function Settings() {
                     <span className="text-sm text-slate-300">Reduced Motion</span>
                     <button 
                       onClick={() => updateSettingState(SETTINGS_KEYS.REDUCED_MOTION, !reducedMotion, setReducedMotion)}
-                      className={`relative w-10 h-5 rounded-full transition-colors ${reducedMotion ? "bg-primary-500" : "bg-white/10"}`}
+                      aria-label="Toggle reduced motion"
+                      className={`relative w-10 h-5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${reducedMotion ? "bg-primary-500" : "bg-white/10"}`}
                     >
                       <span className={`absolute top-0.5 left-0.5 bg-white w-4 h-4 rounded-full transition-transform ${reducedMotion ? "translate-x-5" : ""}`} />
                     </button>
@@ -160,7 +161,8 @@ export default function Settings() {
                     <span className="text-sm text-slate-300">Enable Boot Sequence</span>
                     <button 
                       onClick={() => updateSettingState(SETTINGS_KEYS.BOOT_SEQUENCE, !bootSequence, setBootSequence)}
-                      className={`relative w-10 h-5 rounded-full transition-colors ${bootSequence ? "bg-primary-500" : "bg-white/10"}`}
+                      aria-label="Toggle boot sequence"
+                      className={`relative w-10 h-5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${bootSequence ? "bg-primary-500" : "bg-white/10"}`}
                     >
                       <span className={`absolute top-0.5 left-0.5 bg-white w-4 h-4 rounded-full transition-transform ${bootSequence ? "translate-x-5" : ""}`} />
                     </button>
@@ -179,7 +181,7 @@ export default function Settings() {
                     <button
                       key={density}
                       onClick={() => updateSettingState(SETTINGS_KEYS.UI_DENSITY, density, setUiDensity)}
-                      className={`text-left p-3 rounded border transition-all ${
+                      className={`text-left p-3 rounded border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
                         uiDensity === density ? "bg-primary-500/10 border-primary-500/50 text-primary-200" : "bg-white/[0.02] border-white/5 text-slate-400 hover:border-white/20"
                       }`}
                     >

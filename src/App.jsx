@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import PageShell from "./components/layout/PageShell";
 import BootSequence from "./components/system/BootSequence";
 import CommandPalette from "./components/system/CommandPalette";
-import Dashboard from "./pages/Dashboard";
-import Projects from "./pages/Projects";
-import Skills from "./pages/Skills";
-import About from "./pages/About";
-import Resume from "./pages/Resume";
-import Contact from "./pages/Contact";
-import Settings from "./pages/Settings";
+
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Projects = lazy(() => import("./pages/Projects"));
+const Skills = lazy(() => import("./pages/Skills"));
+const About = lazy(() => import("./pages/About"));
+const Resume = lazy(() => import("./pages/Resume"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Settings = lazy(() => import("./pages/Settings"));
 
 export default function App() {
   const location = useLocation();
@@ -44,15 +45,24 @@ export default function App() {
       {!isBooting && (
         <PageShell>
       <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/resume" element={<Resume />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
+        <Suspense fallback={
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="flex flex-col items-center gap-4 opacity-50">
+              <div className="h-6 w-6 animate-spin rounded-full border-t-2 border-primary-500"></div>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-primary-400">Loading module...</span>
+            </div>
+          </div>
+        }>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/resume" element={<Resume />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </Suspense>
       </AnimatePresence>
       <CommandPalette />
       </PageShell>
