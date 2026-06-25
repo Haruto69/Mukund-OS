@@ -1,20 +1,35 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Activity, User, Target, Shield, Briefcase } from "lucide-react";
-import { SectionHeader, CyberCard, DataGrid, StatusChip, CyberButton, InfoTile } from "../components/ui";
-import { profile } from "../data/profile";
+import { Activity, Target, Shield, Zap, Terminal, GitBranch, Github, Linkedin, Mail, FolderGit2, FileText, CheckCircle2, Server, Globe, Database } from "lucide-react";
+import { SectionHeader, CyberCard, DataGrid, StatusChip, CyberButton, InfoTile, TimelineCard } from "../components/ui";
 import { projects } from "../data/projects";
+import { skills } from "../data/skills";
+import { experience } from "../data/experience";
+import { socials } from "../data/socials";
 
 export default function Dashboard() {
   const featuredProject = projects.find(p => p.id === "nbuc-pipeline");
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial="hidden"
+      animate="show"
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
-      className="flex h-full w-full flex-col p-4 overflow-y-auto no-scrollbar"
+      variants={containerVariants}
+      className="flex flex-1 min-h-0 w-full flex-col p-4 overflow-y-auto no-scrollbar"
     >
       <SectionHeader 
         title="SYSTEM_DASHBOARD" 
@@ -22,55 +37,164 @@ export default function Dashboard() {
         eyebrow="Primary Overview"
       />
       
-      <div className="flex flex-col gap-4 pb-28 sm:pb-24">
-        <DataGrid variant="two">
-          {/* Profile Summary */}
-          <CyberCard eyebrow="Identity" icon={User} animated>
-            <div className="flex justify-between items-start mb-2">
-              <h3 className="font-display text-xl font-bold text-white">{profile.name}</h3>
-              <StatusChip label="AVAILABLE" variant="online" pulse />
-            </div>
-            <p className="font-mono text-xs text-crimson-400 mb-4">{profile.role}</p>
-            <p className="text-sm text-slate-300 leading-relaxed mb-4">{profile.summary}</p>
-            <div className="flex gap-3">
-              <CyberButton to="/projects" variant="primary" size="sm">View Archives</CyberButton>
-              <CyberButton to="/contact" variant="secondary" size="sm">Comms Link</CyberButton>
+      <div className="flex flex-col gap-6 pb-28 sm:pb-24">
+        
+        {/* 1. Hero / Command Summary */}
+        <motion.div variants={itemVariants}>
+          <CyberCard 
+            variant="default"
+            className="border-crimson-500/40 bg-[linear-gradient(45deg,rgba(220,20,60,0.05)_0%,transparent_100%)]"
+          >
+            <div className="flex flex-col gap-4">
+              <div>
+                <h2 className="font-display text-xl sm:text-2xl font-bold tracking-widest text-white mb-2">
+                  Cyber Security student transitioning into frontend and full-stack development.
+                </h2>
+                <p className="text-slate-300 font-sans leading-relaxed text-sm sm:text-base">
+                  Building practical React projects, deployed full-stack apps, and interview-ready project case studies.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-2">
+                <StatusChip label="Available for internships" variant="online" pulse />
+                <StatusChip label="React + Tailwind" variant="neutral" />
+                <StatusChip label="DSA with Java" variant="neutral" />
+                <StatusChip label="Full-stack basics" variant="neutral" />
+              </div>
             </div>
           </CyberCard>
+        </motion.div>
 
-          {/* Current Objective */}
-          <CyberCard eyebrow="Current Directive" icon={Target} variant="highlight" animated>
-            <h4 className="font-display font-bold text-white mb-2">Frontend & Full-Stack Internships</h4>
-            <p className="text-sm text-slate-300 mb-4 text-balance">
-              Actively seeking opportunities to apply React, Tailwind, and Node.js skills in a professional environment while continuing to master Java DSA.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <StatusChip label="React" variant="neutral" />
-              <StatusChip label="Tailwind CSS" variant="neutral" />
-              <StatusChip label="Node.js" variant="neutral" />
-            </div>
-          </CyberCard>
+        <DataGrid variant="two">
+          {/* 2. Current Objective */}
+          <motion.div variants={itemVariants}>
+            <CyberCard eyebrow="Active Directive" icon={Target} variant="highlight">
+              <h4 className="font-display font-bold text-white mb-2 text-lg">Frontend & Full-Stack Internship Readiness</h4>
+              <p className="text-sm text-slate-300 mb-4 leading-relaxed">
+                Build a polished portfolio, strengthen React fundamentals, document real projects, and prepare for frontend/full-stack internship interviews.
+              </p>
+              <ul className="flex flex-col gap-2">
+                {[
+                  "Build portfolio OS",
+                  "Improve React component structure",
+                  "Document project case studies",
+                  "Practice DSA with Java",
+                  "Apply for internships"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-slate-400">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </CyberCard>
+          </motion.div>
+
+          {/* 3. Featured Project Module */}
+          <motion.div variants={itemVariants}>
+            {featuredProject && (
+              <CyberCard eyebrow="Main Achievement Module" icon={Shield}>
+                <div className="mb-4">
+                  <h3 className="font-display text-lg font-bold text-white leading-tight">{featuredProject.title}</h3>
+                  <span className="font-mono text-[10px] text-crimson-400 mt-1 block">{featuredProject.highlight}</span>
+                </div>
+                <p className="text-sm text-slate-300 mb-4">{featuredProject.description}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {featuredProject.tech.map(t => (
+                    <StatusChip key={t} label={t} variant="neutral" />
+                  ))}
+                </div>
+                <div className="flex gap-3">
+                  <CyberButton to="/projects" variant="primary" size="sm" icon={FolderGit2}>View Archives</CyberButton>
+                  <CyberButton to="/resume" variant="secondary" size="sm" icon={FileText}>View Resume</CyberButton>
+                </div>
+              </CyberCard>
+            )}
+          </motion.div>
         </DataGrid>
 
-        {/* Featured Project */}
-        {featuredProject && (
-          <CyberCard eyebrow="Featured Module" icon={Shield} animated>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-              <div>
-                <h3 className="font-display text-lg font-bold text-white">{featuredProject.title}</h3>
-                <span className="font-mono text-[10px] text-crimson-400">{featuredProject.type}</span>
+        {/* 4. System Stats / Info Tiles */}
+        <motion.div variants={itemVariants}>
+          <DataGrid variant="four">
+            <InfoTile label="Projects Loaded" value="4" description="Verified archives" icon={Database} />
+            <InfoTile label="Core Stack" value="React" description="Tailwind UI" icon={Globe} />
+            <InfoTile label="Internship" value="Open" description="Seeking opportunities" icon={Zap} trend="up" variant="highlight" />
+            <InfoTile label="Build Version" value="v2.0.4" description="Stable release" icon={Terminal} />
+          </DataGrid>
+        </motion.div>
+
+        {/* 5. Skill Snapshot */}
+        <motion.div variants={itemVariants} className="flex flex-col gap-3">
+          <div className="flex items-center gap-2 mb-1">
+            <Terminal className="h-4 w-4 text-slate-500" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">Skill Snapshot</span>
+          </div>
+          <DataGrid variant="auto">
+            <CyberCard eyebrow="Frontend" title="React, Tailwind, JS" icon={Globe}>
+              <p className="text-xs text-slate-400">Components, routing, reusable UI, state-driven interfaces, DOM, async logic.</p>
+            </CyberCard>
+            <CyberCard eyebrow="Backend" title="Node, Express, Mongo" icon={Server}>
+              <p className="text-xs text-slate-400">REST APIs, database models, CRUD operations, backend deployment, authentication.</p>
+            </CyberCard>
+            <CyberCard eyebrow="Programming" title="Java, Python" icon={Terminal}>
+              <p className="text-xs text-slate-400">Data Structures & Algorithms, OOP principles, scripting, API integrations.</p>
+            </CyberCard>
+            <CyberCard eyebrow="Security" title="Trivy, Kubernetes" icon={Shield}>
+              <p className="text-xs text-slate-400">Vulnerability scanning, remediation workflows, Docker hardening, RAG LLMs.</p>
+            </CyberCard>
+          </DataGrid>
+        </motion.div>
+
+        {/* 6. Timeline Preview */}
+        <motion.div variants={itemVariants}>
+          <div className="flex items-center gap-2 mb-4 mt-2">
+            <GitBranch className="h-4 w-4 text-slate-500" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">System History Preview</span>
+          </div>
+          <div className="flex flex-col gap-0 mb-4 pl-2">
+            <TimelineCard 
+              date="2026 - Present"
+              title="Frontend + DSA + Internship Preparation"
+              description="Actively building projects and refining fundamental skills."
+              highlight
+            />
+            <TimelineCard 
+              date="2026"
+              title="DishaRakshak & Self-care MERN App"
+              description="Building full-stack and embedded hardware tracking solutions."
+            />
+            <TimelineCard 
+              date="2025"
+              title="Nokia University Day — Winner"
+              description="Best Implemented Industry Project for a GenAI Security Pipeline."
+              className="pb-0"
+            />
+          </div>
+          <CyberButton to="/resume" variant="secondary" size="sm" className="w-full sm:w-auto">View Full Service Record</CyberButton>
+        </motion.div>
+
+        {/* 7. Quick Actions */}
+        <motion.div variants={itemVariants}>
+          <CyberCard variant="muted" className="mt-4">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-4">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400">External Comms</span>
+              <div className="flex flex-wrap gap-3 w-full sm:w-auto justify-center">
+                <CyberButton href={socials.github} variant="secondary" size="sm" icon={Github}>GitHub</CyberButton>
+                <CyberButton href={socials.linkedin} variant="secondary" size="sm" icon={Linkedin}>LinkedIn</CyberButton>
+                <CyberButton href={socials.email} variant="primary" size="sm" icon={Mail}>Initialize Contact</CyberButton>
               </div>
-              <StatusChip label={featuredProject.status} variant="success" />
-            </div>
-            <p className="text-sm text-slate-300 mb-4">{featuredProject.description}</p>
-            <div className="flex flex-wrap gap-2">
-              {featuredProject.tech.slice(0, 4).map(t => (
-                <StatusChip key={t} label={t} variant="neutral" />
-              ))}
-              <span className="font-mono text-[10px] text-slate-500 self-center">+ More</span>
             </div>
           </CyberCard>
-        )}
+        </motion.div>
+
+        {/* 8. Optional Command Hint */}
+        <motion.div variants={itemVariants} className="mt-2 flex justify-center">
+          <div className="flex items-center gap-2 rounded bg-[#050505] px-4 py-2 border border-white/5 shadow-inner">
+            <span className="font-mono text-crimson-500">{">"}</span>
+            <span className="font-mono text-xs text-slate-500">Recruiter path: Archives → Service Record → Comms</span>
+            <span className="animate-pulse w-1.5 h-3 bg-crimson-400 ml-1 block" />
+          </div>
+        </motion.div>
+
       </div>
     </motion.div>
   );

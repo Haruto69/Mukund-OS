@@ -7,7 +7,7 @@ import BottomDock from "./BottomDock";
 
 export default function PageShell({ children }) {
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden bg-ink text-slate-300">
+    <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-ink text-slate-300">
       {/* Immersive Background Layers */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <motion.div 

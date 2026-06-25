@@ -11,7 +11,7 @@ export default function About() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
-      className="flex h-full w-full flex-col p-4 overflow-y-auto no-scrollbar"
+      className="flex flex-1 min-h-0 w-full flex-col p-4 overflow-y-auto no-scrollbar"
     >
       <SectionHeader 
         title="USER_DOSSIER" 
