@@ -18,12 +18,12 @@ export default function RightPanel({ children }) {
       className="cyber-panel hidden lg:flex w-72 flex-col gap-4 p-4 shrink-0"
     >
       {/* Panel Title */}
-      <div className="mb-2 flex items-center justify-between border-b border-crimson-500/20 pb-2">
+      <div className="mb-2 flex items-center justify-between border-b border-primary-500/20 pb-2">
         <div className="flex items-center gap-2">
-          <Activity className="h-4 w-4 text-crimson-400" />
+          <Activity className="h-4 w-4 text-primary-400" />
           <span className="font-mono text-[10px] uppercase tracking-widest text-slate-300">Telemetry</span>
         </div>
-        <div className="h-2 w-2 animate-pulse rounded-full bg-crimson-500 shadow-glow-crimson" />
+        <div className="h-2 w-2 animate-pulse rounded-full bg-primary-500 shadow-glow-primary" />
       </div>
 
       {/* Info Cards */}
@@ -34,7 +34,7 @@ export default function RightPanel({ children }) {
           <div className="flex items-end justify-between">
             <div>
               <span className="font-display text-2xl font-bold text-white">98</span>
-              <span className="font-mono text-[10px] text-crimson-400 ml-1">%</span>
+              <span className="font-mono text-[10px] text-primary-400 ml-1">%</span>
             </div>
             <span className="font-mono text-[9px] text-slate-400">DISCHARGING</span>
           </div>
@@ -46,11 +46,11 @@ export default function RightPanel({ children }) {
           <div className="flex justify-between font-mono text-xs mt-1">
             <div className="flex flex-col">
               <span className="text-[9px] text-slate-500">RX (DOWN)</span>
-              <span className="text-crimson-300">14.2 MB/s</span>
+              <span className="text-primary-300">14.2 MB/s</span>
             </div>
             <div className="flex flex-col text-right">
               <span className="text-[9px] text-slate-500">TX (UP)</span>
-              <span className="text-crimson-300">2.1 MB/s</span>
+              <span className="text-primary-300">2.1 MB/s</span>
             </div>
           </div>
         </CyberCard>

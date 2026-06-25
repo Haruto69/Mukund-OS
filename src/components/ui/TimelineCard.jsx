@@ -12,17 +12,17 @@ export function TimelineCard({
   return (
     <div className={`relative pl-6 pb-6 ${className}`}>
       {/* Vertical Line */}
-      <div className="absolute left-[11px] top-6 bottom-0 w-px bg-crimson-500/20" />
+      <div className="absolute left-[11px] top-6 bottom-0 w-px bg-primary-500/20" />
       
       {/* Node Marker */}
       <div className={`absolute left-0 top-1 flex h-6 w-6 items-center justify-center rounded-full border border-[#050505] bg-[#050505] z-10`}>
-        <div className={`h-2.5 w-2.5 rounded-full ${highlight ? "bg-crimson-500 shadow-glow-crimson" : "bg-white/20 border border-white/40"}`} />
+        <div className={`h-2.5 w-2.5 rounded-full ${highlight ? "bg-primary-500 shadow-glow-primary" : "bg-white/20 border border-white/40"}`} />
       </div>
 
-      <div className={`rounded-lg border bg-white/[0.02] p-4 transition-colors hover:border-crimson-500/30 ${highlight ? "border-crimson-500/40" : "border-white/5"}`}>
+      <div className={`rounded-lg border bg-white/[0.02] p-4 transition-colors hover:border-primary-500/30 ${highlight ? "border-primary-500/40" : "border-white/5"}`}>
         <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
           <div className="flex flex-col">
-            <span className="font-mono text-[10px] text-crimson-400">{date}</span>
+            <span className="font-mono text-[10px] text-primary-400">{date}</span>
             <h4 className="font-display text-sm font-bold text-white">{title}</h4>
           </div>
           {Icon && <Icon className="h-5 w-5 text-slate-500" />}

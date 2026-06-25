@@ -57,10 +57,10 @@ export function Modal({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className={`relative flex w-full flex-col overflow-hidden rounded-xl border border-crimson-500/30 bg-[#0c0810] shadow-[0_0_40px_rgba(220,20,60,0.15)] ${sizes[size]} ${className} max-h-full sm:max-h-[calc(100vh-6rem)]`}
+            className={`relative flex w-full flex-col overflow-hidden rounded-xl border border-primary-500/30 bg-[#0c0810] shadow-[0_0_40px_rgba(220,20,60,0.15)] ${sizes[size]} ${className} max-h-full sm:max-h-[calc(100vh-6rem)]`}
           >
             {/* Header */}
-            <div className="flex shrink-0 items-center justify-between border-b border-crimson-500/20 bg-white/[0.02] px-6 py-4">
+            <div className="flex shrink-0 items-center justify-between border-b border-primary-500/20 bg-white/[0.02] px-6 py-4">
               <h2 className="font-display text-lg font-bold tracking-wider text-white">
                 {title}
               </h2>

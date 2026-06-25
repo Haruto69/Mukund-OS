@@ -12,13 +12,13 @@ export function EmptyState({
   className = "",
 }) {
   return (
-    <div className={`flex flex-col items-center justify-center p-8 text-center h-full w-full min-h-[300px] rounded-lg border border-dashed border-crimson-500/20 bg-crimson-500/5 ${className}`}>
+    <div className={`flex flex-col items-center justify-center p-8 text-center h-full w-full min-h-[300px] rounded-lg border border-dashed border-primary-500/20 bg-primary-500/5 ${className}`}>
       <motion.div
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-        className="mb-4 rounded-full bg-crimson-500/10 p-4 shadow-glow-crimson"
+        className="mb-4 rounded-full bg-primary-500/10 p-4 shadow-glow-primary"
       >
-        <Icon className="h-8 w-8 text-crimson-400" />
+        <Icon className="h-8 w-8 text-primary-400" />
       </motion.div>
       <h3 className="mb-2 font-display text-lg font-bold tracking-widest text-white">
         {title}

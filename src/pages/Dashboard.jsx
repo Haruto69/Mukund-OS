@@ -43,7 +43,7 @@ export default function Dashboard() {
         <motion.div variants={itemVariants}>
           <CyberCard 
             variant="default"
-            className="border-crimson-500/40 bg-[linear-gradient(45deg,rgba(220,20,60,0.05)_0%,transparent_100%)]"
+            className="border-primary-500/40 bg-[linear-gradient(45deg,rgba(220,20,60,0.05)_0%,transparent_100%)]"
           >
             <div className="flex flex-col gap-4">
               <div>
@@ -132,9 +132,9 @@ export default function Dashboard() {
         {/* 8. Optional Command Hint */}
         <motion.div variants={itemVariants} className="mt-2 flex justify-center">
           <div className="flex items-center gap-2 rounded bg-[#050505] px-4 py-2 border border-white/5 shadow-inner">
-            <span className="font-mono text-crimson-500">{">"}</span>
+            <span className="font-mono text-primary-500">{">"}</span>
             <span className="font-mono text-xs text-slate-500">Recruiter path: Archives → Service Record → Comms</span>
-            <span className="animate-pulse w-1.5 h-3 bg-crimson-400 ml-1 block" />
+            <span className="animate-pulse w-1.5 h-3 bg-primary-400 ml-1 block" />
           </div>
         </motion.div>
 

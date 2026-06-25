@@ -13,7 +13,7 @@ export function ProgressBar({
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
   const fills = {
-    default: "bg-crimson-500 shadow-[0_0_8px_rgba(220,20,60,0.6)]",
+    default: "bg-primary-500 shadow-[0_0_8px_rgba(220,20,60,0.6)]",
     success: "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]",
     warning: "bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]",
     danger: "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]",
@@ -25,7 +25,7 @@ export function ProgressBar({
         <div className="flex items-end justify-between font-mono text-[10px]">
           {label && <span className="uppercase tracking-wider text-slate-400">{label}</span>}
           {showValue && (
-            <span className="text-crimson-300">
+            <span className="text-primary-300">
               {value}
               {max === 100 ? "%" : `/${max}`}
             </span>

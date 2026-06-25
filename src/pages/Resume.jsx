@@ -54,7 +54,7 @@ export default function Resume() {
             title="Mukund_V_Resume.pdf" 
             icon={FileText} 
             animated
-            className="border-crimson-500/50 bg-[linear-gradient(45deg,rgba(220,20,60,0.05)_0%,transparent_100%)]"
+            className="border-primary-500/50 bg-[linear-gradient(45deg,rgba(220,20,60,0.05)_0%,transparent_100%)]"
           >
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
               <div className="space-y-3">
@@ -74,7 +74,7 @@ export default function Resume() {
               <StatusChip label="Draft" variant="warning" className="w-fit h-fit" />
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-4 border-t border-crimson-500/20">
+            <div className="flex flex-wrap gap-3 pt-4 border-t border-primary-500/20">
               <CyberButton 
                 variant="primary" 
                 size="sm" 
@@ -126,7 +126,7 @@ export default function Resume() {
             {/* Highlights */}
             <CyberCard eyebrow="VERIFIED_HIGHLIGHTS" title="Key Recognition" icon={Zap} animated>
               <div className="flex items-start gap-2 mt-2">
-                <ShieldCheck className="h-4 w-4 text-crimson-500 shrink-0 mt-0.5" />
+                <ShieldCheck className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
                 <span className="text-sm text-slate-300 leading-snug">Best Implemented Industry Project — Nokia University Day 2025</span>
               </div>
             </CyberCard>

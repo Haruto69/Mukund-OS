@@ -2,21 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-  background: #050505;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer base {
+  :root, [data-theme="shadow-purple"] {
+    /* Shadow Purple Theme (Default) */
+    --color-primary-100: 230 230 250;
+    --color-primary-200: 200 180 240;
+    --color-primary-300: 160 130 230;
+    --color-primary-400: 120 80 220;
+    --color-primary-500: 90 40 190;
+    --color-primary-600: 60 20 140;
+    --color-primary-900: 30 10 70;
+    
+    --glow-primary: 0 0 15px rgba(90, 40, 190, 0.4);
+    --glow-primary-lg: 0 0 35px rgba(90, 40, 190, 0.55);
+    --glow-primary-inner: inset 0 0 20px rgba(90, 40, 190, 0.25);
+  }
 
-* {
-  box-sizing: border-box;
-}
+  [data-theme="crimson"] {
+    --color-primary-100: 255 200 200;
+    --color-primary-200: 255 150 150;
+    --color-primary-300: 255 100 100;
+    --color-primary-400: 255 77 77;
+    --color-primary-500: 220 20 60;
+    --color-primary-600: 179 0 38;
+    --color-primary-900: 74 0 17;
+    
+    --glow-primary: 0 0 15px rgba(220, 20, 60, 0.3);
+    --glow-primary-lg: 0 0 35px rgba(220, 20, 60, 0.45);
+    --glow-primary-inner: inset 0 0 20px rgba(220, 20, 60, 0.15);
+  }
 
-html {
-  scroll-behavior: smooth;
+  [data-theme="blue"] {
+    --color-primary-100: 200 230 255;
+    --color-primary-200: 150 200 255;
+    --color-primary-300: 100 170 255;
+    --color-primary-400: 50 140 255;
+    --color-primary-500: 0 100 255;
+    --color-primary-600: 0 80 200;
+    --color-primary-900: 0 30 80;
+    
+    --glow-primary: 0 0 15px rgba(0, 100, 255, 0.3);
+    --glow-primary-lg: 0 0 35px rgba(0, 100, 255, 0.45);
+    --glow-primary-inner: inset 0 0 20px rgba(0, 100, 255, 0.15);
+  }
+
+  [data-theme="green"] {
+    --color-primary-100: 200 255 220;
+    --color-primary-200: 150 255 180;
+    --color-primary-300: 100 255 140;
+    --color-primary-400: 50 255 100;
+    --color-primary-500: 0 220 80;
+    --color-primary-600: 0 180 60;
+    --color-primary-900: 0 60 20;
+    
+    --glow-primary: 0 0 15px rgba(0, 220, 80, 0.3);
+    --glow-primary-lg: 0 0 35px rgba(0, 220, 80, 0.45);
+    --glow-primary-inner: inset 0 0 20px rgba(0, 220, 80, 0.15);
+  }
 }
 
 body {
@@ -36,7 +78,7 @@ input {
 
 ::selection {
   color: #050505;
-  background: #dc143c;
+  background: rgb(var(--color-primary-500));
 }
 
 /* Custom Cyberpunk Scrollbar */
@@ -50,19 +92,19 @@ input {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(220, 20, 60, 0.3);
+  background: rgb(var(--color-primary-500) / 0.3);
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(220, 20, 60, 0.6);
+  background: rgb(var(--color-primary-500) / 0.6);
 }
 
 /* Background Utility Classes */
 .bg-grid-cyber {
   background-image: 
-    linear-gradient(rgba(220, 20, 60, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(220, 20, 60, 0.05) 1px, transparent 1px);
+    linear-gradient(rgb(var(--color-primary-500) / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--color-primary-500) / 0.05) 1px, transparent 1px);
   background-size: 30px 30px;
 }
 
@@ -76,18 +118,18 @@ input {
 
 @layer utilities {
   .cyber-panel {
-    @apply bg-panel backdrop-blur-xl border border-crimson-500/20 rounded-xl shadow-panel-inner transition-colors duration-300;
+    @apply bg-panel backdrop-blur-xl border border-primary-500/20 rounded-xl shadow-panel-inner transition-colors duration-300;
   }
   
   .cyber-panel-hover {
-    @apply hover:border-crimson-500/40 hover:bg-crimson-500/5 hover:shadow-glow-crimson;
+    @apply hover:border-primary-500/40 hover:bg-primary-500/5 hover:shadow-glow-primary;
   }
 
   .cyber-glow-text {
-    @apply text-crimson-400 drop-shadow-[0_0_8px_rgba(220,20,60,0.8)];
+    @apply text-primary-400 drop-shadow-[0_0_8px_var(--glow-primary)];
   }
 
   .cyber-border-glow {
-    @apply border-crimson-500/50 shadow-glow-crimson;
+    @apply border-primary-500/50 shadow-glow-primary;
   }
 }

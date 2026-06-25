@@ -13,9 +13,9 @@ export default function Sidebar({ children }) {
       className="cyber-panel hidden md:flex w-64 flex-col gap-4 p-4 shrink-0"
     >
       {/* Identity Block */}
-      <div className="flex items-center gap-3 border-b border-crimson-500/20 pb-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded bg-crimson-500/10 border border-crimson-500/30 shadow-glow-crimson shrink-0">
-          <span className="font-display text-lg font-bold text-crimson-400">MV</span>
+      <div className="flex items-center gap-3 border-b border-primary-500/20 pb-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded bg-primary-500/10 border border-primary-500/30 shadow-glow-primary shrink-0">
+          <span className="font-display text-lg font-bold text-primary-400">MV</span>
         </div>
         <div className="flex flex-col">
           <span className="font-display text-sm font-bold text-white tracking-widest uppercase">{profile.name}</span>
@@ -27,7 +27,7 @@ export default function Sidebar({ children }) {
       <div className="flex-1 space-y-4 overflow-y-auto no-scrollbar mt-2">
         <div className="flex flex-col gap-1">
           <span className="font-mono text-[9px] uppercase tracking-wider text-slate-500">Current Role</span>
-          <span className="font-sans text-xs text-crimson-400 font-bold">{profile.role}</span>
+          <span className="font-sans text-xs text-primary-400 font-bold">{profile.role}</span>
         </div>
 
         <div className="flex flex-col gap-1">
@@ -46,7 +46,7 @@ export default function Sidebar({ children }) {
             <span className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5 font-mono text-[9px] text-slate-400">React</span>
             <span className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5 font-mono text-[9px] text-slate-400">Tailwind</span>
             <span className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5 font-mono text-[9px] text-slate-400">JavaScript</span>
-            <span className="px-1.5 py-0.5 rounded border border-crimson-500/20 bg-crimson-500/10 font-mono text-[9px] text-crimson-300">Java DSA</span>
+            <span className="px-1.5 py-0.5 rounded border border-primary-500/20 bg-primary-500/10 font-mono text-[9px] text-primary-300">Java DSA</span>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export default function Sidebar({ children }) {
       </div>
 
       {/* Memory Usage Meter (Preserved) */}
-      <div className="mt-auto border-t border-crimson-500/20 pt-4 flex flex-col gap-3">
+      <div className="mt-auto border-t border-primary-500/20 pt-4 flex flex-col gap-3">
         <ProgressBar label="MEM_USAGE" value={32} showValue className="mt-1" />
       </div>
       

@@ -14,7 +14,8 @@ export function StatusChip({
     danger: "border-red-500/30 text-red-400",
     info: "border-cyan-500/30 text-cyan-400",
     neutral: "border-slate-500/30 text-slate-400",
-    crimson: "border-crimson-500/30 text-crimson-400",
+    primary: "border-primary-500/30 text-primary-400",
+    crimson: "border-primary-500/30 text-primary-400",
   };
 
   const pulseColors = {
@@ -23,7 +24,8 @@ export function StatusChip({
     danger: "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]",
     info: "bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]",
     neutral: "bg-slate-500 shadow-[0_0_8px_rgba(100,116,139,0.8)]",
-    crimson: "bg-crimson-500 shadow-[0_0_8px_rgba(220,20,60,0.8)]",
+    primary: "bg-primary-500 shadow-[0_0_8px_rgba(220,20,60,0.8)]",
+    crimson: "bg-primary-500 shadow-[0_0_8px_rgba(220,20,60,0.8)]",
   };
 
   return (

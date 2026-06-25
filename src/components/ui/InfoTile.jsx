@@ -12,8 +12,8 @@ export function InfoTile({
   className = "",
 }) {
   const variants = {
-    default: "border-crimson-500/10 hover:border-crimson-500/30 hover:bg-crimson-500/5 hover:shadow-glow-crimson",
-    highlight: "border-crimson-500/30 bg-crimson-500/10 shadow-glow-crimson",
+    default: "border-primary-500/10 hover:border-primary-500/30 hover:bg-primary-500/5 hover:shadow-glow-primary",
+    highlight: "border-primary-500/30 bg-primary-500/10 shadow-glow-primary",
   };
 
   return (
@@ -25,7 +25,7 @@ export function InfoTile({
         <span className="font-mono text-[9px] uppercase tracking-wider text-slate-500">
           {label}
         </span>
-        {Icon && <Icon className="h-3 w-3 text-crimson-400" />}
+        {Icon && <Icon className="h-3 w-3 text-primary-400" />}
       </div>
       <div className="flex items-end justify-between">
         <span className="font-display text-2xl font-bold text-white">

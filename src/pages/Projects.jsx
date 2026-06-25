@@ -83,12 +83,12 @@ export default function Projects() {
               eyebrow="PRIORITY ARCHIVE" 
               icon={Shield} 
               variant="highlight"
-              className="border-crimson-500/50 bg-[linear-gradient(45deg,rgba(220,20,60,0.08)_0%,transparent_100%)]"
+              className="border-primary-500/50 bg-[linear-gradient(45deg,rgba(220,20,60,0.08)_0%,transparent_100%)]"
             >
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                 <div>
                   <h3 className="font-display text-xl sm:text-2xl font-bold text-white leading-tight">{featuredProject.title}</h3>
-                  <span className="font-mono text-xs text-crimson-400 mt-1 block uppercase tracking-wider">{featuredProject.highlight}</span>
+                  <span className="font-mono text-xs text-primary-400 mt-1 block uppercase tracking-wider">{featuredProject.highlight}</span>
                 </div>
                 <StatusChip label={featuredProject.status} variant="success" className="w-fit" />
               </div>
@@ -100,7 +100,7 @@ export default function Projects() {
                   <StatusChip key={t} label={t} variant="neutral" />
                 ))}
               </div>
-              <div className="flex flex-wrap gap-3 pt-4 border-t border-crimson-500/20">
+              <div className="flex flex-wrap gap-3 pt-4 border-t border-primary-500/20">
                 <CyberButton variant="primary" size="sm" onClick={() => setSelectedProject(featuredProject)}>
                   View Details
                 </CyberButton>
@@ -127,7 +127,7 @@ export default function Projects() {
                 onClick={() => setFilter(f)}
                 className={`px-3 py-1.5 rounded-sm font-mono text-[10px] sm:text-xs uppercase tracking-wider transition-all border ${
                   filter === f 
-                    ? "bg-crimson-500/20 border-crimson-500/50 text-crimson-300 shadow-[0_0_10px_rgba(220,20,60,0.2)]" 
+                    ? "bg-primary-500/20 border-primary-500/50 text-primary-300 shadow-[0_0_10px_rgba(220,20,60,0.2)]" 
                     : "bg-white/5 border-white/10 text-slate-400 hover:bg-white/10"
                 }`}
               >
@@ -149,7 +149,7 @@ export default function Projects() {
                   eyebrow={project.type} 
                   icon={Icon}
                   animated 
-                  className="flex flex-col h-full hover:border-crimson-500/30 transition-colors"
+                  className="flex flex-col h-full hover:border-primary-500/30 transition-colors"
                 >
                   <div className="flex flex-col mb-3">
                     <h4 className="font-display text-lg font-bold text-white mb-2 leading-tight">{project.title}</h4>
@@ -164,7 +164,7 @@ export default function Projects() {
                     {project.description}
                   </p>
                   
-                  <div className="mb-4 bg-white/[0.02] p-2 border-l-2 border-crimson-500/50">
+                  <div className="mb-4 bg-white/[0.02] p-2 border-l-2 border-primary-500/50">
                     <span className="text-[9px] uppercase font-mono text-slate-500 block">Highlight</span>
                     <p className="text-xs text-slate-300 font-medium">{project.highlight}</p>
                   </div>
@@ -228,8 +228,8 @@ export default function Projects() {
               />
             </div>
             
-            <div className="bg-crimson-500/10 border border-crimson-500/20 p-4 rounded-lg">
-              <span className="font-mono text-[10px] text-crimson-400 uppercase tracking-wider block mb-1">Mission Highlight</span>
+            <div className="bg-primary-500/10 border border-primary-500/20 p-4 rounded-lg">
+              <span className="font-mono text-[10px] text-primary-400 uppercase tracking-wider block mb-1">Mission Highlight</span>
               <p className="text-white font-medium">{selectedProject.highlight}</p>
             </div>
 
@@ -237,7 +237,7 @@ export default function Projects() {
               <div className="space-y-6">
                 <div>
                   <h4 className="flex items-center gap-2 font-display text-lg text-white mb-2 border-b border-white/10 pb-2">
-                    <Activity className="h-4 w-4 text-crimson-500" />
+                    <Activity className="h-4 w-4 text-primary-500" />
                     The Problem
                   </h4>
                   <p className="text-sm text-slate-300 leading-relaxed">{selectedProject.problem}</p>
@@ -245,7 +245,7 @@ export default function Projects() {
                 
                 <div>
                   <h4 className="flex items-center gap-2 font-display text-lg text-white mb-2 border-b border-white/10 pb-2">
-                    <Shield className="h-4 w-4 text-crimson-500" />
+                    <Shield className="h-4 w-4 text-primary-500" />
                     Role & Contribution
                   </h4>
                   <p className="text-sm text-slate-300 leading-relaxed">{selectedProject.role}</p>
@@ -253,7 +253,7 @@ export default function Projects() {
 
                 <div>
                   <h4 className="flex items-center gap-2 font-display text-lg text-white mb-2 border-b border-white/10 pb-2">
-                    <Terminal className="h-4 w-4 text-crimson-500" />
+                    <Terminal className="h-4 w-4 text-primary-500" />
                     Tech Stack
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -272,7 +272,7 @@ export default function Projects() {
                   <ul className="space-y-2">
                     {selectedProject.keyFeatures.map((f, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                        <span className="text-crimson-500 mt-1">▹</span>
+                        <span className="text-primary-500 mt-1">▹</span>
                         <span className="leading-relaxed">{f}</span>
                       </li>
                     ))}

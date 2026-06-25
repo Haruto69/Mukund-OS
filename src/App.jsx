@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import PageShell from "./components/layout/PageShell";
@@ -12,6 +12,11 @@ import Settings from "./pages/Settings";
 
 export default function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    const theme = localStorage.getItem("cyberdeck-theme") || "shadow-purple";
+    document.documentElement.setAttribute("data-theme", theme);
+  }, []);
 
   return (
     <PageShell>

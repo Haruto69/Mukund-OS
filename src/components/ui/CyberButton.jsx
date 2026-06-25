@@ -17,11 +17,13 @@ export function CyberButton({
 
   const variants = {
     primary:
-      "border border-crimson-500 bg-crimson-500/20 text-crimson-100 shadow-glow-crimson hover:bg-crimson-500/40 hover:shadow-glow-crimson-lg",
+      "border border-primary-500 bg-primary-500/20 text-primary-100 shadow-glow-primary hover:bg-primary-500/40 hover:shadow-glow-primary-lg",
+    crimson:
+      "border border-primary-500 bg-primary-500/20 text-primary-100 shadow-glow-primary hover:bg-primary-500/40 hover:shadow-glow-primary-lg",
     secondary:
-      "border border-crimson-500/30 bg-white/[0.02] text-crimson-300 hover:border-crimson-500 hover:bg-crimson-500/10 hover:shadow-glow-crimson",
+      "border border-primary-500/30 bg-white/[0.02] text-primary-300 hover:border-primary-500 hover:bg-primary-500/10 hover:shadow-glow-primary",
     ghost:
-      "border border-transparent bg-transparent text-slate-400 hover:text-crimson-300 hover:bg-white/5",
+      "border border-transparent bg-transparent text-slate-400 hover:text-primary-300 hover:bg-white/5",
     danger:
       "border border-red-500/50 bg-red-500/10 text-red-200 shadow-[0_0_10px_rgba(239,68,68,0.2)] hover:border-red-500 hover:bg-red-500/30",
   };

@@ -16,7 +16,7 @@ export function CircularProgress({
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   const colors = {
-    default: "text-crimson-500 drop-shadow-[0_0_4px_rgba(220,20,60,0.5)]",
+    default: "text-primary-500 drop-shadow-[0_0_4px_rgba(220,20,60,0.5)]",
     success: "text-emerald-500 drop-shadow-[0_0_4px_rgba(16,185,129,0.5)]",
     warning: "text-amber-500 drop-shadow-[0_0_4px_rgba(245,158,11,0.5)]",
   };

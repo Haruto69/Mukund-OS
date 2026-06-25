@@ -6,18 +6,21 @@ export default {
       colors: {
         ink: "#050505", // matte black
         panel: "rgba(10, 10, 12, 0.45)", // slightly more transparent for better glassmorphism
-        crimson: {
-          400: "#ff4d4d",
-          500: "#dc143c", // deep crimson highlight
-          600: "#b30026",
-          900: "#4a0011",
+        primary: {
+          100: "rgb(var(--color-primary-100) / <alpha-value>)",
+          200: "rgb(var(--color-primary-200) / <alpha-value>)",
+          300: "rgb(var(--color-primary-300) / <alpha-value>)",
+          400: "rgb(var(--color-primary-400) / <alpha-value>)",
+          500: "rgb(var(--color-primary-500) / <alpha-value>)",
+          600: "rgb(var(--color-primary-600) / <alpha-value>)",
+          900: "rgb(var(--color-primary-900) / <alpha-value>)",
         },
         cyber: "#00ffff",
       },
       boxShadow: {
-        "glow-crimson": "0 0 15px rgba(220, 20, 60, 0.3)",
-        "glow-crimson-lg": "0 0 35px rgba(220, 20, 60, 0.45)",
-        "glow-crimson-inner": "inset 0 0 20px rgba(220, 20, 60, 0.15)",
+        "glow-primary": "var(--glow-primary)",
+        "glow-primary-lg": "var(--glow-primary-lg)",
+        "glow-primary-inner": "var(--glow-primary-inner)",
         "panel-inner": "inset 0 1px 1px rgba(255, 255, 255, 0.05), inset 0 0 20px rgba(0, 0, 0, 0.5)",
       },
       fontFamily: {

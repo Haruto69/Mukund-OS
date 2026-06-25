@@ -47,9 +47,9 @@ export default function About() {
               title={profile.name} 
               icon={User} 
               animated
-              className="border-l-2 border-l-crimson-500"
+              className="border-l-2 border-l-primary-500"
             >
-              <p className="font-mono text-sm text-crimson-400 mb-4 tracking-wider uppercase">{profile.role}</p>
+              <p className="font-mono text-sm text-primary-400 mb-4 tracking-wider uppercase">{profile.role}</p>
               <div className="space-y-4 mt-2 mb-6">
                 <div>
                   <span className="block text-[10px] uppercase font-mono text-slate-500 mb-1">Background</span>
@@ -143,7 +143,7 @@ export default function About() {
               <ul className="space-y-2">
                 {profile.buildingMindset.map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                    <Crosshair className="h-4 w-4 text-crimson-500 shrink-0 mt-0.5" />
+                    <Crosshair className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
                     <span className="leading-relaxed">{item}</span>
                   </li>
                 ))}

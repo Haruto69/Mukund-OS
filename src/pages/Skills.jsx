@@ -19,7 +19,7 @@ function SkillModule({ id, data, config }) {
 
   return (
     <CyberCard 
-      className={`transition-all duration-300 ${isOpen ? "border-crimson-500/50 shadow-[0_0_15px_rgba(220,20,60,0.1)] bg-crimson-500/5" : "border-white/10 hover:border-crimson-500/30"}`}
+      className={`transition-all duration-300 ${isOpen ? "border-primary-500/50 shadow-[0_0_15px_rgba(220,20,60,0.1)] bg-primary-500/5" : "border-white/10 hover:border-primary-500/30"}`}
       padding="none" // we will handle padding manually for the header/body
     >
       <button 
@@ -28,7 +28,7 @@ function SkillModule({ id, data, config }) {
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-md ${isOpen ? "bg-crimson-500/20 text-crimson-400" : "bg-white/5 text-slate-400"}`}>
+          <div className={`p-2 rounded-md ${isOpen ? "bg-primary-500/20 text-primary-400" : "bg-white/5 text-slate-400"}`}>
             <Icon className="h-5 w-5" />
           </div>
           <div className="text-left">
@@ -40,7 +40,7 @@ function SkillModule({ id, data, config }) {
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          <ChevronDown className={`h-5 w-5 ${isOpen ? "text-crimson-500" : "text-slate-500"}`} />
+          <ChevronDown className={`h-5 w-5 ${isOpen ? "text-primary-500" : "text-slate-500"}`} />
         </motion.div>
       </button>
 
@@ -62,7 +62,7 @@ function SkillModule({ id, data, config }) {
               </div>
 
               <div className="mb-6">
-                <span className="font-mono text-[10px] text-crimson-400 uppercase tracking-widest mb-3 block border-b border-crimson-500/20 pb-1">Practical Proof</span>
+                <span className="font-mono text-[10px] text-primary-400 uppercase tracking-widest mb-3 block border-b border-primary-500/20 pb-1">Practical Proof</span>
                 <ul className="space-y-3">
                   {data.proof.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
@@ -140,9 +140,9 @@ export default function Skills() {
 
         {/* 2. No Fake Percentages Philosophy */}
         <motion.div variants={itemVariants}>
-          <CyberCard variant="muted" className="border-l-2 border-l-crimson-500">
+          <CyberCard variant="muted" className="border-l-2 border-l-primary-500">
             <div className="flex items-start gap-3">
-              <Info className="h-5 w-5 text-crimson-400 shrink-0 mt-0.5" />
+              <Info className="h-5 w-5 text-primary-400 shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-mono text-xs text-white uppercase tracking-wider mb-1">System Notice: No Fake Percentages</h4>
                 <p className="text-sm text-slate-400 leading-relaxed">

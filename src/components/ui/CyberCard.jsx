@@ -11,8 +11,8 @@ export function CyberCard({
   animated = false,
 }) {
   const variants = {
-    default: "border-crimson-500/20 bg-white/[0.02] hover:border-crimson-500/40 hover:bg-crimson-500/5 hover:shadow-glow-crimson",
-    highlight: "border-crimson-500/50 bg-crimson-500/10 shadow-glow-crimson",
+    default: "border-primary-500/20 bg-white/[0.02] hover:border-primary-500/40 hover:bg-primary-500/5 hover:shadow-glow-primary",
+    highlight: "border-primary-500/50 bg-primary-500/10 shadow-glow-primary",
     danger: "border-red-500/50 bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.3)]",
     success: "border-emerald-500/50 bg-emerald-500/10 shadow-[0_0_15px_rgba(16,185,129,0.3)]",
     muted: "border-white/10 bg-white/[0.01]",
@@ -46,7 +46,7 @@ export function CyberCard({
               </h3>
             )}
           </div>
-          {Icon && <Icon className="h-4 w-4 text-crimson-400" />}
+          {Icon && <Icon className="h-4 w-4 text-primary-400" />}
         </div>
       )}
       <div className="relative z-10">{children}</div>

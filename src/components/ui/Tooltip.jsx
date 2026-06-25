@@ -32,7 +32,7 @@ export function Tooltip({ children, content, placement = "top", className = "" }
           <motion.div
             {...animations[placement]}
             transition={{ duration: 0.15 }}
-            className={`absolute z-50 whitespace-nowrap rounded border border-crimson-500/30 bg-[#050505]/95 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-crimson-200 shadow-glow-crimson pointer-events-none ${placements[placement]}`}
+            className={`absolute z-50 whitespace-nowrap rounded border border-primary-500/30 bg-[#050505]/95 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-primary-200 shadow-glow-primary pointer-events-none ${placements[placement]}`}
           >
             {content}
           </motion.div>
