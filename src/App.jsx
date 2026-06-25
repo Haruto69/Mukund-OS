@@ -18,10 +18,10 @@ import Timeline from "./pages/Timeline";
 
 const windowContent = {
   about: { component: About, title: "About", icon: "UserRound" },
-  skills: { component: Skills, title: "Skills", icon: "Code2" },
-  projects: { component: Projects, title: "Projects", icon: "BriefcaseBusiness" },
-  timeline: { component: Timeline, title: "Resume Timeline", icon: "GitBranch" },
-  interview: { component: Interview, title: "Interview Mode", icon: "MessageSquareText" },
+  skills: { component: Skills, title: "System Modules", icon: "Code2" },
+  projects: { component: Projects, title: "Project Logs", icon: "BriefcaseBusiness" },
+  timeline: { component: Timeline, title: "System History", icon: "GitBranch" },
+  interview: { component: Interview, title: "Mission Brief", icon: "MessageSquareText" },
   terminal: { component: Terminal, title: "Terminal", icon: "TerminalSquare" },
   contact: { component: Contact, title: "Contact", icon: "Mail" },
 };
@@ -67,17 +67,17 @@ function AppContent() {
 }
 
 export default function App() {
-  const [isBooted, setIsBooted] = useState(false);
+  const [isEntered, setIsEntered] = useState(false);
 
-  const handleBootComplete = useCallback(() => {
-    setIsBooted(true);
+  const handleEnterSystem = useCallback(() => {
+    setIsEntered(true);
   }, []);
 
   return (
     <WindowProvider>
       <div className="min-h-screen">
-        {!isBooted && <BootScreen onComplete={handleBootComplete} />}
-        {isBooted && <AppContent />}
+        {!isEntered && <BootScreen onComplete={handleEnterSystem} />}
+        {isEntered && <AppContent />}
       </div>
     </WindowProvider>
   );

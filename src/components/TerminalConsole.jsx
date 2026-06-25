@@ -34,9 +34,7 @@ export default function TerminalConsole() {
     event.preventDefault();
     const normalized = command.trim().toLowerCase();
 
-    if (!normalized) {
-      return;
-    }
+    if (!normalized) return;
 
     if (normalized === "clear") {
       setHistory([]);
@@ -59,45 +57,45 @@ export default function TerminalConsole() {
 
   return (
     <section
-      className="flex h-full flex-col rounded-xl border border-emerald-400/15 bg-[#0a0e14]/90 font-mono shadow-2xl"
+      className="flex h-full flex-col rounded-lg border border-red-500/15 bg-[#08060b]/95 font-mono shadow-2xl"
       onClick={() => inputRef.current?.focus()}
     >
       {/* Title bar */}
-      <div className="flex items-center gap-2 border-b border-emerald-400/10 px-4 py-2.5">
-        <span className="h-3 w-3 rounded-full bg-rose-400/80" />
-        <span className="h-3 w-3 rounded-full bg-amber-300/80" />
-        <span className="h-3 w-3 rounded-full bg-emerald-300/80" />
-        <span className="ml-3 text-[11px] text-slate-500">
+      <div className="flex items-center gap-2 border-b border-red-500/10 px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
+        <span className="h-2.5 w-2.5 rounded-full bg-amber-400/50" />
+        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/50" />
+        <span className="ml-3 text-[10px] text-slate-600">
           mukund@os — resume-session
         </span>
       </div>
 
-      {/* Output area */}
+      {/* Output */}
       <div
         ref={scrollRef}
-        className="flex-1 space-y-1 overflow-y-auto px-4 py-4 text-[13px] leading-6"
+        className="flex-1 space-y-1 overflow-y-auto px-4 py-3 text-[12px] leading-6"
       >
         {history.map((line, index) => (
           <p
             key={`${line.type}-${index}`}
             className={
               line.type === "command"
-                ? "text-emerald-200"
+                ? "text-red-300"
                 : line.type === "system"
-                ? "text-teal-400/80"
-                : "text-slate-300"
+                ? "text-red-500/60"
+                : "text-slate-400"
             }
           >
             {line.type === "command" ? (
-              <span className="text-emerald-400">mukund@os:~$ </span>
+              <span className="text-red-500">mukund@os:~$ </span>
             ) : null}
             {line.value}
           </p>
         ))}
 
-        {/* Input line */}
+        {/* Input */}
         <form onSubmit={runCommand} className="flex items-center gap-2">
-          <label htmlFor="terminal-command" className="text-emerald-400">
+          <label htmlFor="terminal-command" className="text-red-500">
             mukund@os:~$
           </label>
           <div className="relative flex-1">
@@ -106,18 +104,17 @@ export default function TerminalConsole() {
               id="terminal-command"
               value={command}
               onChange={(event) => setCommand(event.target.value)}
-              className="w-full border-none bg-transparent text-emerald-100 caret-transparent outline-none placeholder:text-slate-600"
+              className="w-full border-none bg-transparent text-red-200 caret-transparent outline-none placeholder:text-slate-700"
               placeholder="help"
               autoComplete="off"
               spellCheck="false"
             />
-            {/* Blinking cursor overlay */}
             <span
               className="pointer-events-none absolute top-0 text-transparent"
               aria-hidden="true"
             >
               {command}
-              <span className="inline-block h-[1.1em] w-[7px] translate-y-[1px] animate-blink bg-emerald-400/90" />
+              <span className="inline-block h-[1.1em] w-[6px] translate-y-[1px] animate-blink bg-red-500/80" />
             </span>
           </div>
         </form>

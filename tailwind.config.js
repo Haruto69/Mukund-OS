@@ -4,18 +4,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#050810",
-        panel: "#0a0f1e",
-        line: "rgba(148, 163, 184, 0.15)",
-        terminal: "#5eead4",
+        ink: "#08060b",
+        panel: "#0c0810",
+        accent: "#e84545",
+        "accent-dim": "#e84545",
+        cyber: "#3dd8e0",
+        line: "rgba(232, 69, 69, 0.15)",
       },
       boxShadow: {
-        glow: "0 0 35px rgba(45, 212, 191, 0.12)",
-        "glow-lg": "0 0 60px rgba(45, 212, 191, 0.15)",
+        glow: "0 0 30px rgba(232, 69, 69, 0.1)",
+        "glow-red": "0 0 40px rgba(232, 69, 69, 0.12)",
+        "glow-cyber": "0 0 30px rgba(61, 216, 224, 0.08)",
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "SFMono-Regular", "Consolas", "monospace"],
+        display: ["Orbitron", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
+      animation: {
+        "spin-slow": "spin 25s linear infinite",
+        scanline: "scanline 4s linear infinite",
+      },
+      keyframes: {
+        scanline: {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(calc(100vh + 100%))" },
+        },
       },
     },
   },

@@ -8,22 +8,18 @@ export default function DesktopShortcut({ item, index }) {
 
   return (
     <motion.button
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.35,
-        delay: 0.3 + index * 0.06,
+        duration: 0.3,
+        delay: 0.3 + index * 0.04,
         ease: [0.23, 1, 0.32, 1],
       }}
       onClick={() => openWindow(item.id)}
-      className="group flex flex-col items-center gap-2 rounded-xl p-3 transition-all duration-200 hover:bg-white/[0.04]"
+      className="group flex items-center gap-2 rounded border border-white/[0.04] bg-white/[0.02] px-2.5 py-1.5 transition-all duration-200 hover:border-red-500/20 hover:bg-red-500/[0.04] hover:shadow-[0_0_12px_rgba(232,69,69,0.06)]"
     >
-      <span
-        className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${item.accent} text-slate-950 shadow-lg transition-all duration-200 group-hover:-translate-y-1 group-hover:shadow-[0_8px_25px_rgba(0,0,0,0.3),0_0_20px_rgba(45,212,191,0.1)]`}
-      >
-        <Icon name={item.icon} className="h-7 w-7" />
-      </span>
-      <span className="text-[11px] font-medium text-slate-300 transition-colors group-hover:text-white">
+      <Icon name={item.icon} className="h-3.5 w-3.5 text-red-400/60 transition-colors group-hover:text-red-400" />
+      <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 transition-colors group-hover:text-slate-200">
         {item.title}
       </span>
     </motion.button>

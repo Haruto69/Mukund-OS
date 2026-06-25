@@ -11,7 +11,7 @@ export default function AppWindow({ id, title, icon, children }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -19,41 +19,43 @@ export default function AppWindow({ id, title, icon, children }) {
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={closeWindow}
       />
 
-      {/* Window */}
+      {/* Window Panel */}
       <motion.div
-        className="relative z-10 flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/[0.12] bg-slate-950/90 shadow-2xl backdrop-blur-xl sm:max-h-[80vh]"
+        className="relative z-10 flex max-h-[82vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg border border-red-500/15 bg-[#0a0810]/95 shadow-2xl backdrop-blur-xl corner-brackets sm:max-h-[78vh]"
         style={{
           boxShadow:
-            "0 0 0 1px rgba(148,163,184,0.06), 0 25px 80px rgba(0,0,0,0.5), 0 0 40px rgba(56,189,248,0.06)",
+            "0 0 0 1px rgba(232,69,69,0.05), 0 25px 80px rgba(0,0,0,0.6), 0 0 30px rgba(232,69,69,0.04)",
         }}
-        initial={{ opacity: 0, scale: 0.96, y: 12 }}
+        initial={{ opacity: 0, scale: 0.96, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 8 }}
         transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
       >
         {/* Title bar */}
-        <div className="flex items-center justify-between border-b border-white/[0.08] px-5 py-3">
-          <div className="flex items-center gap-3">
-            <span className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-white/[0.05]">
-              <Icon name={icon} className="h-4 w-4 text-teal-300" />
+        <div className="flex items-center justify-between border-b border-red-500/10 px-4 py-2.5">
+          <div className="flex items-center gap-2.5">
+            <span className="grid h-7 w-7 place-items-center rounded border border-red-500/20 bg-red-500/[0.08]">
+              <Icon name={icon} className="h-3.5 w-3.5 text-red-400" />
             </span>
-            <span className="text-sm font-semibold text-white">{title}</span>
+            <span className="font-mono text-xs font-semibold uppercase tracking-wider text-white">
+              {title}
+            </span>
           </div>
           <button
             onClick={closeWindow}
-            className="grid h-7 w-7 place-items-center rounded-lg text-slate-400 transition hover:bg-white/10 hover:text-white"
+            className="grid h-6 w-6 place-items-center rounded border border-white/[0.06] text-slate-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
             aria-label="Close window"
           >
-            <Icon name="X" className="h-4 w-4" />
+            <Icon name="X" className="h-3.5 w-3.5" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-5 sm:p-6">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5">
           {children}
         </div>
       </motion.div>

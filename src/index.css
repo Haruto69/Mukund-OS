@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: dark;
-  background: #050810;
+  background: #08060b;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,8 +23,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  color: #e5eefb;
-  background: #050810;
+  color: #e0dde5;
+  background: #08060b;
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -34,13 +34,13 @@ input {
 }
 
 ::selection {
-  color: #050810;
-  background: #5eead4;
+  color: #08060b;
+  background: #e84545;
 }
 
-/* Scrollbar styling */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -48,28 +48,20 @@ input {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(232, 69, 69, 0.2);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.35);
-}
-
-/* Glass panel */
-.glass-panel {
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  background: rgba(15, 23, 42, 0.78);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
-  backdrop-filter: blur(18px);
+  background: rgba(232, 69, 69, 0.4);
 }
 
 /* Focus ring */
 .focus-ring {
-  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050810];
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#08060b];
 }
 
-/* Blinking cursor animation */
+/* Blinking cursor */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -79,32 +71,68 @@ input {
   animation: blink 1s step-end infinite;
 }
 
-/* Orb float animations */
+/* Background orb floats */
 @keyframes orb-float-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(60px, -40px) scale(1.05); }
-  66% { transform: translate(-30px, 30px) scale(0.95); }
+  33% { transform: translate(50px, -30px) scale(1.04); }
+  66% { transform: translate(-25px, 25px) scale(0.96); }
 }
 
 @keyframes orb-float-2 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-50px, 30px) scale(1.08); }
-  66% { transform: translate(40px, -20px) scale(0.92); }
-}
-
-@keyframes orb-float-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, 20px) scale(1.04); }
+  33% { transform: translate(-40px, 20px) scale(1.06); }
+  66% { transform: translate(30px, -15px) scale(0.94); }
 }
 
 .animate-orb-1 {
-  animation: orb-float-1 20s ease-in-out infinite;
+  animation: orb-float-1 22s ease-in-out infinite;
 }
 
 .animate-orb-2 {
-  animation: orb-float-2 25s ease-in-out infinite;
+  animation: orb-float-2 28s ease-in-out infinite;
 }
 
-.animate-orb-3 {
-  animation: orb-float-3 18s ease-in-out infinite;
+/* Scanline sweep */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(calc(100vh + 100%)); }
+}
+
+.animate-scanline {
+  animation: scanline 4s linear infinite;
+}
+
+/* Red pulse glow */
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 8px rgba(232, 69, 69, 0.3); }
+  50% { box-shadow: 0 0 16px rgba(232, 69, 69, 0.5); }
+}
+
+.animate-pulse-red {
+  animation: pulse-red 2s ease-in-out infinite;
+}
+
+/* Corner decoration utility */
+.corner-brackets {
+  position: relative;
+}
+.corner-brackets::before,
+.corner-brackets::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: rgba(232, 69, 69, 0.25);
+  border-style: solid;
+  pointer-events: none;
+}
+.corner-brackets::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+.corner-brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
 }
