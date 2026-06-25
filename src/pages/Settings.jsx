@@ -154,10 +154,10 @@ export default function Settings() {
               <CyberCard eyebrow="INITIALIZATION" title="Boot Sequence" icon={Power} animated className="h-full">
                 <div className="flex flex-col gap-4 mt-4 h-full">
                   <p className="text-xs text-slate-400 leading-relaxed border-l border-primary-500/30 pl-2">
-                    Boot sequence will be used in Phase 12. Toggling this will store the preference for future initialization.
+                    Boot sequence controls the startup overlay shown when Mukund OS initializes.
                   </p>
                   <div className="mt-auto flex items-center justify-between p-3 rounded border border-white/5 bg-white/[0.02]">
-                    <span className="text-sm text-slate-300">Enable Boot Auth</span>
+                    <span className="text-sm text-slate-300">Enable Boot Sequence</span>
                     <button 
                       onClick={() => updateSetting("cyberdeck-boot-sequence", !bootSequence, setBootSequence)}
                       className={`relative w-10 h-5 rounded-full transition-colors ${bootSequence ? "bg-primary-500" : "bg-white/10"}`}
