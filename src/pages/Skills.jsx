@@ -160,28 +160,7 @@ export default function Skills() {
           ))}
         </motion.div>
 
-        {/* 4. Project Connection Mapping */}
-        <motion.div variants={itemVariants} className="mt-4">
-          <CyberCard eyebrow="MODULES LINKED TO ARCHIVES" icon={Link2} animated>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-              {[
-                { skill: "React + Tailwind", projects: "CyberDeck Portfolio OS, Self-care MERN App" },
-                { skill: "Node/Express/MongoDB", projects: "Self-care MERN App" },
-                { skill: "Security tooling/RAG", projects: "Nokia NBUC Security Pipeline" },
-                { skill: "Python/IMU/Dashboard", projects: "DishaRakshak" },
-                { skill: "Java", projects: "DSA preparation" },
-              ].map((map, i) => (
-                <div key={i} className="flex flex-col gap-1 p-3 bg-white/[0.02] border border-white/5 rounded-md">
-                  <span className="font-mono text-[10px] text-crimson-400 uppercase">{map.skill}</span>
-                  <div className="flex items-start gap-1.5 mt-1">
-                    <Zap className="h-3 w-3 text-slate-500 mt-0.5 shrink-0" />
-                    <span className="text-xs text-slate-300 font-sans">{map.projects}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CyberCard>
-        </motion.div>
+
 
       </div>
     </motion.div>

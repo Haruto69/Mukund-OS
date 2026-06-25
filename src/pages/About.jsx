@@ -126,38 +126,7 @@ export default function About() {
           </DataGrid>
         </motion.div>
 
-        {/* 5. Key Highlights / Signals */}
-        <motion.div variants={itemVariants}>
-          <CyberCard eyebrow="KEY_SIGNALS" icon={Zap} padding="sm">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              <div className="bg-white/[0.02] border border-crimson-500/20 p-3 rounded-md flex flex-col gap-2">
-                <Shield className="h-4 w-4 text-crimson-500" />
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Award</span>
-                <span className="text-xs text-white">Best Implemented Industry Project (Nokia 2025)</span>
-              </div>
-              <div className="bg-white/[0.02] border border-white/5 p-3 rounded-md flex flex-col gap-2">
-                <Code2 className="h-4 w-4 text-emerald-500" />
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Deployed</span>
-                <span className="text-xs text-white">Self-care MERN App</span>
-              </div>
-              <div className="bg-white/[0.02] border border-white/5 p-3 rounded-md flex flex-col gap-2">
-                <User className="h-4 w-4 text-amber-500" />
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Frontend</span>
-                <span className="text-xs text-white">CyberDeck Portfolio OS</span>
-              </div>
-              <div className="bg-white/[0.02] border border-white/5 p-3 rounded-md flex flex-col gap-2">
-                <Navigation className="h-4 w-4 text-blue-500" />
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Academic</span>
-                <span className="text-xs text-white">DishaRakshak (Major Project)</span>
-              </div>
-              <div className="bg-white/[0.02] border border-white/5 p-3 rounded-md flex flex-col gap-2">
-                <BrainCircuit className="h-4 w-4 text-purple-500" />
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Practice</span>
-                <span className="text-xs text-white">Active DSA with Java</span>
-              </div>
-            </div>
-          </CyberCard>
-        </motion.div>
+
 
         {/* 6 & 7. Project Mindset & Working Style */}
         <motion.div variants={itemVariants}>
@@ -199,61 +168,7 @@ export default function About() {
           </DataGrid>
         </motion.div>
 
-        {/* 8. Recruiter Brief & Timeline Preview */}
-        <motion.div variants={itemVariants}>
-          <DataGrid variant="two">
-            <CyberCard 
-              eyebrow="RECRUITER_BRIEF" 
-              title="Quick Navigation" 
-              icon={FileText} 
-              animated
-              className="border-crimson-500/30"
-            >
-              <p className="text-slate-300 leading-relaxed text-sm mb-6">
-                If you're reviewing this portfolio for an internship, start with Archives for projects, Modules for skills, and Service Record for resume highlights.
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                <Link to="/projects" className="w-full">
-                  <CyberButton variant="primary" size="sm" className="w-full justify-center">View Projects</CyberButton>
-                </Link>
-                <Link to="/skills" className="w-full">
-                  <CyberButton variant="secondary" size="sm" className="w-full justify-center">View Skills</CyberButton>
-                </Link>
-                <Link to="/resume" className="w-full">
-                  <CyberButton variant="ghost" size="sm" className="w-full justify-center border border-white/10">View Resume</CyberButton>
-                </Link>
-                <Link to="/contact" className="w-full">
-                  <CyberButton variant="ghost" size="sm" className="w-full justify-center border border-white/10">Contact</CyberButton>
-                </Link>
-              </div>
-            </CyberCard>
 
-            <CyberCard 
-              eyebrow="TIMELINE_PREVIEW" 
-              title="Recent Milestones" 
-              icon={Calendar} 
-              animated
-            >
-              <div className="relative border-l border-crimson-500/30 ml-3 mt-2 space-y-6">
-                <div className="relative pl-6">
-                  <div className="absolute left-[-5px] top-1.5 h-2 w-2 rounded-full bg-crimson-500 shadow-[0_0_8px_rgba(220,20,60,0.8)]" />
-                  <span className="font-mono text-xs text-crimson-400 block mb-1">Now</span>
-                  <p className="text-sm text-white font-medium">Portfolio, DSA, Internship Prep</p>
-                </div>
-                <div className="relative pl-6">
-                  <div className="absolute left-[-4px] top-1.5 h-1.5 w-1.5 rounded-full bg-slate-500" />
-                  <span className="font-mono text-xs text-slate-400 block mb-1">2026</span>
-                  <p className="text-sm text-slate-300">Major project + MERN app + frontend focus</p>
-                </div>
-                <div className="relative pl-6">
-                  <div className="absolute left-[-4px] top-1.5 h-1.5 w-1.5 rounded-full bg-slate-500" />
-                  <span className="font-mono text-xs text-slate-400 block mb-1">2025</span>
-                  <p className="text-sm text-slate-300">Nokia University Day recognition</p>
-                </div>
-              </div>
-            </CyberCard>
-          </DataGrid>
-        </motion.div>
 
       </div>
     </motion.div>

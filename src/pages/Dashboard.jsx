@@ -89,26 +89,17 @@ export default function Dashboard() {
             </CyberCard>
           </motion.div>
 
-          {/* 3. Featured Project Module */}
+          {/* 3. Featured Achievement */}
           <motion.div variants={itemVariants}>
-            {featuredProject && (
-              <CyberCard eyebrow="Main Achievement Module" icon={Shield}>
-                <div className="mb-4">
-                  <h3 className="font-display text-lg font-bold text-white leading-tight">{featuredProject.title}</h3>
-                  <span className="font-mono text-[10px] text-crimson-400 mt-1 block">{featuredProject.highlight}</span>
+            <CyberCard eyebrow="Main Achievement Signal" icon={Shield} className="h-full">
+              <div className="flex flex-col gap-4 h-full">
+                <div className="flex-1">
+                  <h3 className="font-display font-bold text-white leading-tight text-lg mb-2">Best Implemented Industry Project</h3>
+                  <p className="text-sm text-slate-300">Nokia University Day 2025. Awarded for developing a secure RAG-based Generative AI Pipeline.</p>
                 </div>
-                <p className="text-sm text-slate-300 mb-4">{featuredProject.description}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {featuredProject.tech.map(t => (
-                    <StatusChip key={t} label={t} variant="neutral" />
-                  ))}
-                </div>
-                <div className="flex gap-3">
-                  <CyberButton to="/projects" variant="primary" size="sm" icon={FolderGit2}>View Archives</CyberButton>
-                  <CyberButton to="/resume" variant="secondary" size="sm" icon={FileText}>View Resume</CyberButton>
-                </div>
-              </CyberCard>
-            )}
+                <CyberButton to="/projects" variant="primary" size="sm" icon={FolderGit2} className="w-full sm:w-auto justify-center">View Archives</CyberButton>
+              </div>
+            </CyberCard>
           </motion.div>
         </DataGrid>
 
@@ -122,55 +113,7 @@ export default function Dashboard() {
           </DataGrid>
         </motion.div>
 
-        {/* 5. Skill Snapshot */}
-        <motion.div variants={itemVariants} className="flex flex-col gap-3">
-          <div className="flex items-center gap-2 mb-1">
-            <Terminal className="h-4 w-4 text-slate-500" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">Skill Snapshot</span>
-          </div>
-          <DataGrid variant="auto">
-            <CyberCard eyebrow="Frontend" title="React, Tailwind, JS" icon={Globe}>
-              <p className="text-xs text-slate-400">Components, routing, reusable UI, state-driven interfaces, DOM, async logic.</p>
-            </CyberCard>
-            <CyberCard eyebrow="Backend" title="Node, Express, Mongo" icon={Server}>
-              <p className="text-xs text-slate-400">REST APIs, database models, CRUD operations, backend deployment, authentication.</p>
-            </CyberCard>
-            <CyberCard eyebrow="Programming" title="Java, Python" icon={Terminal}>
-              <p className="text-xs text-slate-400">Data Structures & Algorithms, OOP principles, scripting, API integrations.</p>
-            </CyberCard>
-            <CyberCard eyebrow="Security" title="Trivy, Kubernetes" icon={Shield}>
-              <p className="text-xs text-slate-400">Vulnerability scanning, remediation workflows, Docker hardening, RAG LLMs.</p>
-            </CyberCard>
-          </DataGrid>
-        </motion.div>
 
-        {/* 6. Timeline Preview */}
-        <motion.div variants={itemVariants}>
-          <div className="flex items-center gap-2 mb-4 mt-2">
-            <GitBranch className="h-4 w-4 text-slate-500" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">System History Preview</span>
-          </div>
-          <div className="flex flex-col gap-0 mb-4 pl-2">
-            <TimelineCard 
-              date="2026 - Present"
-              title="Frontend + DSA + Internship Preparation"
-              description="Actively building projects and refining fundamental skills."
-              highlight
-            />
-            <TimelineCard 
-              date="2026"
-              title="DishaRakshak & Self-care MERN App"
-              description="Building full-stack and embedded hardware tracking solutions."
-            />
-            <TimelineCard 
-              date="2025"
-              title="Nokia University Day — Winner"
-              description="Best Implemented Industry Project for a GenAI Security Pipeline."
-              className="pb-0"
-            />
-          </div>
-          <CyberButton to="/resume" variant="secondary" size="sm" className="w-full sm:w-auto">View Full Service Record</CyberButton>
-        </motion.div>
 
         {/* 7. Quick Actions */}
         <motion.div variants={itemVariants}>
