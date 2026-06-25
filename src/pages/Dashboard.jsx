@@ -109,7 +109,7 @@ export default function Dashboard() {
             <InfoTile label="Projects Loaded" value="4" description="Verified archives" icon={Database} />
             <InfoTile label="Core Stack" value="React" description="Tailwind UI" icon={Globe} />
             <InfoTile label="Internship" value="Open" description="Seeking opportunities" icon={Zap} trend="up" variant="highlight" />
-            <InfoTile label="Build Version" value="v2.0.4" description="Stable release" icon={Terminal} />
+            <InfoTile label="Build Version" value="v1.0.0" description="Release Candidate" icon={Terminal} />
           </DataGrid>
         </motion.div>
 

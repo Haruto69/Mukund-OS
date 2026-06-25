@@ -17,7 +17,7 @@ export default function TopBar({ children }) {
           <Logo size={20} className="hidden sm:block" />
           <Logo size={16} className="sm:hidden" />
           <span className="font-display text-sm font-bold tracking-widest text-white truncate">MUKUND OS</span>
-          <StatusChip label="v2.0.4" variant="primary" className="ml-1 sm:ml-2 shrink-0" />
+          <StatusChip label="v1.0.0" variant="primary" className="ml-1 sm:ml-2 shrink-0" />
         </div>
       </div>
 

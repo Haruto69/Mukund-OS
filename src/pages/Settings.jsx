@@ -234,7 +234,7 @@ export default function Settings() {
             <div className="flex flex-col gap-4 mt-4">
               <div className="flex justify-between items-center pb-2 border-b border-white/5">
                 <span className="text-xs text-slate-400">Build</span>
-                <StatusChip label="v0.2.0" variant="neutral" />
+                <StatusChip label="v1.0.0" variant="neutral" />
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-white/5">
                 <span className="text-xs text-slate-400">Framework</span>
