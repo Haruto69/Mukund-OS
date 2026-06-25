@@ -65,3 +65,6 @@ A `vercel.json` file is included in the root to handle React Router's SPA dynami
 ## Project Status
 **Version**: `v1.0.0`
 **Status**: Release Candidate — Frontend Portfolio polished for production deployment.
+
+## License
+This project is licensed under the MIT License.
