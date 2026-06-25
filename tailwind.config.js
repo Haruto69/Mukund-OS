@@ -4,31 +4,49 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#08060b",
-        panel: "#0c0810",
-        accent: "#e84545",
-        "accent-dim": "#e84545",
-        cyber: "#3dd8e0",
-        line: "rgba(232, 69, 69, 0.15)",
+        ink: "#050505", // matte black
+        panel: "rgba(10, 10, 12, 0.45)", // slightly more transparent for better glassmorphism
+        crimson: {
+          400: "#ff4d4d",
+          500: "#dc143c", // deep crimson highlight
+          600: "#b30026",
+          900: "#4a0011",
+        },
+        cyber: "#00ffff",
       },
       boxShadow: {
-        glow: "0 0 30px rgba(232, 69, 69, 0.1)",
-        "glow-red": "0 0 40px rgba(232, 69, 69, 0.12)",
-        "glow-cyber": "0 0 30px rgba(61, 216, 224, 0.08)",
+        "glow-crimson": "0 0 15px rgba(220, 20, 60, 0.3)",
+        "glow-crimson-lg": "0 0 35px rgba(220, 20, 60, 0.45)",
+        "glow-crimson-inner": "inset 0 0 20px rgba(220, 20, 60, 0.15)",
+        "panel-inner": "inset 0 1px 1px rgba(255, 255, 255, 0.05), inset 0 0 20px rgba(0, 0, 0, 0.5)",
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "SFMono-Regular", "Consolas", "monospace"],
-        display: ["Orbitron", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Space Grotesk", "Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
+        display: ["Orbitron", "sans-serif"],
       },
       animation: {
         "spin-slow": "spin 25s linear infinite",
-        scanline: "scanline 4s linear infinite",
+        scanline: "scanline 8s linear infinite",
+        "noise": "noise 0.2s infinite",
+        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         scanline: {
           "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(calc(100vh + 100%))" },
+          "100%": { transform: "translateY(100vh)" },
+        },
+        noise: {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "10%": { transform: "translate(-1px, -1px)" },
+          "20%": { transform: "translate(1px, 1px)" },
+          "30%": { transform: "translate(-2px, 1px)" },
+          "40%": { transform: "translate(1px, -2px)" },
+          "50%": { transform: "translate(-1px, 2px)" },
+          "60%": { transform: "translate(2px, -1px)" },
+          "70%": { transform: "translate(1px, 2px)" },
+          "80%": { transform: "translate(-2px, -1px)" },
+          "90%": { transform: "translate(2px, 1px)" },
         },
       },
     },

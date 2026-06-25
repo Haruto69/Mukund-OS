@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: dark;
-  background: #08060b;
+  background: #050505;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,8 +24,9 @@ body {
   min-height: 100vh;
   margin: 0;
   color: #e0dde5;
-  background: #08060b;
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  background: #050505;
+  font-family: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  overflow: hidden; /* Prevent body scroll for the OS feel */
 }
 
 button,
@@ -34,105 +35,59 @@ input {
 }
 
 ::selection {
-  color: #08060b;
-  background: #e84545;
+  color: #050505;
+  background: #dc143c;
 }
 
-/* Scrollbar */
+/* Custom Cyberpunk Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(10, 10, 12, 0.4);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(232, 69, 69, 0.2);
-  border-radius: 3px;
+  background: rgba(220, 20, 60, 0.3);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(232, 69, 69, 0.4);
+  background: rgba(220, 20, 60, 0.6);
 }
 
-/* Focus ring */
-.focus-ring {
-  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#08060b];
+/* Background Utility Classes */
+.bg-grid-cyber {
+  background-image: 
+    linear-gradient(rgba(220, 20, 60, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 20, 60, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
-/* Blinking cursor */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
 }
 
-.animate-blink {
-  animation: blink 1s step-end infinite;
+.vignette {
+  background: radial-gradient(circle at center, transparent 30%, rgba(5, 5, 5, 0.8) 100%);
 }
 
-/* Background orb floats */
-@keyframes orb-float-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(50px, -30px) scale(1.04); }
-  66% { transform: translate(-25px, 25px) scale(0.96); }
-}
+@layer utilities {
+  .cyber-panel {
+    @apply bg-panel backdrop-blur-xl border border-crimson-500/20 rounded-xl shadow-panel-inner transition-colors duration-300;
+  }
+  
+  .cyber-panel-hover {
+    @apply hover:border-crimson-500/40 hover:bg-crimson-500/5 hover:shadow-glow-crimson;
+  }
 
-@keyframes orb-float-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-40px, 20px) scale(1.06); }
-  66% { transform: translate(30px, -15px) scale(0.94); }
-}
+  .cyber-glow-text {
+    @apply text-crimson-400 drop-shadow-[0_0_8px_rgba(220,20,60,0.8)];
+  }
 
-.animate-orb-1 {
-  animation: orb-float-1 22s ease-in-out infinite;
-}
-
-.animate-orb-2 {
-  animation: orb-float-2 28s ease-in-out infinite;
-}
-
-/* Scanline sweep */
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(calc(100vh + 100%)); }
-}
-
-.animate-scanline {
-  animation: scanline 4s linear infinite;
-}
-
-/* Red pulse glow */
-@keyframes pulse-red {
-  0%, 100% { box-shadow: 0 0 8px rgba(232, 69, 69, 0.3); }
-  50% { box-shadow: 0 0 16px rgba(232, 69, 69, 0.5); }
-}
-
-.animate-pulse-red {
-  animation: pulse-red 2s ease-in-out infinite;
-}
-
-/* Corner decoration utility */
-.corner-brackets {
-  position: relative;
-}
-.corner-brackets::before,
-.corner-brackets::after {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-color: rgba(232, 69, 69, 0.25);
-  border-style: solid;
-  pointer-events: none;
-}
-.corner-brackets::before {
-  top: -1px;
-  left: -1px;
-  border-width: 2px 0 0 2px;
-}
-.corner-brackets::after {
-  bottom: -1px;
-  right: -1px;
-  border-width: 0 2px 2px 0;
+  .cyber-border-glow {
+    @apply border-crimson-500/50 shadow-glow-crimson;
+  }
 }

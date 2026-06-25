@@ -2,21 +2,25 @@ export const timeline = [
   {
     year: "2025",
     title: "Nokia University Day",
-    detail: "Best Implemented Industry Project for the NBUC Generative AI Security Pipeline.",
+    description: "Won 'Best Implemented Industry Project' for the Nokia NBUC Generative AI Security Pipeline.",
+    type: "Award"
   },
   {
     year: "2026",
-    title: "DishaRakshak Major Project",
-    detail: "Built a GPS-less navigation concept with embedded modules and dashboard visualization.",
+    title: "DishaRakshak Project",
+    description: "Developing a GPS-less navigation system for soldiers using IMUs and dead reckoning.",
+    type: "Academic"
   },
   {
     year: "2026",
     title: "Self-care MERN App",
-    detail: "Built, deployed, and debugged a practical full-stack application.",
+    description: "Built and deployed a full-stack personal tracking application.",
+    type: "Personal"
   },
   {
-    year: "Now",
-    title: "Frontend + DSA + Internship preparation",
-    detail: "Focused on React, interface polish, production deployment, and DSA with Java.",
-  },
+    year: "Present",
+    title: "Internship Preparation",
+    description: "Transitioning to frontend/full-stack roles, focusing on React and Java DSA.",
+    type: "Career"
+  }
 ];

@@ -1,52 +1,61 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Icon } from "../components/Icon";
+import { User, GraduationCap } from "lucide-react";
+import { SectionHeader, CyberCard, DataGrid } from "../components/ui";
+import { profile } from "../data/profile";
 
 export default function About() {
-  const focusAreas = [
-    { label: "Frontend development", icon: "Monitor" },
-    { label: "Full-stack projects", icon: "Layers3" },
-    { label: "Cybersecurity foundations", icon: "ShieldCheck" },
-    { label: "DSA with Java", icon: "Code2" },
-  ];
-
   return (
-    <div className="space-y-5">
-      {/* Header */}
-      <div className="flex items-center gap-2 border-b border-red-500/[0.06] pb-3">
-        <span className="font-mono text-[9px] uppercase tracking-wider text-red-400/50">
-          System Dossier
-        </span>
-      </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="flex h-full w-full flex-col p-4 overflow-y-auto no-scrollbar"
+    >
+      <SectionHeader 
+        title="USER_DOSSIER" 
+        icon={User} 
+        eyebrow="Identity"
+      />
+      
+      <div className="pb-28 sm:pb-24">
+        <DataGrid variant="two">
+          <CyberCard 
+            eyebrow="Primary Designation" 
+            title={profile.name} 
+            icon={User} 
+            animated
+          >
+            <p className="font-mono text-sm text-crimson-400 mb-4">{profile.role}</p>
+            <p className="text-slate-300 leading-relaxed text-sm">
+              {profile.summary}
+            </p>
+          </CyberCard>
 
-      <section className="rounded-lg border border-red-500/10 bg-[#0c0810]/40 p-4">
-        <p className="text-sm leading-7 text-slate-300">
-          I&apos;m Mukund V, a Computer Science and Engineering student
-          specializing in Cyber Security. I&apos;m currently transitioning into
-          frontend and full-stack development by building practical, deployed
-          projects.
-        </p>
-      </section>
-
-      <div>
-        <h3 className="mb-3 font-mono text-[10px] uppercase tracking-wider text-slate-500">
-          Focus Areas
-        </h3>
-        <div className="grid gap-2 sm:grid-cols-2">
-          {focusAreas.map((area) => (
-            <div
-              key={area.label}
-              className="flex items-center gap-2.5 rounded-lg border border-white/[0.04] bg-white/[0.02] px-3 py-2.5 transition hover:border-red-500/15 hover:bg-red-500/[0.03]"
-            >
-              <Icon
-                name={area.icon}
-                className="h-3.5 w-3.5 text-red-400/50"
-              />
-              <span className="text-xs text-slate-300">{area.label}</span>
+          <CyberCard 
+            eyebrow="Background" 
+            title="Education & Affiliation" 
+            icon={GraduationCap} 
+            animated
+          >
+            <div className="space-y-4 mt-2">
+              <div>
+                <span className="block text-[10px] uppercase font-mono text-slate-500 mb-1">Degree</span>
+                <span className="text-white text-sm">{profile.background}</span>
+              </div>
+              <div>
+                <span className="block text-[10px] uppercase font-mono text-slate-500 mb-1">Institution</span>
+                <span className="text-white text-sm">{profile.college}</span>
+              </div>
+              <div>
+                <span className="block text-[10px] uppercase font-mono text-slate-500 mb-1">Status</span>
+                <span className="text-crimson-400 text-sm font-mono">{profile.status}</span>
+              </div>
             </div>
-          ))}
-        </div>
+          </CyberCard>
+        </DataGrid>
       </div>
-    </div>
+    </motion.div>
   );
 }
