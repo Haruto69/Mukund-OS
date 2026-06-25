@@ -57,7 +57,7 @@ export function Modal({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className={`relative flex w-full flex-col overflow-hidden rounded-xl border border-primary-500/30 bg-[#0c0810] shadow-[0_0_40px_rgba(220,20,60,0.15)] ${sizes[size]} ${className} max-h-full sm:max-h-[calc(100vh-6rem)]`}
+            className={`relative flex w-full flex-col overflow-hidden rounded-xl border border-primary-500/30 bg-[#0c0810] shadow-glow-primary-lg ${sizes[size]} ${className} max-h-full sm:max-h-[calc(100vh-6rem)]`}
           >
             {/* Header */}
             <div className="flex shrink-0 items-center justify-between border-b border-primary-500/20 bg-white/[0.02] px-6 py-4">
@@ -79,7 +79,7 @@ export function Modal({
             </div>
             
             {/* Optional Decorative Border Glow */}
-            <div className="pointer-events-none absolute inset-0 rounded-xl shadow-[inset_0_0_20px_rgba(220,20,60,0.05)]" />
+            <div className="pointer-events-none absolute inset-0 rounded-xl shadow-glow-primary-inner opacity-50" />
           </motion.div>
         </div>
       )}
