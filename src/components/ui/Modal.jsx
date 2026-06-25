@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -10,6 +11,12 @@ export function Modal({
   size = "md",
   className = "",
 }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Close on Escape key
   useEffect(() => {
     const handleEscape = (e) => {
@@ -32,10 +39,10 @@ export function Modal({
     xl: "max-w-6xl",
   };
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pt-16 pb-24 sm:p-6 sm:pt-6 sm:pb-6">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -50,10 +57,10 @@ export function Modal({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className={`relative flex max-h-[90vh] w-full flex-col overflow-hidden rounded-xl border border-crimson-500/30 bg-[#0c0810] shadow-[0_0_40px_rgba(220,20,60,0.15)] ${sizes[size]} ${className}`}
+            className={`relative flex w-full flex-col overflow-hidden rounded-xl border border-crimson-500/30 bg-[#0c0810] shadow-[0_0_40px_rgba(220,20,60,0.15)] ${sizes[size]} ${className} max-h-full sm:max-h-[calc(100vh-6rem)]`}
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-crimson-500/20 bg-white/[0.02] px-6 py-4">
+            <div className="flex shrink-0 items-center justify-between border-b border-crimson-500/20 bg-white/[0.02] px-6 py-4">
               <h2 className="font-display text-lg font-bold tracking-wider text-white">
                 {title}
               </h2>
@@ -67,7 +74,7 @@ export function Modal({
             </div>
 
             {/* Content */}
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className="flex-1 overflow-y-auto p-6 pb-8">
               {children}
             </div>
             
@@ -78,4 +85,8 @@ export function Modal({
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+
+  return createPortal(modalContent, document.body);
 }
