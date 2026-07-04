@@ -20,6 +20,7 @@ const COMMANDS = [
   { id: "proj-disha", category: "Projects", title: "Open DishaRakshak Archive", route: "/projects", icon: FolderGit2 },
   { id: "proj-mern", category: "Projects", title: "Open Self-care MERN App Archive", route: "/projects", icon: FolderGit2 },
   { id: "proj-cyber", category: "Projects", title: "Open CyberDeck Portfolio OS Archive", route: "/projects", icon: FolderGit2 },
+  { id: "proj-repo", category: "Projects", title: "Open RepoScope Archive", route: "/projects", icon: FolderGit2 },
   
   // Interface
   { id: "theme-purple", category: "Interface", title: "Set Theme: Shadow Purple", action: "theme", value: "shadow-purple", icon: Zap },

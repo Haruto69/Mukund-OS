@@ -71,7 +71,7 @@ export default function Projects() {
         {/* 1. Summary Stats */}
         <motion.div variants={itemVariants}>
           <DataGrid variant="four">
-            <InfoTile label="Total Projects" value="4" description="Verified archives" icon={LayoutGrid} />
+            <InfoTile label="Total Projects" value={projects.length.toString()} description="Verified archives" icon={LayoutGrid} />
             <InfoTile label="Completed" value="2" description="Deployed/Finished" icon={CheckCircle} />
             <InfoTile label="In Progress" value="2" description="Active development" icon={Clock} />
             <InfoTile label="Featured" value="Nokia NBUC" description="Industry Award" icon={Shield} variant="highlight" />
@@ -106,15 +106,26 @@ export default function Projects() {
                 <CyberButton variant="primary" size="sm" onClick={() => setSelectedProject(featuredProject)}>
                   View Details
                 </CyberButton>
-                <CyberButton 
-                  variant="secondary" 
-                  size="sm" 
-                  icon={Github} 
-                  href={featuredProject.links.github !== "#" ? featuredProject.links.github : undefined}
-                  disabled={featuredProject.links.github === "#"}
-                >
-                  {featuredProject.links.github === "#" ? "Source (Restricted)" : "Source"}
-                </CyberButton>
+                {featuredProject.links.showSource && (
+                  <CyberButton 
+                    variant="secondary" 
+                    size="sm" 
+                    icon={Github} 
+                    href={featuredProject.links.github}
+                  >
+                    Source
+                  </CyberButton>
+                )}
+                {featuredProject.links.showLive && (
+                  <CyberButton 
+                    variant="primary" 
+                    size="sm" 
+                    icon={ExternalLink} 
+                    href={featuredProject.links.live}
+                  >
+                    View App
+                  </CyberButton>
+                )}
               </div>
             </CyberCard>
           </motion.div>
@@ -256,20 +267,15 @@ export default function Projects() {
             </div>
 
             <div className="flex gap-3 pt-6 border-t border-white/10 mt-2">
-              {selectedProject.links.github !== "#" && (
+              {selectedProject.links.showSource && (
                 <CyberButton href={selectedProject.links.github} variant="secondary" icon={Github}>
-                  View Source Code
+                  Source
                 </CyberButton>
               )}
-              {selectedProject.links.live && selectedProject.links.live !== "#" && (
+              {selectedProject.links.showLive && (
                 <CyberButton href={selectedProject.links.live} variant="primary" icon={ExternalLink}>
-                  View Live Deployment
+                  View App
                 </CyberButton>
-              )}
-              {selectedProject.links.github === "#" && (
-                <p className="font-mono text-xs text-slate-500 py-2 border border-dashed border-white/10 px-4 rounded w-full text-center">
-                  [ SOURCE REPOSITORY RESTRICTED OR CURRENTLY UNAVAILABLE ]
-                </p>
               )}
             </div>
           </div>

@@ -27,7 +27,7 @@ export const projects = [
       "Security automation",
       "How to present a technical project to industry judges"
     ],
-    links: { github: "#", live: "#" }
+    links: { showLive: false, showSource: false, github: "https://github.com/Nithya-shree182/Nokia-proj-internal" }
   },
   {
     id: "disharakshak",
@@ -58,7 +58,7 @@ export const projects = [
       "Dashboard visualization",
       "Academic project planning and documentation"
     ],
-    links: { github: "#", live: "#" }
+    links: { showLive: false, showSource: false }
   },
   {
     id: "self-care",
@@ -92,7 +92,7 @@ export const projects = [
       "Debugging production issues",
       "Git/versioning/release workflow"
     ],
-    links: { github: "#", live: "#" }
+    links: { showLive: true, showSource: true, live: "https://solo-leveling-peak.vercel.app/", github: "https://github.com/Haruto69/Self-care" }
   },
   {
     id: "cyberdeck-os",
@@ -127,6 +127,38 @@ export const projects = [
       "Design system thinking",
       "AI-assisted development workflow"
     ],
-    links: { github: "#", live: "#" }
+    links: { showLive: false, showSource: true, github: "https://github.com/Haruto69/Mukund-OS" }
+  },
+  {
+    id: "reposcope",
+    title: "RepoScope",
+    type: "Frontend / Developer Analytics",
+    status: "Deployed",
+    highlight: "Built as an internship-focused frontend project with GitHub API integration, developer comparison flows, deployed frontend, and backend AI summary support.",
+    description: "A GitHub developer analytics dashboard that turns public repository and profile data into clean visual insights, comparisons, and AI-assisted summaries.",
+    tech: ["React", "Vite", "Tailwind CSS", "GitHub API", "Framer Motion", "Vercel", "Render", "AI summary backend"],
+    problem: "Developers need a faster way to understand GitHub activity, repository quality signals, and compare public profiles without manually opening many repositories.",
+    role: "Designed and built the frontend experience, dashboard structure, project comparison flow, and deployment workflow.",
+    keyFeatures: [
+      "GitHub profile and repository lookup",
+      "Developer analytics dashboard",
+      "Repository signal summaries",
+      "Developer comparison page",
+      "AI-powered comparison summary",
+      "Responsive deployed interface"
+    ],
+    challenges: [
+      "Structuring GitHub API data into useful UI sections",
+      "Keeping comparison output neutral and practical",
+      "Handling deployed frontend/backend integration",
+      "Avoiding redundant or misleading developer rankings"
+    ],
+    learned: [
+      "Better React data flow and component structure",
+      "API-driven UI design",
+      "Deployment coordination between Vercel and Render",
+      "Building project features that are explainable in interviews"
+    ],
+    links: { showLive: true, showSource: true, live: "https://reposcope-alpha.vercel.app/", github: "https://github.com/Haruto69/reposcope" }
   }
 ];
