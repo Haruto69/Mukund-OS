@@ -1,6 +1,9 @@
 import React from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
+import { MotionProvider } from "./motion/MotionProvider";
+import { SceneNavigationProvider } from "./motion/SceneNavigationProvider";
 import Navbar from "./components/navigation/Navbar";
+import GlassField from "./components/effects/GlassField";
 import HeroSection from "./sections/HeroSection";
 import FeaturedProjectsSection from "./sections/FeaturedProjectsSection";
 import AboutSection from "./sections/AboutSection";
@@ -18,20 +21,25 @@ import { profile } from "./data/profile";
 export default function App() {
   return (
     <ThemeProvider>
-      <Navbar />
-      <main>
-        <HeroSection />
-        <FeaturedProjectsSection />
-        <AboutSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <MoreProjectsSection />
-        <ResumeSection />
-        <ContactSection />
-      </main>
-      <footer className="border-t border-[var(--border)] px-4 py-8 text-center text-sm text-[var(--text-muted)] sm:px-6">
-        © {new Date().getFullYear()} {profile.name}
-      </footer>
+      <MotionProvider>
+        <SceneNavigationProvider>
+          <GlassField />
+          <Navbar />
+          <main>
+            <HeroSection />
+            <FeaturedProjectsSection />
+            <AboutSection />
+            <SkillsSection />
+            <ExperienceSection />
+            <MoreProjectsSection />
+            <ResumeSection />
+            <ContactSection />
+          </main>
+          <footer className="relative border-t border-[var(--border)] px-4 py-8 text-center text-sm text-[var(--text-muted)] sm:px-6" style={{ zIndex: "var(--z-content)" }}>
+            © {new Date().getFullYear()} {profile.name}
+          </footer>
+        </SceneNavigationProvider>
+      </MotionProvider>
     </ThemeProvider>
   );
 }

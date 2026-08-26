@@ -1,5 +1,6 @@
 import React from "react";
 import Section from "./Section";
+import Reveal from "../components/motion/Reveal";
 import { profile } from "../data/profile";
 
 export default function AboutSection() {
@@ -7,9 +8,9 @@ export default function AboutSection() {
     <Section id="about" eyebrow="Who I am" title="About">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-5">
-          <p className="text-lg leading-relaxed text-[var(--text)]">
+          <Reveal as="p" className="text-lg leading-relaxed text-[var(--text)]">
             {profile.whyFrontend}
-          </p>
+          </Reveal>
           <p className="leading-relaxed text-[var(--text-muted)]">
             {profile.currentDirection.text}
           </p>

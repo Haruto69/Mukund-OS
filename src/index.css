@@ -36,10 +36,31 @@
     --nav-bg: rgba(11, 11, 13, 0.72);
     --selection-bg: rgba(255, 42, 58, 0.28);
   }
+
+  :root {
+    /* Consistent layering system — avoid arbitrary giant z-index values.
+       base(0) < glass(10) < content(20) < navbar(50) < future overlay(100) */
+    --z-base: 0;
+    --z-glass: 10;
+    --z-content: 20;
+    --z-navbar: 50;
+    --z-overlay: 100;
+  }
 }
 
 html {
   scroll-behavior: smooth;
+  /* Horizontal-overflow guard lives on the root element, not <body>.
+     Setting `overflow-x` on an element forces the browser to compute
+     its `overflow-y` as `auto` (CSS Overflow spec pairing rule) --
+     on <body> that silently turns body into its OWN independent
+     scroll container, decoupled from `window`/`document.documentElement`.
+     That broke every scroll-based feature at once: window.scrollY stayed
+     stuck at 0, scrollIntoView-based navigation did nothing, and native
+     scroll-snap on <html> had no effect. Root (`html`) doesn't have this
+     problem -- its overflow still propagates to the viewport per spec,
+     so window scroll keeps working normally. */
+  overflow-x: hidden;
 }
 
 body {
@@ -49,7 +70,6 @@ body {
   color: var(--text);
   background: var(--bg);
   font-family: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
-  overflow-x: hidden; /* normal vertical scroll; no horizontal overflow */
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -85,9 +105,32 @@ textarea {
   border-radius: 6px;
 }
 
+/* ------------------------------------------------------------------ */
+/* Mixed scroll snapping — Hero and Featured Projects softly snap;      */
+/* everything else scrolls normally. Native CSS only, proximity (not    */
+/* mandatory) so it never fights or hijacks the wheel/touch gesture.    */
+/* Disabled on small screens and under reduced motion.                  */
+/* ------------------------------------------------------------------ */
+@media (min-width: 768px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+}
+
+#home,
+#featured-projects {
+  scroll-snap-align: start;
+}
+
+main {
+  position: relative;
+  z-index: var(--z-content);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-snap-type: none;
   }
   *,
   ::before,
