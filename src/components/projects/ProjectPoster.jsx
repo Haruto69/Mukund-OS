@@ -5,9 +5,11 @@ import { getPoster } from "./posterConfig";
  * The poster SLOT for a featured project card.
  *
  * Two mutually exclusive renders:
- *   1. A real poster image, once `posterConfig` supplies a path (later pass).
+ *   1. A real production poster image (see posterConfig.js) — the dominant
+ *      visual for the three featured projects.
  *   2. A generated, theme-token-derived placeholder treatment — project
- *      gradient + abstract geometry + the project's own initials/category.
+ *      gradient + abstract geometry + the project's own initials/category —
+ *      still used for any project without a poster asset.
  *
  * No stock photography, no screenshots, no generated imagery of people. The
  * placeholder is deliberately abstract so it reads as "art pending", and is
@@ -17,14 +19,32 @@ export default function ProjectPoster({ project, index = 0, className = "" }) {
   const poster = useMemo(() => getPoster(project, index), [project, index]);
 
   if (poster.image) {
+    // The poster fills the whole card visual: object-cover preserves aspect
+    // ratio (no stretch/distortion), object-position keeps each poster's
+    // central focal area when the card crops it. The image is used mostly
+    // as-provided — no grayscale / hue / blur / opacity processing; theme
+    // integration comes from the surrounding card chrome, accents and glass.
     return (
-      <img
-        src={poster.image}
-        alt={poster.alt}
-        loading={index === 0 ? "eager" : "lazy"}
-        decoding="async"
-        className={`h-full w-full object-cover ${className}`}
-      />
+      <div className={`relative h-full w-full overflow-hidden ${className}`}>
+        <img
+          src={poster.image}
+          alt={poster.alt}
+          loading={index === 0 ? "eager" : "lazy"}
+          decoding="async"
+          className="h-full w-full object-cover"
+          style={{ objectPosition: poster.objectPosition }}
+        />
+        {/* Restrained bottom blend so the poster meets the footer bar without
+            a hard seam. Mostly transparent — the poster stays dominant. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4"
+          style={{
+            background:
+              "linear-gradient(to top, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 100%)",
+          }}
+        />
+      </div>
     );
   }
 

@@ -22,20 +22,42 @@ const ACCENT_CYCLE = [
 
 /**
  * Per-project overrides, keyed to the currently featured project IDs.
- * `image: null` = generated placeholder treatment (final poster art is a
- * later asset pass). Optional `label` / `tagline` are passive semantic hints
- * reserved for the future poster art + case study — they are NOT rendered on
- * the collapsed carousel card, which stays minimal by design.
+ *
+ * `image` is a production poster served from /public. When present, the real
+ * poster renders; when null, ProjectPoster falls back to the generated
+ * treatment (still used for any non-featured project).
+ *
+ * `alt` is intentionally empty: the poster is a supporting visual and the
+ * project title/type already exist as real DOM text in the card footer, so
+ * duplicating them for screen readers would be noise (decorative image).
+ *
+ * `objectPosition` tunes the cover-crop focal point per poster (CSS
+ * object-position). Center preserves each poster's central core/focus while
+ * cropping symmetrically — correct for the wide desktop card and the tall
+ * mobile card alike.
+ *
+ * `label` / `tagline` are passive semantic hints reserved for the future
+ * poster art variations + case study — they are NOT rendered on the collapsed
+ * carousel card, which stays minimal by design.
  */
 export const projectPosters = {
-  "nbuc-pipeline": { image: null, alt: "" },
-  vulnverify: {
-    image: null,
+  "nbuc-pipeline": {
+    image: "/assets/projects/featured/nokia-poster.png",
     alt: "",
+    objectPosition: "center",
+  },
+  vulnverify: {
+    image: "/assets/projects/featured/vulnverify-poster.png",
+    alt: "",
+    objectPosition: "center",
     label: "VERIFY THE SIGNAL",
     tagline: "ZAP + BURP → VERIFY → PRIORITIZE",
   },
-  "self-care": { image: null, alt: "" },
+  "self-care": {
+    image: "/assets/projects/featured/self-care-poster.png",
+    alt: "",
+    objectPosition: "center",
+  },
 };
 
 /** Initials are derived from the real title — nothing is invented here. */
@@ -59,9 +81,10 @@ export function getPoster(project, index = 0) {
   const accents = ACCENT_CYCLE[index % ACCENT_CYCLE.length];
   return {
     image: override.image ?? null,
-    // Decorative-only while the poster is generated; a real asset supplies
-    // meaningful alt text via `projectPosters[id].alt`.
+    // Decorative by design: the card footer carries the title/type as real
+    // DOM text, so the poster image uses empty alt.
     alt: override.alt ?? "",
+    objectPosition: override.objectPosition ?? "center",
     initials: override.initials ?? initialsFromTitle(project.title),
     ...accents,
   };
