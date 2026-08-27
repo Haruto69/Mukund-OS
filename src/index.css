@@ -8,39 +8,104 @@
 /*   Components read these via var(--token); no hardcoded palette.     */
 /* ------------------------------------------------------------------ */
 @layer base {
+  /* ----------------------------------------------------------------- */
+  /* Peter / light — golden-hour New York.                              */
+  /* Semantic token system: components read var(--token) only; no       */
+  /* literal hex values scattered through JSX.                          */
+  /* ----------------------------------------------------------------- */
   :root,
   [data-theme="peter"] {
+    /* Surfaces */
     --bg: #f7f4ef; /* warm off-white / pale neutral */
+    --bg-deep: #ece4d6; /* deeper warm neutral (section depth) */
     --bg-elevated: #ffffff;
     --surface: #ffffff;
+    --surface-soft: #faf6ef;
+
+    /* Type */
     --text: #1c1b1f; /* dark charcoal */
     --text-muted: #565561;
-    --red: #e01b24; /* Spider-Man vivid red */
-    --blue: #1f4fe0; /* strong royal / electric blue */
-    --accent: #f5a623; /* warm golden-hour accent */
+
+    /* Accents — canonical names + short back-compat aliases */
+    --accent-red: #e01b24; /* Spider-Man vivid red */
+    --accent-blue: #1f4fe0; /* strong royal / electric blue */
+    --accent-warm: #f5a623; /* warm golden-hour accent */
+    --red: var(--accent-red);
+    --blue: var(--accent-blue);
+    --accent: var(--accent-warm);
+
+    /* City scene — golden hour skyline */
+    --city-sky: #f4c98d; /* warm hazy sky base */
+    --city-sky-high: #a9c3e8; /* cooler upper atmosphere */
+    --city-glow: #ffe0ad; /* sun bloom */
+    --city-haze: rgba(255, 214, 158, 0.55);
+    --city-shadow: #b0876a; /* warm backlit building silhouette */
+    --city-shadow-deep: #8a6650; /* nearest, darkest buildings */
+    --city-window: rgba(255, 236, 196, 0.9); /* lit windows */
+
+    /* Glass */
+    --glass-highlight: rgba(255, 255, 255, 0.72);
+    --glass-edge: rgba(28, 27, 31, 0.14);
+
+    /* Comic treatment */
+    --comic-ink: #1c1b1f;
+    --halftone-opacity: 0.055;
+
+    /* Chrome */
     --border: #e4ddd2;
     --nav-bg: rgba(247, 244, 239, 0.75);
+    --nav-border: #e4ddd2;
     --selection-bg: rgba(224, 27, 36, 0.18);
   }
 
+  /* ----------------------------------------------------------------- */
+  /* Miles / dark — rainy neon New York at night.                       */
+  /* ----------------------------------------------------------------- */
   [data-theme="miles"] {
     --bg: #0b0b0d; /* near-black / graphite */
+    --bg-deep: #060608;
     --bg-elevated: #16151a;
-    --surface: #1a1418; /* deeper crimson-tinted surface */
-    --text: #f2efe9; /* off-white */
+    --surface: #16151a;
+    --surface-soft: #1a1418; /* deeper crimson-tinted surface */
+
+    --text: #f2efe9; /* cool off-white */
     --text-muted: #a09ba6;
-    --red: #ff2a3a; /* vivid red */
-    --blue: #4f7dff; /* restrained electric blue */
-    --accent: #ffb454;
+
+    --accent-red: #ff2a3a; /* vivid crimson */
+    --accent-blue: #4f7dff; /* restrained electric blue */
+    --accent-warm: #ffb454;
+    --red: var(--accent-red);
+    --blue: var(--accent-blue);
+    --accent: var(--accent-warm);
+
+    /* City scene — rainy neon night skyline */
+    --city-sky: #0c1224; /* deep blue-black sky */
+    --city-sky-high: #05070f; /* darkest crown of the sky */
+    --city-glow: #47101c; /* low crimson neon glow on the horizon */
+    --city-haze: rgba(60, 22, 44, 0.5);
+    --city-shadow: #090a12; /* near-black buildings */
+    --city-shadow-deep: #04040a; /* nearest, darkest buildings */
+    --city-window: rgba(255, 90, 96, 0.65); /* red neon windows */
+
+    --glass-highlight: rgba(120, 160, 255, 0.22);
+    --glass-edge: rgba(242, 239, 233, 0.16);
+
+    --comic-ink: #000000;
+    --halftone-opacity: 0.1;
+
     --border: #2a2730;
     --nav-bg: rgba(11, 11, 13, 0.72);
+    --nav-border: #2a2730;
     --selection-bg: rgba(255, 42, 58, 0.28);
   }
 
   :root {
     /* Consistent layering system — avoid arbitrary giant z-index values.
-       base(0) < glass(10) < content(20) < navbar(50) < future overlay(100) */
+       city(0) < decor(5) < glass(10) < content(20) < navbar(50) <
+       transition overlay(100) */
     --z-base: 0;
+    --z-city: 0;
+    --z-decor: 5;
     --z-glass: 10;
     --z-content: 20;
     --z-navbar: 50;
@@ -127,6 +192,145 @@ main {
   z-index: var(--z-content);
 }
 
+/* ------------------------------------------------------------------ */
+/* Glitch primitive — reusable MV chromatic-slice burst.               */
+/* Driven by the .glitch-burst class being toggled on a wrapper that    */
+/* has ::before/::after chromatic clones (see MVGlitch). Bursts are     */
+/* short and event-driven; the resting state is perfectly crisp.        */
+/* ------------------------------------------------------------------ */
+@keyframes glitch-shift-red {
+  0% { transform: translate(0, 0); opacity: 0; }
+  15% { transform: translate(-3px, 1px); opacity: 0.9; }
+  30% { transform: translate(2px, -2px); opacity: 0.7; }
+  45% { transform: translate(-2px, 0); opacity: 0.85; }
+  60% { transform: translate(3px, 1px); opacity: 0.6; }
+  100% { transform: translate(0, 0); opacity: 0; }
+}
+@keyframes glitch-shift-cyan {
+  0% { transform: translate(0, 0); opacity: 0; }
+  15% { transform: translate(3px, -1px); opacity: 0.85; }
+  30% { transform: translate(-2px, 2px); opacity: 0.6; }
+  45% { transform: translate(2px, 0); opacity: 0.8; }
+  60% { transform: translate(-3px, -1px); opacity: 0.55; }
+  100% { transform: translate(0, 0); opacity: 0; }
+}
+/* Horizontal slice displacement of the core mark during a burst. */
+@keyframes glitch-slice {
+  0% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+  20% { clip-path: inset(20% 0 55% 0); transform: translateX(-2px); }
+  40% { clip-path: inset(60% 0 12% 0); transform: translateX(2px); }
+  60% { clip-path: inset(35% 0 40% 0); transform: translateX(-1px); }
+  80% { clip-path: inset(8% 0 78% 0); transform: translateX(1px); }
+  100% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+}
+
+/* Wrapper marks itself as a glitch host; the chromatic clones are drawn
+   from a data-driven content copy in ::before / ::after. */
+.glitch-host {
+  position: relative;
+  display: inline-flex;
+}
+.glitch-host > .glitch-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity, clip-path;
+}
+/* Active burst — each layer runs once. Durations sit in the 150–350ms
+   band requested for restrained, cinematic bursts. */
+.glitch-burst .glitch-layer--red {
+  animation: glitch-shift-red 260ms steps(2, end) 1 both;
+  mix-blend-mode: screen;
+}
+.glitch-burst .glitch-layer--cyan {
+  animation: glitch-shift-cyan 300ms steps(2, end) 1 both;
+  mix-blend-mode: screen;
+}
+.glitch-burst .glitch-layer--slice {
+  animation: glitch-slice 220ms steps(3, end) 1 both;
+  opacity: 1;
+}
+/* A stronger burst (hover / theme change) — larger displacement + longer. */
+.glitch-burst--strong .glitch-layer--red {
+  animation-duration: 340ms;
+  animation-timing-function: steps(3, end);
+}
+.glitch-burst--strong .glitch-layer--cyan {
+  animation-duration: 360ms;
+  animation-timing-function: steps(3, end);
+}
+
+/* ------------------------------------------------------------------ */
+/* Comic-book decorative utilities — halftone dots, ink grain, panel    */
+/* lines. Restrained by design; density controlled per-theme by         */
+/* --halftone-opacity so text stays readable.                           */
+/* ------------------------------------------------------------------ */
+.comic-halftone {
+  background-image: radial-gradient(
+    var(--comic-ink) 1px,
+    transparent 1.4px
+  );
+  background-size: 7px 7px;
+  opacity: var(--halftone-opacity);
+}
+.comic-grain {
+  background-image: radial-gradient(
+      var(--comic-ink) 0.5px,
+      transparent 0.6px
+    ),
+    radial-gradient(var(--comic-ink) 0.5px, transparent 0.6px);
+  background-size: 3px 3px, 5px 5px;
+  background-position: 0 0, 2px 3px;
+  opacity: calc(var(--halftone-opacity) * 0.7);
+}
+
+/* Reveal utility for the transition overlay wipe (transform-based). */
+@keyframes overlay-scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* ------------------------------------------------------------------ */
+/* Miles rainy-night rain streaks — two parallax sheets of thin        */
+/* diagonal streaks drifting down. Only mounted in Miles + no reduced  */
+/* motion (see CityScene), but the keyframes also self-disable below.  */
+/* ------------------------------------------------------------------ */
+@keyframes city-rain-fall {
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 140px 900px, -90px 900px; }
+}
+.city-rain {
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    repeating-linear-gradient(102deg,
+      rgba(180, 210, 255, 0) 0 6px,
+      rgba(180, 210, 255, 0.22) 6px 7px,
+      rgba(180, 210, 255, 0) 7px 13px),
+    repeating-linear-gradient(99deg,
+      rgba(120, 160, 255, 0) 0 10px,
+      rgba(120, 160, 255, 0.14) 10px 11px,
+      rgba(120, 160, 255, 0) 11px 22px);
+  background-size: 200px 900px, 260px 900px;
+  animation: city-rain-fall 0.9s linear infinite;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared section cohesion — a thin red→blue identity divider utility   */
+/* for section edges, and a stronger heading accent, so scrolling stays */
+/* visually of-a-piece with the Hero rather than dropping to plain.     */
+/* ------------------------------------------------------------------ */
+.mv-divider {
+  height: 2px;
+  border: 0;
+  background: linear-gradient(90deg,
+    transparent, var(--accent-red) 20%, var(--accent-blue) 80%, transparent);
+  opacity: 0.5;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -139,5 +343,11 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  /* Belt-and-braces: never run decorative glitch layers under reduced
+     motion, even if a burst class is toggled on. */
+  .glitch-layer {
+    animation: none !important;
+    opacity: 0 !important;
   }
 }

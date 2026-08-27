@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3840 2160" width="3840" height="2160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <title>Peter theme atmosphere (golden hour)</title>
+  <defs>
+    <linearGradient id="p-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a9c3e8"/>
+      <stop offset="52%" stop-color="#f4c98d"/>
+      <stop offset="100%" stop-color="#ffe0ad"/>
+    </linearGradient>
+    <radialGradient id="p-sun" cx="72%" cy="94%" r="60%">
+      <stop offset="0%" stop-color="#fff4d6" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#ffcf87" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ffcf87" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="3840" height="2160" fill="url(#p-sky)"/>
+  <rect width="3840" height="2160" fill="url(#p-sun)"/>
+</svg>

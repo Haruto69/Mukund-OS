@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3840 2160" width="3840" height="2160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <title>Miles theme atmosphere (neon night)</title>
+  <defs>
+    <linearGradient id="m-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#05070f"/>
+      <stop offset="55%" stop-color="#0c1224"/>
+      <stop offset="100%" stop-color="#2a0d1e"/>
+    </linearGradient>
+    <radialGradient id="m-neon" cx="68%" cy="96%" r="62%">
+      <stop offset="0%" stop-color="#ff2a5a" stop-opacity="0.55"/>
+      <stop offset="45%" stop-color="#7a1e5c" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#7a1e5c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="m-cyan" cx="24%" cy="30%" r="45%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="3840" height="2160" fill="url(#m-sky)"/>
+  <rect width="3840" height="2160" fill="url(#m-neon)"/>
+  <rect width="3840" height="2160" fill="url(#m-cyan)"/>
+</svg>

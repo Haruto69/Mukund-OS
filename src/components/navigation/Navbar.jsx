@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import MVLogo from "../branding/MVLogo";
 import ThemeToggle from "../theme/ThemeToggle";
 import { useMotionContext } from "../../motion/MotionProvider";
 import { useSceneNavigation } from "../../motion/SceneNavigationProvider";
+import { useTheme } from "../theme/ThemeProvider";
 
 /** Section links. `id` matches the DOM id of each <section>. */
 const NAV_LINKS = [
@@ -25,6 +26,19 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const { scrollY, scrollDirection, prefersReducedMotion } = useMotionContext();
   const { activeSection, navigateToSection } = useSceneNavigation();
+  const { theme } = useTheme();
+
+  // Fire a stronger logo glitch burst whenever the theme actually changes
+  // (skipping the initial render, which already bursts on mount).
+  const logoRef = useRef(null);
+  const firstThemeRef = useRef(true);
+  useEffect(() => {
+    if (firstThemeRef.current) {
+      firstThemeRef.current = false;
+      return;
+    }
+    logoRef.current?.burst({ strong: true });
+  }, [theme]);
 
   const [pastTop, setPastTop] = useState(false);
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -57,7 +71,7 @@ export default function Navbar() {
       <div
         className={`transition-colors duration-300 ${
           showBackdrop
-            ? "border-b border-[var(--border)] bg-[var(--nav-bg)] backdrop-blur-sm"
+            ? "border-b border-[var(--nav-border)] bg-[var(--nav-bg)] backdrop-blur-sm"
             : "border-b border-transparent bg-transparent"
         }`}
       >
@@ -72,7 +86,7 @@ export default function Navbar() {
             className="flex items-center gap-2 rounded-md"
             aria-label="Go to top"
           >
-            <MVLogo />
+            <MVLogo ref={logoRef} title="MV — go to top" />
           </button>
 
           {/* Desktop links */}

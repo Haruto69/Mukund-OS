@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 1152" width="2048" height="1152" aria-hidden="true">
+  <title>Glass / reflection sheen texture</title>
+  <defs>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="42%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="58%" stop-color="#ffffff" stop-opacity="0.0"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.0"/>
+      <stop offset="100%" stop-color="#e01b24" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <rect width="2048" height="1152" fill="url(#sheen)"/>
+  <!-- diagonal streak highlights -->
+  <g opacity="0.6">
+    <polygon points="-200,0 300,0 900,1152 400,1152" fill="#ffffff" opacity="0.06"/>
+    <polygon points="1300,0 1520,0 2100,1152 1880,1152" fill="#ffffff" opacity="0.05"/>
+  </g>
+  <rect x="0" y="0" width="2048" height="4" fill="url(#edge)"/>
+  <rect x="0" y="1148" width="2048" height="4" fill="url(#edge)"/>
+</svg>

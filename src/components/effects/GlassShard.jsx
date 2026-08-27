@@ -29,6 +29,12 @@ export default function GlassShard({
   enableProximity,
   prefersReducedMotion,
   reflection = "abstract",
+  // Reserved transition hook: "ambient" | "gather" | "shatter" | "settle".
+  // Pass 3 handles the transition cue at the FIELD level (see GlassField); this
+  // prop exists now so a later pass can drive per-shard convergence/explosion
+  // from here without changing GlassField's or this component's shape.
+  // eslint-disable-next-line no-unused-vars
+  phase = "ambient",
 }) {
   const {
     x,

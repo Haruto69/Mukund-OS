@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
+  <title>Corner spider-web overlay</title>
+  <g fill="none" stroke="#f2efe9" stroke-linecap="round">
+    <!-- radial anchor lines from top-left origin -->
+    <g stroke-width="1.6" opacity="0.5">
+      <line x1="0" y1="0" x2="1024" y2="120"/>
+      <line x1="0" y1="0" x2="880" y2="360"/>
+      <line x1="0" y1="0" x2="640" y2="620"/>
+      <line x1="0" y1="0" x2="360" y2="880"/>
+      <line x1="0" y1="0" x2="120" y2="1024"/>
+      <line x1="0" y1="0" x2="1000" y2="1000"/>
+    </g>
+    <!-- concentric web strands (catenary-ish arcs between the spokes) -->
+    <g stroke-width="1.2" opacity="0.42">
+      <path d="M150 8 Q120 120 8 150"/>
+      <path d="M320 20 Q250 250 20 320"/>
+      <path d="M520 40 Q420 420 40 520"/>
+      <path d="M760 70 Q600 600 70 760"/>
+      <path d="M1010 110 Q820 820 110 1010"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 1152" width="2048" height="1152" aria-hidden="true">
+  <title>Chromatic glitch scanline overlay</title>
+  <defs>
+    <pattern id="scan" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="3" fill="#000" opacity="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="2048" height="1152" fill="url(#scan)" opacity="0.35"/>
+  <!-- displaced chromatic slices -->
+  <g opacity="0.5">
+    <rect x="0"   y="188"  width="2048" height="10" fill="#ff2a3a" transform="translate(-9,0)"/>
+    <rect x="0"   y="188"  width="2048" height="10" fill="#22d3ee" transform="translate(9,0)"/>
+    <rect x="0"   y="612"  width="2048" height="6"  fill="#ff2a3a" transform="translate(6,0)"/>
+    <rect x="0"   y="612"  width="2048" height="6"  fill="#22d3ee" transform="translate(-6,0)"/>
+    <rect x="0"   y="904"  width="2048" height="14" fill="#ff2a3a" transform="translate(-12,0)"/>
+    <rect x="0"   y="904"  width="2048" height="14" fill="#22d3ee" transform="translate(12,0)"/>
+  </g>
+</svg>

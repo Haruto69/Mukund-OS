@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="MV emblem">
+  <title>MV emblem</title>
+  <defs>
+    <radialGradient id="mv-bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#1a1c26"/>
+      <stop offset="55%" stop-color="#0c0d13"/>
+      <stop offset="100%" stop-color="#050509"/>
+    </radialGradient>
+    <linearGradient id="mv-ring" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3f52"/>
+      <stop offset="48%" stop-color="#14161f"/>
+      <stop offset="100%" stop-color="#2b2f3e"/>
+    </linearGradient>
+    <linearGradient id="mv-red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff5560"/>
+      <stop offset="55%" stop-color="#e01b24"/>
+      <stop offset="100%" stop-color="#9c0f16"/>
+    </linearGradient>
+    <linearGradient id="mv-steel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#c9d2e0"/>
+      <stop offset="100%" stop-color="#8b93a6"/>
+    </linearGradient>
+    <filter id="mv-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Rounded-square field (app-icon safe zone) -->
+  <rect width="1024" height="1024" rx="224" fill="url(#mv-bg)"/>
+
+  <!-- Outer emblem ring -->
+  <circle cx="512" cy="512" r="360" fill="none" stroke="url(#mv-ring)" stroke-width="34"/>
+  <circle cx="512" cy="512" r="360" fill="none" stroke="#ff2a3a" stroke-width="3" opacity="0.35"/>
+  <circle cx="512" cy="512" r="322" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.25"/>
+
+  <!-- faint web guide lines inside the ring -->
+  <g stroke="#8b93a6" stroke-width="2" opacity="0.12">
+    <line x1="512" y1="180" x2="512" y2="300"/>
+    <line x1="260" y1="300" x2="360" y2="360"/>
+    <line x1="764" y1="300" x2="664" y2="360"/>
+  </g>
+
+  <!-- Chromatic ghosts (red left / cyan right) -->
+  <g filter="url(#mv-glow)">
+    <g transform="translate(-12,7)" opacity="0.55">
+      <path d="M330 690 L330 372 L440 512 L512 372" fill="none" stroke="#ff2a3a" stroke-width="52" stroke-linejoin="miter" stroke-linecap="square"/>
+    </g>
+    <g transform="translate(12,-7)" opacity="0.45">
+      <path d="M560 372 L640 690 L720 372" fill="none" stroke="#22d3ee" stroke-width="52" stroke-linejoin="miter" stroke-linecap="square"/>
+    </g>
+  </g>
+
+  <!-- Crisp core: red M + steel V -->
+  <path d="M330 690 L330 372 L440 512 L512 372" fill="none" stroke="url(#mv-red)" stroke-width="52" stroke-linejoin="miter" stroke-linecap="square"/>
+  <path d="M560 372 L640 690 L720 372" fill="none" stroke="url(#mv-steel)" stroke-width="52" stroke-linejoin="miter" stroke-linecap="square"/>
+
+  <!-- digital fragments -->
+  <rect x="500" y="250" width="22" height="22" fill="#ff2a3a"/>
+  <rect x="748" y="640" width="16" height="16" fill="#22d3ee"/>
+  <rect x="266" y="628" width="16" height="16" fill="#f2efe9" opacity="0.6"/>
+</svg>
