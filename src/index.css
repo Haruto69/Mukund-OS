@@ -171,10 +171,14 @@ textarea {
 }
 
 /* ------------------------------------------------------------------ */
-/* Mixed scroll snapping — Hero and Featured Projects softly snap;      */
-/* everything else scrolls normally. Native CSS only, proximity (not    */
-/* mandatory) so it never fights or hijacks the wheel/touch gesture.    */
-/* Disabled on small screens and under reduced motion.                  */
+/* Mixed scroll snapping — the Hero softly snaps; everything else       */
+/* scrolls normally. Native CSS only, proximity (not mandatory) so it   */
+/* never fights or hijacks the wheel/touch gesture. Disabled on small   */
+/* screens and under reduced motion.                                    */
+/*                                                                      */
+/* Featured Projects deliberately does NOT snap: it is now a tall       */
+/* section driving a sticky, scroll-linked horizontal carousel, and a   */
+/* snap target inside that travel window fights the choreography.       */
 /* ------------------------------------------------------------------ */
 @media (min-width: 768px) {
   html {
@@ -182,9 +186,21 @@ textarea {
   }
 }
 
-#home,
-#featured-projects {
+#home {
   scroll-snap-align: start;
+}
+
+/* ------------------------------------------------------------------ */
+/* Featured Projects mobile/tablet swipe rail — native scroll-snap.     */
+/* The scrollbar is hidden because the rail already communicates more   */
+/* content through the peeking neighbor card and the progress readout.  */
+/* ------------------------------------------------------------------ */
+.mv-swipe-rail {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.mv-swipe-rail::-webkit-scrollbar {
+  display: none;
 }
 
 main {
