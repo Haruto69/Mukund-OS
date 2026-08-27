@@ -2,20 +2,19 @@ import React, { useCallback, useState } from "react";
 import Reveal from "../components/motion/Reveal";
 import FeaturedProjectCarousel from "../components/projects/FeaturedProjectCarousel";
 import ProjectPreviewPanel from "../components/projects/ProjectPreviewPanel";
-import { projects } from "../data/projects";
+import { featuredProjects } from "../data/projects";
 
 /**
  * Featured Projects — cinematic horizontal project carousel.
  *
- * Selection logic is unchanged from Pass 1: the data has no explicit
- * `featured` flag, so the first three entries in src/data/projects.js remain
- * the featured set. If a `featured` flag is added later this is the one place
- * that needs to change.
+ * Selection is now explicit and data-driven: `featuredProjects` resolves every
+ * project carrying a numeric `featuredOrder`, sorted ascending (see
+ * src/data/projects.js). Position in the projects array no longer matters.
  *
  * This section composes only the heading, the carousel, and the temporary
  * detail panel — all interaction lives in components/projects/.
  */
-const featured = projects.slice(0, 3);
+const featured = featuredProjects;
 
 export default function FeaturedProjectsSection() {
   const [selectedProject, setSelectedProject] = useState(null);

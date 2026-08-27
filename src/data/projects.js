@@ -1,6 +1,7 @@
 export const projects = [
   {
     id: "nbuc-pipeline",
+    featuredOrder: 1,
     title: "Nokia NBUC Generative AI Security Pipeline",
     type: "Industry Project",
     status: "Completed",
@@ -61,7 +62,52 @@ export const projects = [
     links: { showLive: false, showSource: false }
   },
   {
+    id: "vulnverify",
+    featuredOrder: 2,
+    title: "VulnVerify",
+    type: "Cognizant Hackathon · Cybersecurity",
+    status: "Hackathon project",
+    highlight: "Team advanced to the next round following evaluation by the Cognizant review panel",
+    description: "A vulnerability verification and triage pipeline that ingests OWASP ZAP and Burp Suite scanner findings, normalizes them into a common schema, independently replays reported attacks, classifies each as true positive, false positive, or inconclusive, and prioritizes verified vulnerabilities for remediation.",
+    tech: ["Python", "FastAPI", "React", "OWASP ZAP", "Burp Suite", "pytest"],
+    problem: "Scanner output from tools like OWASP ZAP and Burp Suite is noisy: it mixes real, exploitable issues with false positives, and teams waste remediation effort triaging findings by hand.",
+    role: "Team Lead & Backend Engineer",
+    pipeline: [
+      "Ingest OWASP ZAP JSON and Burp Suite XML scanner findings",
+      "Parse and normalize both formats into a common schema",
+      "Independently replay / verify each reported attack",
+      "Classify as TRUE_POSITIVE, FALSE_POSITIVE, or INCONCLUSIVE",
+      "Prioritize verified vulnerabilities by risk",
+      "Emit reports and surface results in the frontend"
+    ],
+    vulnFamilies: ["SQL Injection", "CSRF", "XSS"],
+    keyFeatures: [
+      "Consumes OWASP ZAP + Burp Suite scanner results (not a scanner itself)",
+      "Normalizes heterogeneous findings into one schema",
+      "Independent replay-based verification of reported attacks",
+      "True/false/inconclusive classification",
+      "Risk-based prioritization of verified vulnerabilities",
+      "Reports and frontend surfacing of triaged results"
+    ],
+    challenges: [
+      "Normalizing OWASP ZAP JSON and Burp Suite XML into a shared schema",
+      "Reliably replaying reported attacks to confirm exploitability",
+      "Keeping classification defensible across SQLi, CSRF, and XSS",
+      "Coordinating work across an eight-member team"
+    ],
+    learned: [
+      "Backend pipeline design with FastAPI and Pydantic",
+      "Practical vulnerability verification vs. raw scanning",
+      "Backend testing with pytest",
+      "Leading and delegating across a multi-function team"
+    ],
+    team: "Team Lead for an eight-member team; delegated work across multiple project functions, co-developed the core backend implementation with one teammate, performed backend testing, and was one of two members who demonstrated the project to the Cognizant evaluation panel.",
+    outcome: "The team advanced to the next round following evaluation by the Cognizant review panel.",
+    links: { showLive: false, showSource: true, github: "https://github.com/Haruto69/VulnVerify" }
+  },
+  {
     id: "self-care",
+    featuredOrder: 3,
     title: "Self-care MERN App",
     type: "Personal full-stack project",
     status: "Deployed",
@@ -162,3 +208,21 @@ export const projects = [
     links: { showLive: true, showSource: true, live: "https://reposcope-alpha.vercel.app/", github: "https://github.com/Haruto69/reposcope" }
   }
 ];
+
+/**
+ * Explicit, deterministic featured-project selection.
+ *
+ * A project is featured iff it carries a numeric `featuredOrder`. The carousel
+ * order is that number, ascending — independent of this array's order. This
+ * replaces the previous position-based `projects.slice(0, 3)` selection so the
+ * featured set can be curated by editing `featuredOrder` on the data alone.
+ */
+export const featuredProjects = projects
+  .filter((p) => typeof p.featuredOrder === "number")
+  .slice()
+  .sort((a, b) => a.featuredOrder - b.featuredOrder);
+
+/** Everything not featured — the secondary / "More Projects" archive. */
+export const moreProjects = projects.filter(
+  (p) => typeof p.featuredOrder !== "number"
+);

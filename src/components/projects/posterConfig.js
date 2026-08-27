@@ -20,10 +20,21 @@ const ACCENT_CYCLE = [
   { from: "var(--accent-warm)", to: "var(--accent-red)" },
 ];
 
-/** Per-project overrides. `image: null` = generated placeholder treatment. */
+/**
+ * Per-project overrides, keyed to the currently featured project IDs.
+ * `image: null` = generated placeholder treatment (final poster art is a
+ * later asset pass). Optional `label` / `tagline` are passive semantic hints
+ * reserved for the future poster art + case study — they are NOT rendered on
+ * the collapsed carousel card, which stays minimal by design.
+ */
 export const projectPosters = {
   "nbuc-pipeline": { image: null, alt: "" },
-  disharakshak: { image: null, alt: "" },
+  vulnverify: {
+    image: null,
+    alt: "",
+    label: "VERIFY THE SIGNAL",
+    tagline: "ZAP + BURP → VERIFY → PRIORITIZE",
+  },
   "self-care": { image: null, alt: "" },
 };
 

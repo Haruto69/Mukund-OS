@@ -1,10 +1,10 @@
 import React from "react";
 import Section from "./Section";
 import ProjectCard from "../components/projects/ProjectCard";
-import { projects } from "../data/projects";
+import { moreProjects } from "../data/projects";
 
-/** Remaining projects beyond the featured three. */
-const more = projects.slice(3);
+/** Every project not in the featured set (see src/data/projects.js). */
+const more = moreProjects;
 
 export default function MoreProjectsSection() {
   if (more.length === 0) return null;
