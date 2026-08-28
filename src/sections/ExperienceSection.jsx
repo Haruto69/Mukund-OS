@@ -5,7 +5,7 @@ import { experience } from "../data/experience";
 export default function ExperienceSection() {
   return (
     <Section id="experience" eyebrow="Timeline" title="Experience">
-      <ol className="relative space-y-8 border-l border-[var(--border)] pl-6">
+      <ol className="mv-content-scrim relative -mx-4 -my-5 space-y-8 rounded-3xl border-l border-[var(--border)] py-5 pl-6 pr-4 sm:-mx-6 sm:pr-6">
         {experience.map((item, i) => (
           <li key={`${item.role}-${i}`} className="relative">
             <span

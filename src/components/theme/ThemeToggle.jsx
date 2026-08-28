@@ -1,20 +1,25 @@
 import React from "react";
-import { useTheme, THEMES } from "./ThemeProvider";
+import { useTheme } from "./ThemeProvider";
 import { useThemeTransition } from "../../motion/ThemeTransitionProvider";
 
 /**
- * Polished Peter/Miles theme control.
+ * Polished Light/Dark theme control.
  *
  * - Routes through requestThemeChange() so it drives the theme-transition
  *   state machine (shutter overlay) rather than swapping instantly.
  * - Uses a compact spider/web-node glyph (original geometry — not an official
- *   icon) plus Peter/Miles palette cues rather than a generic sun/moon pill.
+ *   icon) plus per-theme palette cues rather than a generic sun/moon pill.
  * - Fully labelled/accessible; clear hover + focus states.
+ *
+ * Naming: the internal theme keys stay "peter"/"miles" (they drive the
+ * shutter selection, city plates, hero spider art and session persistence).
+ * Everything the visitor can read or hear says Light / Dark.
  */
 export default function ThemeToggle({ className = "" }) {
-  const { theme, isDark } = useTheme();
+  const { isDark } = useTheme();
   const { requestThemeChange, isTransitioning } = useThemeTransition();
-  const nextLabel = isDark ? "Peter (light)" : "Miles (dark)";
+  const currentLabel = isDark ? "Dark" : "Light";
+  const nextLabel = isDark ? "Light" : "Dark";
 
   return (
     <button
@@ -22,12 +27,12 @@ export default function ThemeToggle({ className = "" }) {
       onClick={() => requestThemeChange()}
       disabled={isTransitioning}
       className={`group inline-flex items-center gap-2 rounded-full border border-[var(--nav-border)] bg-[color-mix(in_srgb,var(--surface)_70%,transparent)] px-3 py-1.5 text-sm font-medium text-[var(--text)] backdrop-blur-sm transition-colors hover:border-[var(--accent-red)] disabled:opacity-60 ${className}`}
-      aria-label={`Switch theme. Current: ${theme}. Switch to ${nextLabel}.`}
-      title={`Switch to ${nextLabel}`}
+      aria-label={`Switch theme. Current: ${currentLabel}. Switch to ${nextLabel}.`}
+      title={`Switch to ${nextLabel} theme`}
     >
       {/* Web-node glyph — a central node with radiating web strands. The
-          strand colors carry the theme cue (warm/red for Peter, crimson/blue
-          for Miles); the whole thing rotates a touch on hover. */}
+          strand colors carry the theme cue (warm/red in Light, crimson/blue
+          in Dark); the whole thing rotates a touch on hover. */}
       <svg
         width="16"
         height="16"
@@ -60,9 +65,8 @@ export default function ThemeToggle({ className = "" }) {
         </g>
         <circle cx="12" cy="12" r="1.4" fill="var(--text)" />
       </svg>
-      <span className="hidden capitalize sm:inline">
-        {theme === THEMES.MILES ? "Miles" : "Peter"}
-      </span>
+      {/* Visible label names the CURRENT theme, matching the aria-label. */}
+      <span className="hidden sm:inline">{currentLabel}</span>
     </button>
   );
 }

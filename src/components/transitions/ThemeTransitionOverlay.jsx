@@ -7,8 +7,12 @@ import { useMotionContext } from "../../motion/MotionProvider";
  * Visual layer for the theme-transition / intro state machine.
  *
  * The shutter is now the supplied production artwork:
- *   Peter → peter-shutter.jpg (red / blue / metallic, central seam)
- *   Miles → miles-shutter.jpg (black / graphite / red core)
+ *   Peter → peter-shutter.jpg        / peter-mobile-shutter.jpg
+ *   Miles → miles-shutter.jpg        / miles-mobile-shutter.jpg
+ *
+ * Landscape artwork is used on tablet/desktop and portrait artwork on mobile;
+ * the orientation is chosen from `shutterVariant`, which the transition
+ * provider freezes at the start of the sequence alongside `shutterTheme`.
  *
  * It is rendered as a two-leaf shutter that parts along the artwork's central
  * vertical seam: two half-viewport panels, each a window onto its half of the
@@ -18,13 +22,40 @@ import { useMotionContext } from "../../motion/MotionProvider";
  * `shutterTheme` (the SOURCE theme, frozen when the transition begins) selects
  * which shutter to paint and never changes mid-transition: the same artwork
  * closes, stays through `covered`, and opens — even though the underlying city
- * + character + theme tokens swap at `covered`.
+ * + hero spider + theme tokens swap at `covered`.
  *
  * Never blocks interaction: always pointer-events:none, only mounted while a
  * transition runs. Reduced motion shows no moving shutter at all.
  */
+/**
+ * One shutter leaf: a 50vw window onto ONE shared, viewport-sized image layer
+ * (object-fit: cover, centered). The left leaf shows the artwork's left half,
+ * the right leaf its right half, so the closed state reproduces the artwork
+ * un-stretched with its central seam landing exactly on the split. Sliding a
+ * leaf slides its window, not the artwork.
+ *
+ * Declared at module scope so a phase change never remounts the <img>.
+ */
+function ShutterLeaf({ side, src }) {
+  return (
+    <div
+      className="absolute inset-0 overflow-hidden"
+      style={{ backgroundColor: "var(--bg-deep)" }}
+    >
+      <img
+        src={src}
+        alt=""
+        aria-hidden="true"
+        className="absolute top-0 h-full w-[100vw] max-w-none object-cover object-center"
+        style={side === "left" ? { left: 0 } : { right: 0 }}
+      />
+    </div>
+  );
+}
+
 export default function ThemeTransitionOverlay() {
-  const { phase, isTransitioning, shutterTheme } = useThemeTransition();
+  const { phase, isTransitioning, shutterTheme, shutterVariant } =
+    useThemeTransition();
   const { prefersReducedMotion } = useMotionContext();
 
   if (prefersReducedMotion) return null;
@@ -36,14 +67,12 @@ export default function ThemeTransitionOverlay() {
 
   const ease = [0.7, 0, 0.3, 1];
   const panelTransition = { duration: 0.28, ease };
-  const shutter = `/assets/transitions/${shutterTheme}-shutter.jpg`;
-
-  const panelBase = {
-    backgroundImage: `url("${shutter}")`,
-    backgroundSize: "100vw 100vh",
-    backgroundRepeat: "no-repeat",
-    backgroundColor: "var(--bg-deep)",
-  };
+  // Frozen source theme + frozen orientation → exactly one artwork per
+  // transition. Portrait artwork on mobile, landscape on tablet/desktop.
+  const shutter =
+    shutterVariant === "mobile"
+      ? `/assets/transitions/${shutterTheme}-mobile-shutter.jpg`
+      : `/assets/transitions/${shutterTheme}-shutter.jpg`;
 
   return (
     <AnimatePresence>
@@ -61,11 +90,11 @@ export default function ThemeTransitionOverlay() {
           {/* Left leaf — shows the left half of the shutter artwork. */}
           <motion.div
             className="absolute inset-y-0 left-0 w-1/2"
-            style={{ ...panelBase, backgroundPosition: "left center" }}
             initial={false}
             animate={{ x: covering ? "0%" : "-101%" }}
             transition={panelTransition}
           >
+            <ShutterLeaf side="left" src={shutter} />
             <div className="absolute inset-y-0 right-0 w-8"
               style={{ background: "linear-gradient(to right, transparent, rgba(0,0,0,0.5))" }} />
           </motion.div>
@@ -73,11 +102,11 @@ export default function ThemeTransitionOverlay() {
           {/* Right leaf — shows the right half of the shutter artwork. */}
           <motion.div
             className="absolute inset-y-0 right-0 w-1/2"
-            style={{ ...panelBase, backgroundPosition: "right center" }}
             initial={false}
             animate={{ x: covering ? "0%" : "101%" }}
             transition={panelTransition}
           >
+            <ShutterLeaf side="right" src={shutter} />
             <div className="absolute inset-y-0 left-0 w-8"
               style={{ background: "linear-gradient(to left, transparent, rgba(0,0,0,0.5))" }} />
           </motion.div>

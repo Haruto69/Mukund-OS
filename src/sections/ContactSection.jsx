@@ -16,8 +16,8 @@ const links = [
 export default function ContactSection() {
   return (
     <Section id="contact" eyebrow="Get in touch" title="Contact">
-      <p className="max-w-2xl text-[var(--text-muted)]">
-        Open to frontend and full-stack internship opportunities.
+      <p className="mv-content-scrim -mx-4 -my-2 inline-block max-w-2xl rounded-2xl px-4 py-2 text-[var(--text-muted)] sm:-mx-6 sm:px-6">
+        Open to backend and full-stack internship opportunities.
       </p>
 
       <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">

@@ -37,6 +37,9 @@ import { useMotionContext } from "./MotionProvider";
  *   isTransitioning            → phase !== "idle"
  *   glassPhase                 → derived cue for GlassField
  *                                ("ambient" | "gather" | "shatter" | "settle")
+ *   shutterVariant             → "desktop" | "mobile"; the shutter artwork
+ *                                orientation, frozen for the whole transition
+ *                                exactly like `shutterTheme`.
  *   shutterTheme               → SOURCE theme to paint the shutter with; frozen
  *                                at the instant the transition begins and held
  *                                immutable through close→covered→open, so the
@@ -49,6 +52,17 @@ import { useMotionContext } from "./MotionProvider";
 const ThemeTransitionContext = createContext(null);
 
 const INTRO_KEY = "portfolio-intro-played";
+
+// Shutter artwork comes in two orientations. The variant is resolved ONCE, at
+// the instant a transition begins, and frozen alongside `shutterTheme` — so a
+// resize (or a mobile browser's URL bar collapsing) can never swap the artwork
+// halfway through a close→covered→open sequence.
+const SHUTTER_MOBILE_QUERY = "(max-width: 767px)";
+
+function currentShutterVariant() {
+  if (typeof window === "undefined") return "desktop";
+  return window.matchMedia(SHUTTER_MOBILE_QUERY).matches ? "mobile" : "desktop";
+}
 
 // Phase durations (ms). Kept short + cinematic.
 const D = {
@@ -104,6 +118,8 @@ export function ThemeTransitionProvider({ children }) {
   // transition (never reassigned at `covered`) so one and only one shutter
   // artwork is shown per transition.
   const [shutterTheme, setShutterTheme] = useState(theme);
+  // Frozen for the same window as `shutterTheme`: "desktop" | "mobile".
+  const [shutterVariant, setShutterVariant] = useState(currentShutterVariant);
 
   const busyRef = useRef(false);
   const runIdRef = useRef(0);
@@ -149,7 +165,10 @@ export function ThemeTransitionProvider({ children }) {
       // the source artwork — never a stale leftover from a prior transition.
       // The shutter then stays this artwork the entire sequence, even after
       // setTheme(target) swaps the scene at `covered`.
-      flushSync(() => setShutterTheme(theme));
+      flushSync(() => {
+        setShutterTheme(theme);
+        setShutterVariant(currentShutterVariant());
+      });
 
       (async () => {
         setPhase("gathering");
@@ -159,7 +178,7 @@ export function ThemeTransitionProvider({ children }) {
         if (!(await cancellableWait(D.closing, id))) return;
 
         // Fully covered — the single well-defined swap point. The scene
-        // (city + character + theme tokens) swaps here, but the shutter keeps
+        // (city + hero spider + theme tokens) swaps here, but the shutter keeps
         // rendering the frozen SOURCE artwork (shutterTheme is NOT touched).
         setPhase("covered");
         setTheme(target);
@@ -195,6 +214,7 @@ export function ThemeTransitionProvider({ children }) {
     setMode("intro");
     // No previous theme on first-session intro — use the active theme's shutter.
     setShutterTheme(theme);
+    setShutterVariant(currentShutterVariant());
 
     (async () => {
       // Intro starts already covered, then reveals.
@@ -217,6 +237,7 @@ export function ThemeTransitionProvider({ children }) {
       isTransitioning: phase !== "idle",
       glassPhase: glassPhaseFor(phase),
       shutterTheme,
+      shutterVariant,
       requestThemeChange,
       // Convenience: a plain toggle that still routes through the sequence.
       toggleThemeAnimated: () => requestThemeChange(),
@@ -224,7 +245,15 @@ export function ThemeTransitionProvider({ children }) {
       setThemeInstant: setTheme,
       toggleThemeInstant: toggleTheme,
     }),
-    [phase, mode, shutterTheme, requestThemeChange, setTheme, toggleTheme]
+    [
+      phase,
+      mode,
+      shutterTheme,
+      shutterVariant,
+      requestThemeChange,
+      setTheme,
+      toggleTheme,
+    ]
   );
 
   return (

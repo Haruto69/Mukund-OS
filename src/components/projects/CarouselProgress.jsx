@@ -26,7 +26,7 @@ export default function CarouselProgress({
         aria-live="polite"
       >
         <span className="text-[var(--text)]">{pad(index + 1)}</span>
-        <span className="mx-1 opacity-50">/</span>
+        <span className="mx-1 opacity-70">/</span>
         {pad(total)}
       </p>
 

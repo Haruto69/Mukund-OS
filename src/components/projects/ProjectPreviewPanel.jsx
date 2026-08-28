@@ -65,7 +65,7 @@ export default function ProjectPreviewPanel({ project, onClose }) {
           >
             <div className="flex items-start justify-between gap-6">
               <div>
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--accent-red)]">
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--accent-red-text)]">
                   {project.type}
                 </p>
                 <h3 className="text-2xl font-bold tracking-tight text-[var(--text)]">
@@ -128,7 +128,7 @@ export default function ProjectPreviewPanel({ project, onClose }) {
               </div>
             )}
 
-            <p className="mt-6 text-[11px] uppercase tracking-[0.18em] text-[var(--text-muted)] opacity-70">
+            <p className="mt-6 text-[11px] uppercase tracking-[0.18em] text-[var(--text-muted)]">
               Full case study coming in a later pass
             </p>
           </motion.div>

@@ -22,12 +22,22 @@
     --surface: #ffffff;
     --surface-soft: #faf6ef;
 
-    /* Type */
+    /* Type.
+       Light mode deliberately runs a HIGH-CONTRAST pair. `--text-muted` is a
+       warm charcoal, not a washed-out gray: it clears WCAG AAA body contrast
+       on every light surface it is used over (11.5:1 on --bg, 12.6:1 on
+       --surface, 8.2:1 over the golden-hour city plate) while still sitting
+       visibly lighter than --text (15.6:1) so the heading/supporting-copy
+       hierarchy survives. */
     --text: #1c1b1f; /* dark charcoal */
-    --text-muted: #565561;
+    --text-muted: #38322c; /* warm charcoal — readable supporting copy */
 
     /* Accents — canonical names + short back-compat aliases */
     --accent-red: #e01b24; /* Spider-Man vivid red */
+    /* Same red family, deepened just enough for SMALL red text (eyebrows,
+       metadata readouts) to clear WCAG AA on light surfaces: 5.4:1 on --bg
+       vs 4.4:1 for --accent-red. Fills and large marks keep the vivid red. */
+    --accent-red-text: #c8141d;
     --accent-blue: #1f4fe0; /* strong royal / electric blue */
     --accent-warm: #f5a623; /* warm golden-hour accent */
     --red: var(--accent-red);
@@ -56,6 +66,25 @@
     --nav-bg: rgba(247, 244, 239, 0.75);
     --nav-border: #e4ddd2;
     --selection-bg: rgba(224, 27, 36, 0.18);
+
+    /* Content scrim — see `.mv-content-scrim` below. Light mode only: the
+       fixed CityScene photo swings from bright sun/haze to dark rooftop
+       silhouette as the page scrolls, and no single text color stays
+       readable across that whole range. A soft, edge-feathered warm wash
+       sits behind bare text that has no opaque card of its own. */
+    /* Stops tuned so the alpha at the box's actual edge/corner — where the
+       radial's geometry (120%/150% axes) places it — stays well above AA
+       even over the darkest sampled photo region (near-black rooftop
+       silhouette): edge ~0.77, corner ~0.64. Only the space *outside* the
+       box (unrendered) fades toward the 0.10 floor. */
+    --content-scrim: radial-gradient(
+      120% 150% at 50% 40%,
+      rgba(247, 244, 239, 0.88) 0%,
+      rgba(247, 244, 239, 0.76) 45%,
+      rgba(247, 244, 239, 0.48) 74%,
+      rgba(247, 244, 239, 0.1) 100%
+    );
+    --content-scrim-blur: blur(3px);
   }
 
   /* ----------------------------------------------------------------- */
@@ -68,10 +97,17 @@
     --surface: #16151a;
     --surface-soft: #1a1418; /* deeper crimson-tinted surface */
 
+    /* Brighter than the original #a09ba6 (7.0:1 on --bg): the city photo
+       carries bright street lights, lit windows and red/cyan reflections
+       that wash out anything less than a strongly-lit neutral. #c9c5cf
+       clears 11.6:1 on --bg / 10.7:1 on --surface, and reads as a cool
+       off-white rather than gray. */
     --text: #f2efe9; /* cool off-white */
-    --text-muted: #a09ba6;
+    --text-muted: #c9c5cf;
 
     --accent-red: #ff2a3a; /* vivid crimson */
+    /* Dark mode's red already clears AA as text; no separate value needed. */
+    --accent-red-text: var(--accent-red);
     --accent-blue: #4f7dff; /* restrained electric blue */
     --accent-warm: #ffb454;
     --red: var(--accent-red);
@@ -97,6 +133,22 @@
     --nav-bg: rgba(11, 11, 13, 0.72);
     --nav-border: #2a2730;
     --selection-bg: rgba(255, 42, 58, 0.28);
+
+    /* The rainy-night city plate is NOT uniformly dark — lit windows, neon
+       signage and wet-street highlights punch well above the base --bg
+       luminance. Same geometry/tuning approach as the Light-mode scrim:
+       stops chosen so the alpha at the box's actual edge/corner (where the
+       120%/150% radial axes place them) stays high enough to hold AA even
+       against an isolated pure-white specular highlight — edge ~0.83,
+       corner ~0.71. */
+    --content-scrim: radial-gradient(
+      120% 150% at 50% 40%,
+      rgba(8, 8, 12, 0.92) 0%,
+      rgba(8, 8, 12, 0.82) 45%,
+      rgba(8, 8, 12, 0.58) 74%,
+      rgba(8, 8, 12, 0.18) 100%
+    );
+    --content-scrim-blur: blur(3px);
   }
 
   :root {
@@ -332,6 +384,27 @@ main {
   animation: city-rain-fall 0.9s linear infinite;
   mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Content scrim — a reusable, theme-aware readability layer for text    */
+/* that sits directly over the fixed city photo (no card/surface of its  */
+/* own). Both themes' city plates carry bright highlights — golden-hour  */
+/* sun/haze in Light, lit windows and neon signage in Dark — that a      */
+/* single text color can't stay readable across, so `--content-scrim`    */
+/* resolves to a real gradient in both (see the per-theme blocks above). */
+/* It is a plain `background` PAINT on the element, not an overlay        */
+/* pseudo-element, so it is always behind that element's own children     */
+/* with no z-index gymnastics. Callers add their own padding/negative-    */
+/* margin bleed so the wash hugs the content column rather than the       */
+/* full section width — see AboutSection, ExperienceSection,              */
+/* ContactSection for the pattern.                                        */
+/* ------------------------------------------------------------------ */
+.mv-content-scrim {
+  position: relative;
+  background: var(--content-scrim, none);
+  backdrop-filter: var(--content-scrim-blur, none);
+  -webkit-backdrop-filter: var(--content-scrim-blur, none);
 }
 
 /* ------------------------------------------------------------------ */

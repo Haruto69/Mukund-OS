@@ -1,17 +1,17 @@
 export const profile = {
   name: "Mukund V",
-  role: "Frontend Developer in progress",
+  role: "Backend Development · Cybersecurity · Learning Full-Stack",
   background: "B.E. Computer Science and Engineering, Cyber Security",
   college: "RNS Institute of Technology, Bangalore, Karnataka",
-  status: "Available for frontend/full-stack internships",
-  summary: "Computer Science and Engineering student specializing in Cyber Security, currently transitioning into frontend and full-stack development by building practical, deployed projects.",
+  status: "Available for backend and full-stack internships",
+  summary: "Computer Science and Engineering student specializing in Cyber Security, focused on backend development and practical, deployed systems while expanding my frontend skills toward full-stack development.",
   
   currentDirection: {
-    text: "I'm currently focused on becoming internship-ready for frontend and full-stack roles by building React projects, strengthening JavaScript, practicing DSA with Java, and improving project presentation.",
-    focusChips: ["React", "Tailwind CSS", "JavaScript", "DSA with Java", "Full-stack basics", "Project documentation"]
+    text: "I'm currently focused on becoming internship-ready for backend and full-stack roles by strengthening backend fundamentals — APIs, databases, and deployment — practicing DSA with Java, and learning enough frontend to ship complete, presentable projects.",
+    focusChips: ["Backend fundamentals", "APIs & databases", "DSA with Java", "Docker & deployment", "React (learning)", "Project documentation"]
   },
 
-  whyFrontend: "I'm moving toward frontend and full-stack development because I like building visible, usable products. Frontend gives me a way to turn ideas into interfaces people can actually interact with, while full-stack helps me understand the complete flow from UI to backend and deployment.",
+  whyBackend: "Backend development is my primary software-development direction — I like the part of a product that has to actually hold up: data, logic, and the services behind the screen. I'm learning frontend alongside it so I can own the complete flow from interface to backend and deployment, and grow into a capable full-stack developer.",
 
   securityFoundation: {
     text: "My cybersecurity background helps me think about reliability, secure design, debugging, and how systems behave beyond the UI. My Nokia project gave me exposure to vulnerability scanning, Kubernetes security tooling, and AI-assisted remediation workflows.",

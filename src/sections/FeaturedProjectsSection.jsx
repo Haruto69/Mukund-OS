@@ -32,7 +32,7 @@ export default function FeaturedProjectsSection() {
       {/* Entry: heading reveal before the carousel takes over the viewport. */}
       <div className="mx-auto max-w-6xl px-4 pb-10 pt-24 sm:px-6 sm:pb-12 sm:pt-28">
         <Reveal>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent-red)]">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent-red-text)]">
             Selected work
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-[var(--text)] sm:text-4xl">

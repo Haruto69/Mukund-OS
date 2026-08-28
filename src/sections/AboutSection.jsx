@@ -7,9 +7,9 @@ export default function AboutSection() {
   return (
     <Section id="about" eyebrow="Who I am" title="About">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-5">
+        <div className="mv-content-scrim -mx-4 -my-5 space-y-5 rounded-3xl px-4 py-5 sm:-mx-6 sm:px-6 lg:col-span-2">
           <Reveal as="p" className="text-lg leading-relaxed text-[var(--text)]">
-            {profile.whyFrontend}
+            {profile.whyBackend}
           </Reveal>
           <p className="leading-relaxed text-[var(--text-muted)]">
             {profile.currentDirection.text}

@@ -64,7 +64,7 @@ export default function FeaturedProjectSlide({
       {/* Compact footer: index, title, category, explore affordance. */}
       <div className="relative flex items-end justify-between gap-4 border-t border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_88%,transparent)] px-5 py-4 sm:px-7 sm:py-5">
         <div className="min-w-0">
-          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--accent-red)]">
+          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--accent-red-text)]">
             {label}
           </p>
           <h3 className="truncate text-xl font-bold tracking-tight text-[var(--text)] sm:text-2xl lg:text-3xl">
