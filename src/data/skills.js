@@ -58,3 +58,17 @@ export const skills = {
     projects: []
   }
 };
+
+/**
+ * Display names for the category keys above. Kept next to the data so the
+ * label and the group it names never drift apart, and so no component has to
+ * carry its own copy of the mapping.
+ */
+export const skillCategoryLabels = {
+  frontend: "Frontend",
+  backend: "Backend",
+  programming: "Programming",
+  cybersecurity: "Cyber Security",
+  tools: "Tools",
+  learning: "Currently Learning",
+};

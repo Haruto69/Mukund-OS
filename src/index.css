@@ -420,6 +420,351 @@ main {
   opacity: 0.5;
 }
 
+/* ------------------------------------------------------------------ */
+/* Skills constellation — the spider-web SVG.                          */
+/*                                                                     */
+/* All strand/node styling and every animation lives here rather than  */
+/* in JSX, so hover state changes one class name instead of re-styling */
+/* ~90 elements from React, and so the reduced-motion block at the     */
+/* bottom of this file can switch the whole thing off in one place.    */
+/*                                                                     */
+/* Palette per theme:                                                  */
+/*   Peter / light — graphite strands over the golden-hour city, red   */
+/*     and blue only as accents, near-black labels.                    */
+/*   Miles / dark  — pale steel strands over the rainy night, cool     */
+/*     energy on the live strand, off-white labels.                    */
+/* ------------------------------------------------------------------ */
+:root,
+[data-theme="peter"] {
+  --web-strand: #4a443d; /* graphite, reads over warm haze */
+  --web-strand-lit: #1c1b1f;
+  --web-node: #3a352f;
+  --web-label: #1c1b1f;
+  --web-label-quiet: #38322c;
+  --web-glow: rgba(224, 27, 36, 0.32);
+  --web-strand-base-opacity: 0.5;
+}
+
+[data-theme="miles"] {
+  --web-strand: #8d93a6; /* pale steel */
+  --web-strand-lit: #eaf0ff;
+  --web-node: #c9cfe0;
+  --web-label: #f2efe9;
+  --web-label-quiet: #c9c5cf;
+  --web-glow: rgba(79, 125, 255, 0.4);
+  --web-strand-base-opacity: 0.42;
+}
+
+.mv-web {
+  overflow: visible;
+  touch-action: manipulation;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mobile-only visibility overrides.                                    */
+/*                                                                      */
+/* Everything below is scoped to `.mv-web--mobile` so the approved       */
+/* desktop and tablet presets are untouched.                             */
+/*                                                                      */
+/* Why they are needed: a category is ALWAYS selected, so most of the    */
+/* web permanently sits in `.is-dim`. At the wide presets that is fine — */
+/* the web is ~1100px across with hundreds of px of strand to read. On a */
+/* 360px-wide render the same 0.17-alpha hairlines over a scrim are      */
+/* effectively invisible, and the structure disappears. Mobile therefore */
+/* runs a much higher floor: quieter than the live strand, but plainly   */
+/* there at a glance. Strokes are also thickened, because                */
+/* `vector-effect: non-scaling-stroke` pins them to device pixels, so a  */
+/* 1px strand is 1px whether the web is 1100px or 360px wide.            */
+/* ------------------------------------------------------------------ */
+.mv-web--mobile {
+  --web-strand-base-opacity: 0.82;
+  /* Dim is a quiet supporting tone here, not a near-erasure. */
+  --web-dim-factor: 0.66;
+  --web-quiet-factor: 0.88;
+  /* Deeper graphite than the wide presets: the warm light scrim washes
+     out mid-greys at this size. */
+  --web-strand: #35302a;
+  --web-node: #2b2721;
+}
+
+[data-theme="miles"] .mv-web--mobile {
+  --web-strand-base-opacity: 0.76;
+  /* Brighter steel so inactive strands hold up against the dark panel. */
+  --web-strand: #aab1c6;
+  --web-node: #dfe4f0;
+}
+
+.mv-web--mobile .mv-web-strand {
+  stroke-width: 1.15;
+}
+.mv-web--mobile .mv-web-strand--spoke {
+  stroke-width: 1.65;
+}
+.mv-web--mobile .mv-web-strand--ring {
+  stroke-width: 1.2;
+}
+.mv-web--mobile .mv-web-strand--anchor {
+  opacity: calc(var(--web-strand-base-opacity) * 0.42);
+}
+.mv-web--mobile .mv-web-strand.is-lit {
+  stroke-width: 2.1;
+}
+/* Category nodes stay legible even when they are not the selected one. */
+.mv-web--mobile .mv-web-node.is-dim {
+  opacity: 0.78;
+}
+.mv-web--mobile .mv-web-node.is-quiet {
+  opacity: 0.88;
+}
+.mv-web--mobile .mv-web-cat-dot {
+  stroke-width: 2.4;
+}
+.mv-web--mobile .mv-web-cat-label {
+  stroke-width: 3;
+  stroke-opacity: 0.85;
+}
+
+/* ---- strands ---- */
+.mv-web-strand {
+  fill: none;
+  stroke: var(--web-strand);
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+  opacity: var(--web-strand-base-opacity);
+  transition: opacity 0.35s ease, stroke 0.35s ease, stroke-width 0.35s ease;
+}
+.mv-web-strand--spoke {
+  stroke-width: 1.35;
+}
+.mv-web-strand--anchor {
+  opacity: calc(var(--web-strand-base-opacity) * 0.45);
+  stroke-dasharray: 5 7;
+}
+/* Factors are variables so the mobile preset can raise its floor without
+   touching the wide presets — the fallbacks ARE the desktop/tablet values. */
+.mv-web-strand.is-dim {
+  opacity: calc(var(--web-strand-base-opacity) * var(--web-dim-factor, 0.34));
+}
+.mv-web-strand.is-quiet {
+  opacity: calc(var(--web-strand-base-opacity) * var(--web-quiet-factor, 0.85));
+}
+.mv-web-strand.is-lit {
+  stroke: var(--web-strand-lit);
+  stroke-width: 1.7;
+  opacity: 0.95;
+}
+
+/* Entrance: each strand draws itself along its own length. `pathLength="1"`
+   normalises every path so one dash length works for all of them.
+
+   The RESTING state is fully drawn (`stroke-dashoffset: 0`) and the undrawn
+   state lives only inside the keyframes. That way the web is never dependent
+   on an animation — or on the IntersectionObserver that triggers it — in order
+   to be visible. If the observer never fires, the user simply gets a static
+   web instead of a blank one. The observer is armed well before the section
+   scrolls into view (see SkillWeb's `margin`), so the draw-in is still armed
+   in time to be seen. */
+.mv-web:not(.is-still) .mv-web-strand {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.mv-web.is-drawn:not(.is-still) .mv-web-strand {
+  animation: mv-web-draw 1.1s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+@keyframes mv-web-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* A single short dash travelling home along the live spoke. */
+.mv-web-pulse {
+  fill: none;
+  stroke: var(--accent-red);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+  stroke-dasharray: 0.06 0.94;
+  animation: mv-web-pulse 2.6s linear infinite;
+  opacity: 0.85;
+}
+@keyframes mv-web-pulse {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---- core ---- */
+.mv-web-core-ring {
+  fill: var(--surface);
+  fill-opacity: 0.72;
+  stroke: var(--accent-red);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.mv-web-core-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mv-web-breathe 7s ease-in-out infinite;
+}
+@keyframes mv-web-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.07);
+  }
+}
+.mv-web-core-label {
+  fill: var(--web-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.mv-web-core-sub {
+  fill: var(--accent-red-text);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* ---- nodes ---- */
+.mv-web-hit {
+  fill: transparent;
+  stroke: none;
+}
+.mv-web-node {
+  transition: opacity 0.35s ease;
+}
+.mv-web-node--skill {
+  cursor: pointer;
+}
+.mv-web-node.is-dim {
+  opacity: 0.34;
+}
+.mv-web-node.is-quiet {
+  opacity: 0.66;
+}
+
+.mv-web-cat-dot {
+  fill: var(--surface);
+  stroke: var(--web-node);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  transition: fill 0.3s ease, stroke 0.3s ease, r 0.3s ease;
+}
+.mv-web-cat-halo {
+  fill: var(--web-glow);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.mv-web-node--cat.is-lit .mv-web-cat-dot {
+  fill: var(--accent-red);
+  stroke: var(--accent-red);
+}
+.mv-web-node--cat.is-lit .mv-web-cat-halo {
+  opacity: 1;
+}
+/* ---- category controls: real buttons laid over their SVG marks ---- */
+.mv-web-controls {
+  position: absolute;
+  inset: 0;
+  /* The layer itself must not eat pointer events meant for the skill dots
+     underneath — only the buttons are interactive. */
+  pointer-events: none;
+}
+.mv-web-control {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px; /* centre on the node's coordinates */
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.mv-web-control:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+.mv-web-dot {
+  fill: var(--web-node);
+  transition: fill 0.3s ease;
+}
+.mv-web-node--skill.is-lit .mv-web-dot {
+  fill: var(--accent-red);
+}
+
+/* ---- labels ---- */
+.mv-web-cat-label {
+  fill: var(--web-label);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+  stroke-opacity: 0.72;
+}
+.mv-web-skill-label {
+  fill: var(--web-label-quiet);
+  font-weight: 500;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-opacity: 0.7;
+}
+.mv-web-node--skill.is-lit .mv-web-skill-label {
+  fill: var(--web-label);
+  font-weight: 600;
+}
+
+/* Skill dots and labels fade in when their category becomes live. */
+.mv-web:not(.is-still) .mv-web-node--skill {
+  animation: mv-web-fade 0.45s ease both;
+}
+@keyframes mv-web-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- ambient drift: the whole web breathes very slightly ---- */
+.mv-web:not(.is-still) .mv-web-strands,
+.mv-web:not(.is-still) .mv-web-core {
+  animation: mv-web-drift 16s ease-in-out infinite;
+}
+.mv-web:not(.is-still) .mv-web-core {
+  animation-duration: 21s;
+  animation-direction: alternate-reverse;
+}
+@keyframes mv-web-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(3px, -4px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -438,5 +783,26 @@ main {
   .glitch-layer {
     animation: none !important;
     opacity: 0 !important;
+  }
+  /* The Skills web renders complete and still: no drawing-on, no drift, no
+     breathing, no travelling pulse. Interaction is untouched — only the
+     ambient motion goes away. `SkillWeb` also passes `reduced` so the dash
+     attributes are never applied in the first place; this covers the case
+     where the preference flips after mount. */
+  .mv-web .mv-web-strand,
+  .mv-web .mv-web-strands,
+  .mv-web .mv-web-core,
+  .mv-web .mv-web-core-glow,
+  .mv-web .mv-web-node--skill {
+    animation: none !important;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transform: none !important;
+  }
+  .mv-web-strand--anchor {
+    stroke-dasharray: 5 7;
+  }
+  .mv-web-pulse {
+    display: none;
   }
 }
