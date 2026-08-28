@@ -18,16 +18,18 @@ import {
   resumeExperience,
   resumeEducation,
   resumeAchievements,
-} from "../data/resume";
+} from "../data/resume.generated";
 
 /**
  * Resume — a native HTML "credential dossier", not a PDF embed.
  *
- * Every string rendered here comes from `src/data/resume.js`, which is a
- * verbatim transcription of `public/Mukund_V_Resume.pdf`. Nothing is merged in
- * from `projects.js` / `experience.js` / `profile.js`, and the section order
- * follows the PDF exactly. The PDF itself stays reachable through the View /
- * Download controls.
+ * Every string rendered here comes from `src/data/resume.generated.js`, which
+ * `scripts/generate-resume-data.mjs` extracts from `public/Mukund_V_Resume.pdf`
+ * on every `npm run dev` / `npm run build`. The PDF is the single source of
+ * truth: replace it and this section follows, with no hand-editing anywhere.
+ * Nothing is merged in from `projects.js` / `experience.js` / `profile.js`, and
+ * the section order follows the PDF exactly. The PDF itself stays reachable
+ * through the View / Download controls, which point at the same file.
  *
  * Layout: one coherent document surface rather than a field of floating cards.
  * Blocks run in the PDF's own order top to bottom at every breakpoint — no
@@ -234,6 +236,12 @@ export default function ResumeSection() {
                       {x.dates}
                     </span>
                   </div>
+                  {/* Only present if the PDF puts a sub-line under the role. */}
+                  {x.subtitle && (
+                    <p className="mt-1 text-sm font-medium text-[var(--blue)]">
+                      {x.subtitle}
+                    </p>
+                  )}
                   <div className="mt-3">
                     <Bullets items={x.bullets} />
                   </div>
@@ -245,8 +253,8 @@ export default function ResumeSection() {
           <section aria-labelledby="resume-education">
             <DocHeading id="resume-education">Education</DocHeading>
             {resumeEducation.map((e) => (
+              <div key={e.institution}>
               <div
-                key={e.institution}
                 className="flex max-w-[80ch] flex-wrap items-baseline justify-between gap-x-6 gap-y-1"
               >
                 <div>
@@ -267,6 +275,13 @@ export default function ResumeSection() {
                     </p>
                   )}
                 </div>
+              </div>
+              {/* Only present if the PDF adds bullets under an education entry. */}
+              {e.bullets?.length > 0 && (
+                <div className="mt-3 max-w-[80ch]">
+                  <Bullets items={e.bullets} />
+                </div>
+              )}
               </div>
             ))}
           </section>
